@@ -31,7 +31,7 @@ public class ScorePop : MonoBehaviour
         Restart.onRestart -= PopMessage;
         Lives.onGameOver -= PopMessage;
     }
-    private void Pop(Vector2 location, int value) {
+    private void Pop(Vector2 location, int value, int _) {
         if (!_priority)
         {
             maxScale = 4f;

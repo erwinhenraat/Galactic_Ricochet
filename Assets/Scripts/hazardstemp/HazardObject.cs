@@ -5,6 +5,12 @@ public class HazardObject : MonoBehaviour
 {
     public static event Action onBallDestroyed;
     private float timer = 0f;
+    private float velocity;
+
+    public float Velocity
+    {
+        get { return velocity; } set { velocity = value; }
+    }
     void Start()
     {
         
@@ -14,7 +20,7 @@ public class HazardObject : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        //transform.position += transform.right * Time.deltaTime * 17;
+        transform.position += transform.right * Time.deltaTime * velocity;
 
         if (timer > 4f)
         {
@@ -29,10 +35,7 @@ public class HazardObject : MonoBehaviour
         {
             onBallDestroyed?.Invoke();
             Destroy(collision.gameObject);
-            Debug.Log("test2");
         }
-
-        Debug.Log("test1");
     }
 
     

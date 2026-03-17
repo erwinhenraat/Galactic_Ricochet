@@ -6,7 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Score : MonoBehaviour
 {
-    public static event Action<Vector2, int> onGetScore;
+    public static event Action<Vector2, int, int> onGetScore;
     public static event Action<int> onSaveNewHighscore;
     public static event Action onHighScoreBrokenAtPlay;
 
@@ -65,7 +65,7 @@ public class Score : MonoBehaviour
     private void GetScore(Transform bumper , int baseScore) {
         int addedScore = baseScore * scoreMultiplier;
         value += addedScore;
-        onGetScore?.Invoke((Vector2)bumper.position, addedScore);
+        onGetScore?.Invoke((Vector2)bumper.position, addedScore, value);
         ShowScore();
         
         //check highscore during play
