@@ -3320,7 +3320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f4e6bc46769f5429efe8fdf4d68079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  hueSpeed: 0.25
+  hueSpeed: 1
   saturation: 1
   value: 1
   useUnscaledTime: 0
