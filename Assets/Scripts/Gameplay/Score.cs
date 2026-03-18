@@ -10,7 +10,6 @@ public class Score : MonoBehaviour
     public static event Action<Vector2, int> onGetScore;
     public static event Action<int> onSaveNewHighscore;
     public static event Action onHighScoreBrokenAtPlay;
-
     private int value = 0;
     private TMP_Text textfield;
     private int scoreMultiplier = 1;
