@@ -452,6 +452,23 @@ classDiagram
 
 ---
 
+#### 13. **Rail Events** (Events for rails to function)
+
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onIsOnRail` | `Action<SplineContainer, Vector2>` | `Spline for rail to follow and direction for ball exit` | Ball attached to rail |
+| `onRailPlaySound` | `Action<Bool>` | `Bool for if sound needs to be played` | Rail sounds started |
+| `onRailStopSound` | `Action<Bool>` | `Bool for if sound needs to be stopped` | Rail sounds stopped|
+
+**Subscribers:**
+
+- `col.gameObject.GetComponent<BallController>().onIsOnRail`
+- `BallController.onRailPlaySound += PlaySound.PlayRailEnter;`
+- `BallController.onRailPlaySound += PlaySound.PlayRailRoll;`
+- `BallController.onRailStopSound += PlaySound.StopRailRoll;`
+
+---
+
 ### Event-Flow Diagram
 
 ```mermaid
@@ -482,6 +499,11 @@ graph TD
 
     T --> U[GameManager.OnGameOver]
     T --> V[SelectInitials.Activate]
+
+    Z[Ball hits rail entrance] --> |RailController.onIsOnRail| Y[BallController.SetupRail]
+    Y -->  |BallController.onRailPlaySound| X[PlaySound.PlayRailEnter]
+    X --> W[PlaySound.PlayRailRoll]
+    Y -->  |BallController.onRailStopSound| 1[PlaySound.StopRailRoll]
 ```
 
 ---

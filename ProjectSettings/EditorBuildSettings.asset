@@ -15,5 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Galactic_Ricochet.unity
     guid: 696fc915455b6124db72356478ba5cba
   m_configObjects:
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 70cbe19b84caf5f428dd47771a3580ff, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
