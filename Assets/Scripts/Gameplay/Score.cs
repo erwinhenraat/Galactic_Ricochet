@@ -72,8 +72,8 @@ public class Score : MonoBehaviour
 
             if (sb != null && sb.IsSuperBall)
             {
-                Debug.Log("[Score] Super Ball detected → applying 100x bonus");
-                addedScore *= 100;
+                Debug.Log("[Score] Super Ball detected → applying 10x bonus");
+                addedScore *= 10; // Apply a 10x multiplier for Super Ball hits
             }
         }
 

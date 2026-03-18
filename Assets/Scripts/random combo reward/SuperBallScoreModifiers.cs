@@ -4,6 +4,8 @@ public class ScoreManager : MonoBehaviour
 {
     private int score;
 
+    private const int SUPER_BALL_MULTIPLIER = 10; // Changed from 100 → 10
+
     private void OnEnable()
     {
         Debug.Log("[ScoreManager] Enabled");
@@ -26,8 +28,8 @@ public class ScoreManager : MonoBehaviour
             SuperBallMarker sb = ball.GetComponent<SuperBallMarker>();
             if (sb != null && sb.IsSuperBall)
             {
-                Debug.Log("[ScoreManager] Super Ball detected → applying 100x multiplier");
-                finalPoints *= 100;
+                Debug.Log($"[ScoreManager] Super Ball detected → applying {SUPER_BALL_MULTIPLIER}x multiplier");
+                finalPoints *= SUPER_BALL_MULTIPLIER;
             }
         }
 

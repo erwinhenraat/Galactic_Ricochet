@@ -4,7 +4,11 @@ using UnityEngine;
 public class ComboRewardManager : MonoBehaviour
 {
     [SerializeField] private List<MonoBehaviour> rewardBehaviours;
+
     private readonly List<IComboReward> rewards = new();
+
+    // Shuffle bags per combo level
+    private readonly Dictionary<int, Queue<IComboReward>> rewardBags = new();
 
     private void Awake()
     {
@@ -42,26 +46,55 @@ public class ComboRewardManager : MonoBehaviour
     {
         Debug.Log($"[ComboRewardManager] Combo achieved: {comboLevel}, Tag: {tag}");
 
-        // Collect all rewards that match this combo level
-        List<IComboReward> possibleRewards = new();
+        var bag = GetShuffledBag(comboLevel);
 
-        foreach (var reward in rewards)
+        if (bag.Count > 0)
         {
-            if (comboLevel == reward.RequiredCombo)
-            {
-                possibleRewards.Add(reward);
-            }
-        }
+            IComboReward chosenReward = bag.Dequeue();
 
-        // If any rewards exist, pick one randomly
-        if (possibleRewards.Count > 0)
-        {
-            int randomIndex = Random.Range(0, possibleRewards.Count);
-            IComboReward chosenReward = possibleRewards[randomIndex];
-
-            Debug.Log($"[ComboRewardManager] Random reward chosen: {chosenReward}");
+            Debug.Log($"[ComboRewardManager] Bag reward chosen: {chosenReward}");
             chosenReward.ActivateReward(tag);
         }
+        else
+        {
+            Debug.LogWarning($"[ComboRewardManager] No rewards available for combo level {comboLevel}");
+        }
+    }
+
+    private Queue<IComboReward> GetShuffledBag(int comboLevel)
+    {
+        // If no bag exists OR it's empty → rebuild and reshuffle
+        if (!rewardBags.ContainsKey(comboLevel) || rewardBags[comboLevel].Count == 0)
+        {
+            List<IComboReward> bagList = new();
+
+            foreach (var reward in rewards)
+            {
+                if (reward.RequiredCombo == comboLevel)
+                {
+                    bagList.Add(reward);
+                }
+            }
+
+            if (bagList.Count == 0)
+            {
+                Debug.LogWarning($"[ComboRewardManager] No rewards found for combo level {comboLevel}");
+                return new Queue<IComboReward>();
+            }
+
+            // Fisher-Yates shuffle
+            for (int i = 0; i < bagList.Count; i++)
+            {
+                int j = Random.Range(i, bagList.Count);
+                (bagList[i], bagList[j]) = (bagList[j], bagList[i]);
+            }
+
+            rewardBags[comboLevel] = new Queue<IComboReward>(bagList);
+
+            Debug.Log($"[ComboRewardManager] Rebuilt shuffle bag for combo {comboLevel} with {bagList.Count} rewards");
+        }
+
+        return rewardBags[comboLevel];
     }
 
     private void ResetAllRewards(int _, string __)
@@ -73,6 +106,11 @@ public class ComboRewardManager : MonoBehaviour
     private void ResetAllRewards()
     {
         foreach (var reward in rewards)
+        {
             reward.ResetReward();
+        }
+
+        // Optional: clear bags on reset so randomness fully refreshes
+        rewardBags.Clear();
     }
 }
