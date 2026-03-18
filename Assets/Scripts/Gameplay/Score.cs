@@ -6,7 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Score : MonoBehaviour
 {
-    public static event Action<Vector2, int> onGetChromaScore;
+    public static event Action<Vector2, int> onGetRNGScore;
     public static event Action<Vector2, int> onGetScore;
     public static event Action<int> onSaveNewHighscore;
     public static event Action onHighScoreBrokenAtPlay;
@@ -23,7 +23,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         HitBumper.onHitBumper += GetScore;
-        RNGHitBumper.onHitRNGBumper += GetChromaScore;
+        RNGHitBumper.onHitRNGBumper += GetRNGScore;
         Multiplier.onMultiplierUpdate += SetMultiplier;
         Lives.onGameOver += CheckForHighScore;
         SelectInitials.onInitialsSubmitted += SaveHighScore;
@@ -35,7 +35,7 @@ public class Score : MonoBehaviour
     private void OnDisable()
     {
         HitBumper.onHitBumper -= GetScore;
-        RNGHitBumper.onHitRNGBumper -= GetChromaScore;
+        RNGHitBumper.onHitRNGBumper -= GetRNGScore;
         Multiplier.onMultiplierUpdate -= SetMultiplier;
         Lives.onGameOver -= CheckForHighScore;
         SelectInitials.onInitialsSubmitted -= SaveHighScore;
@@ -69,7 +69,9 @@ public class Score : MonoBehaviour
     {
         int addedScore = baseScore * scoreMultiplier;
         value += addedScore;
+
         onGetScore?.Invoke((Vector2)bumper.position, addedScore);
+        
         ShowScore();
 
 
@@ -83,14 +85,14 @@ public class Score : MonoBehaviour
 
     }
 
-    private void GetChromaScore(Transform bumper, int baseScore)
+    private void GetRNGScore(Transform bumper, int baseScore)
     {
         int addedScore = baseScore * scoreMultiplier;
         value += addedScore;
 
-        onGetChromaScore?.Invoke((Vector2)bumper.position, addedScore);
+        onGetRNGScore?.Invoke((Vector2)bumper.position, addedScore);
 
-        ShowScore();
+        ShowRNGScore();
 
         if (value > highscore)
         {
@@ -98,7 +100,7 @@ public class Score : MonoBehaviour
         }
     }
 
-    private void ShowChromaScore()
+    private void ShowRNGScore()
     {
 
         textfield.text = "ChromaScore : " + value.ToString();

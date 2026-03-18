@@ -20,7 +20,7 @@ public class ScorePop : MonoBehaviour
     void Start()
     {
         Score.onGetScore += Pop;
-        Score.onGetChromaScore+= ChromaPop;
+        Score.onGetRNGScore+= RNGPop;
         ExtraBall.onExtraBall += PopMessage;
         CrosshairInput.onSwapControls += PopMessage;
         Restart.onRestart += PopMessage;
@@ -32,7 +32,7 @@ public class ScorePop : MonoBehaviour
     private void OnDisable()
     {
         Score.onGetScore -= Pop;
-        Score.onGetChromaScore -= ChromaPop;
+        Score.onGetRNGScore -= RNGPop;
         ExtraBall.onExtraBall -= PopMessage;
         CrosshairInput.onSwapControls -= PopMessage;
         Restart.onRestart -= PopMessage;
@@ -56,7 +56,7 @@ public class ScorePop : MonoBehaviour
 
     }
 
-    private void ChromaPop(Vector2 location, int value)
+    private void RNGPop(Vector2 location, int value)
     {
         if (!_priority)
         {
