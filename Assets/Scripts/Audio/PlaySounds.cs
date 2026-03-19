@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Splines;
 
+
 public class PlaySounds : MonoBehaviour
 {
     public enum SoundType { Bumper, Combo, GameOver, ExtraBall, BallLost, Loadup, RailEnter, RailRoll }
@@ -12,6 +13,7 @@ public class PlaySounds : MonoBehaviour
     {
         AudioSource[] sources = GetComponents<AudioSource>();
 
+        Debug.Log($"Found {sources.Length} AudioSource components.");
         if (sources.Length < 8)
         {
             Debug.LogError("PlaySounds requires 8 AudioSource components!");
