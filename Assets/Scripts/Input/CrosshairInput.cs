@@ -1,9 +1,17 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum InputType { 
     Mouse,
     XBox
+}
+
+public enum GameStateMachine
+{
+    Play,
+    Editor
 }
 
 public class CrosshairInput : MonoBehaviour
@@ -14,6 +22,7 @@ public class CrosshairInput : MonoBehaviour
     
     public static Vector3 CrosshairPosition = Vector3.zero;
     public static InputType SelectedType;
+    public static GameStateMachine PlayOrEditorMode;
 
     [SerializeField] private InputType _inputType = InputType.Mouse;
     [SerializeField] private float _speed = 30f;
@@ -24,8 +33,12 @@ public class CrosshairInput : MonoBehaviour
 
     private void Start()
     {
+        SpriteRenderer _crosshairSpriteRenderer = GetComponent<SpriteRenderer>();
         Cursor.visible = false;
         CrosshairInput.SelectedType = _inputType;
+        Scene tempScene = SceneManager.GetActiveScene();
+        if (tempScene.name == "Galactic_Ricochet")PlayOrEditorMode = GameStateMachine.Play;
+        else PlayOrEditorMode = GameStateMachine.Editor;
     }
 
 
