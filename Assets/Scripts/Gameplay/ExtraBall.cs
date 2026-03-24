@@ -1,22 +1,26 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
-public class ExtraBall : MonoBehaviour, IComboReward
+public class ExtraBall : MonoBehaviour
 {
     public static event Action<string> onExtraBall;
+    [SerializeField] private int comboLevelReached = 20;
 
-    [SerializeField] private int requiredCombo = 10;
-
-    public int RequiredCombo => requiredCombo;
-
-    public void ActivateReward(string _)
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        Debug.Log("[ExtraBall] Extra Ball Granted!");
-        onExtraBall?.Invoke("Extra Life");
+        Combo.onComboAchieved += ExtraBallCheck;
+    }
+    private void OnDisable()
+    {
+        Combo.onComboAchieved -= ExtraBallCheck;
     }
 
-    public void ResetReward()
-    {
-        // No reset needed for extra ball
+    private void ExtraBallCheck(int comboLevel, string _) {
+        if (comboLevel == comboLevelReached) { 
+            onExtraBall?.Invoke("Extra Life");
+        }
     }
+
+
 }

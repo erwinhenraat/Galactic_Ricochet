@@ -1,12 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class SuperBallReward : MonoBehaviour, IComboReward
+public class SuperBallReward : MonoBehaviour
 {
-    [SerializeField] private int requiredCombo = 10;
     [SerializeField] private float duration = 10f;
-
-    public int RequiredCombo => requiredCombo;
 
     private bool active;
     private Coroutine routine;
@@ -16,7 +13,7 @@ public class SuperBallReward : MonoBehaviour, IComboReward
         if (active) return;
 
         active = true;
-        Debug.Log("[SuperBallReward] Super Ball ACTIVATED");
+        Debug.Log("[SuperBallReward] ACTIVATED");
 
         routine = StartCoroutine(Timer());
     }
@@ -26,7 +23,7 @@ public class SuperBallReward : MonoBehaviour, IComboReward
         if (!active) return;
 
         active = false;
-        Debug.Log("[SuperBallReward] Super Ball DEACTIVATED");
+        Debug.Log("[SuperBallReward] DEACTIVATED");
 
         if (routine != null)
             StopCoroutine(routine);
@@ -34,7 +31,6 @@ public class SuperBallReward : MonoBehaviour, IComboReward
 
     private IEnumerator Timer()
     {
-        Debug.Log($"[SuperBallReward] Timer started ({duration} seconds)");
         yield return new WaitForSeconds(duration);
         ResetReward();
     }
