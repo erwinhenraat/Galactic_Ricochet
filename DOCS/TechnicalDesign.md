@@ -469,6 +469,18 @@ classDiagram
 
 ---
 
+#### 14. **Flipper Events** (Events for flippers to function)
+
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onFlipperPlaySound` | `Action<bool>` | `Bool for if sound needs to be played` | Flipper sounds played |
+
+**Subscribers:**
+
+- `FlipperController.onFlipperPlaySound += PlaySound.PlayFlipperHit`
+
+---
+
 ### Event-Flow Diagram
 
 ```mermaid
@@ -504,6 +516,8 @@ graph TD
     Y -->  |BallController.onRailPlaySound| X[PlaySound.PlayRailEnter]
     X --> W[PlaySound.PlayRailRoll]
     Y -->  |BallController.onRailStopSound| 1[PlaySound.StopRailRoll]
+
+    2[Ball hits flipper] --> |FlipperController.onFlipperPlaySound| 3[PlaySound.PlayFlipperHit]
 ```
 
 ---
@@ -564,6 +578,11 @@ graph TD
 - **Logica**: OnTriggerExit2D vernietigert bal en triggeert `onBallLost`
 
 <img height = "250" src = "../DOCS/src/Interaction_Layer.gif" />
+
+#### **FlipperController**
+
+- **Functie**: Controls flipper logic for rotation and forces
+- **Logica**: OnCollisionEnter2D detects ball and triggers `Flip()`
 
 ---
 

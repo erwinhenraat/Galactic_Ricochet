@@ -1,7 +1,4 @@
-# Game Design Document — [Feature Naam]
-
-> **Instructie:** Kopieer dit bestand en hernoem het naar `GameDesign_[FeatureNaam].md`.
-> Vul alle secties zo volledig mogelijk in voordat je begint met ontwikkelen.
+# Game Design Document — Flippers
 
 ---
 
@@ -9,24 +6,24 @@
 
 | Veld             | Invullen                                      |
 | ---------------- | --------------------------------------------- |
-| **Feature Naam** | _Korte naam van de feature_                   |
-| **Auteur**       | _Naam van de ontwerper_                       |
-| **Datum**        | _dd-mm-jjjj_                                  |
-| **Versie**       | _1.0_                                         |
-| **Branch**       | `Feature/[FeatureNaam]`                       |
-| **Status**       | 📝 Concept / 🔨 In ontwikkeling / ✅ Afgerond |
+| **Feature Naam** |Flippers                  |
+| **Auteur**       | Ellie                      |
+| **Datum**        | 24/03/26                                  |
+| **Versie**       | 1.0                                         |
+| **Branch**       | `Feature/flippers`                       |
+| **Status**       | ✅ Afgerond |
 
 ---
 
 ## 2. User Story
 
-> Als **[type speler]** wil ik **[actie/mogelijkheid]** zodat **[gewenst resultaat / gevoel / doel]**.
+> As a player I want to use a flipper to quickly re-direct my ball.
 
 ---
 
 ## 3. Beschrijving
 
-_Geef een uitgebreide beschrijving van de feature. Wat doet het? Hoe past het binnen Galactic Ricochet? Waarom maakt het het spel beter?_
+Adds flippers to the game that can quickly re-direct the direction of the ball and push it back up from the bottom
 
 ---
 
@@ -34,7 +31,7 @@ _Geef een uitgebreide beschrijving van de feature. Wat doet het? Hoe past het bi
 
 ### 4.1 Kernmechanisme
 
-_Beschrijf hoe de speler met deze feature interacteert. Welke input is nodig? Wat is het directe resultaat?_
+the flipper is passive, it does not require input, when the ball hits the flipper it will be launched according to the flippers start angle
 
 ### 4.2 Relatie met bestaande systemen
 
@@ -42,11 +39,10 @@ _Geef aan welke bestaande systemen worden beïnvloed of aangevuld (bijv. Score, 
 
 | Bestaand Systeem   | Relatie / Impact               |
 | ------------------ | ------------------------------ |
-| Score              | _bijv. verhoogt score met X_   |
-| Combo / Multiplier | _bijv. reset combo bij missen_ |
-| Lives              | _bijv. geen invloed_           |
-| Input              | _bijv. extra knop nodig_       |
-| _Ander systeem_    | _…_                            |
+| Score              | No change   |
+| Combo / Multiplier | No change |
+| Lives              | No change           |
+| Input              | No input       |
 
 ### 4.3 Game Feel
 
@@ -54,11 +50,11 @@ _Welke feedback krijgt de speler? Denk aan: screenshake, geluid, visuele effecte
 
 | Feedback Type | Beschrijving                       |
 | ------------- | ---------------------------------- |
-| Visueel       | _bijv. particle effect bij impact_ |
-| Audio         | _bijv. power-up geluid_            |
-| Screenshake   | _bijv. korte shake bij activatie_  |
-| UI            | _bijv. icoon verschijnt in HUD_    |
-| Animatie      | _bijv. idle → active state_        |
+| Visueel       | has trails to show movement |
+| Audio         | has a hit sound            |
+| Screenshake   | no screenshake  |
+| UI            | no UI    |
+| Animatie      | has a flip animation        |
 
 ---
 
@@ -68,9 +64,9 @@ _Definieer de concrete spelregels en instelbare waarden voor deze feature._
 
 | Parameter            | Waarde  | Beschrijving                    |
 | -------------------- | ------- | ------------------------------- |
-| _bijv. cooldown_     | _2 sec_ | _Tijd voordat het opnieuw kan_  |
-| _bijv. puntenwaarde_ | _500_   | _Punten per activatie_          |
-| _bijv. duur_         | _5 sec_ | _Hoe lang het effect actief is_ |
+| _bijv. cooldown_     | NAN | N/A  |
+| _bijv. puntenwaarde_ | NAN   | N/A          |
+| _bijv. duur_         | NAN | N/A |
 
 ---
 
@@ -80,12 +76,12 @@ _Voeg schetsen, wireframes, of referentiebeelden toe. Beschrijf de gewenste look
 
 ### Schetsen / Referenties
 
-> _Plaats hier afbeeldingen of links naar referentiemateriaal._
-> `![beschrijving](pad/naar/afbeelding.png)`
+<img width="657" height="328" alt="image" src="https://github.com/user-attachments/assets/8745b3e8-e108-4319-b26a-f34c92eb530c" />
+
 
 ### Placeholder Art Beschrijving
 
-_Beschrijf welke placeholder art nodig is om de feature te ontwikkelen en te testen._
+No placeholders
 
 ---
 
@@ -95,8 +91,7 @@ _Welke geluiden zijn nodig? Beschrijf per geluid het gewenste karakter._
 
 | Geluid               | Beschrijving / Karakter            | Placeholder  |
 | -------------------- | ---------------------------------- | ------------ |
-| _bijv. activate SFX_ | _Korte, punchy synth hit_          | ☐ Ja / ☐ Nee |
-| _bijv. loop SFX_     | _Zacht ambient hum tijdens actief_ | ☐ Ja / ☐ Nee |
+| _bijv. hit SFX_ | short 8-bit tom drum          | ☐ Nee |
 
 ---
 
@@ -114,7 +109,7 @@ _In welke laag van de architectuur past deze feature? (Input & Control / Interac
 │   Game Logic Layer                  │  ☐
 │   (Scoring, Lives, Combos)          │
 ├─────────────────────────────────────┤
-│   Interaction Layer                 │  ☐
+│   Interaction Layer                 │  < here
 │   (Bumpers, Ball Physics)           │
 ├─────────────────────────────────────┤
 │   Input & Control Layer             │  ☐
@@ -128,19 +123,18 @@ _Welke nieuwe events worden aangemaakt? Op welke bestaande events wordt geabonne
 
 | Event                        | Richting        | Beschrijving                  |
 | ---------------------------- | --------------- | ----------------------------- |
-| _bijv. `onPowerUpCollected`_ | Publish (nieuw) | _Fired bij oppakken power-up_ |
-| _bijv. `onHitBumper`_        | Subscribe       | _Luistert naar bumper hits_   |
+| _bijv. `onFlipperPlaySound`_ | Publish (nieuw) | activated on flipper collision |
 
 ### 8.3 Benodigde Scripts / Componenten
 
 | Script / Component   | Verantwoordelijkheid                   |
 | -------------------- | -------------------------------------- |
-| _bijv. PowerUp.cs_   | _Detectie collision, activeren effect_ |
-| _bijv. PowerUpUI.cs_ | _Tonen van actief power-up icoon_      |
+| _bijv. FlipperController.cs_   | controls the flipper logic |
+| _bijv. FlipperCollision.cs_ | collision detection for the flipper      |
 
 ### 8.4 Uitschakelbaar
 
-_Beschrijf hoe deze feature uitgeschakeld kan worden zonder dat de rest van het spel breekt (conform de [Definition of Done](./DefinitionOfDone.md)). Welk GameObject moet gedeactiveerd worden?_
+the flippers can be disabled or deleted, they are independent from other systems
 
 ---
 
@@ -148,18 +142,18 @@ _Beschrijf hoe deze feature uitgeschakeld kan worden zonder dat de rest van het 
 
 _Maak een concrete checklist van alle taken die nodig zijn om deze feature te implementeren._
 
-- [ ] Game design document invullen en reviewen
-- [ ] Placeholder art maken / verzamelen
-- [ ] Placeholder audio maken / verzamelen
-- [ ] Script(s) aanmaken en implementeren
-- [ ] Events koppelen aan bestaande systemen
-- [ ] UI elementen toevoegen
-- [ ] Feature testen op bugs
-- [ ] Usertest uitvoeren (min. 3 spelers)
-- [ ] Usertest documentatie schrijven (`Usertest_[FeatureNaam].md`)
-- [ ] Technisch design document updaten
-- [ ] Code review / pull request aanmaken
-- [ ] _Voeg extra taken toe indien nodig_
+- [done] Game design document invullen en reviewen
+- [done] Placeholder art maken / verzamelen
+- [done] Placeholder audio maken / verzamelen
+- [done] Script(s) aanmaken en implementeren
+- [done] Events koppelen aan bestaande systemen
+- [N/A] UI elementen toevoegen
+- [done] Feature testen op bugs
+- [N/A] Usertest uitvoeren (min. 3 spelers)
+- [N/A] Usertest documentatie schrijven (`Usertest_[FeatureNaam].md`)
+- [done] Technisch design document updaten
+- [done] Code review / pull request aanmaken
+- [done] _Voeg extra taken toe indien nodig_
 
 ---
 
@@ -167,19 +161,19 @@ _Maak een concrete checklist van alle taken die nodig zijn om deze feature te im
 
 _Wanneer is deze feature "af"? Verwijs ook naar de [Definition of Done](./DefinitionOfDone.md)._
 
-- [ ] De user story is volledig geïmplementeerd
-- [ ] Alle parameters zijn instelbaar via de Unity Inspector
-- [ ] De feature is uitschakelbaar zonder bugs
-- [ ] Alle placeholder art/audio is aanwezig
-- [ ] Usertest is afgerond en gedocumenteerd
-- [ ] Geen errors of bugs in test build
-- [ ] Technisch design document is bijgewerkt
-- [ ] Pull request is goedgekeurd en gemerged naar `development`
+- [yes] De user story is volledig geïmplementeerd
+- [yes] Alle parameters zijn instelbaar via de Unity Inspector
+- [yes] De feature is uitschakelbaar zonder bugs
+- [yes] Alle placeholder art/audio is aanwezig
+- [yes] Usertest is afgerond en gedocumenteerd
+- [yes] Geen errors of bugs in test build
+- [yes] Technisch design document is bijgewerkt
+- [yes] Pull request is goedgekeurd en gemerged naar `development`
 
 ---
 
 ## 11. Opmerkingen / Open Vragen
 
-_Noteer hier eventuele openstaande vragen, risico's of afhankelijkheden._
+none
 
 - _…_
