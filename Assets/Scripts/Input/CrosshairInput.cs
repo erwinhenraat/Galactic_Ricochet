@@ -10,6 +10,7 @@ public class CrosshairInput : MonoBehaviour
 {
     public static event Action onPressFire1;
     public static event Action onReleaseFire1;
+    public static event Action onPressFire2;
     public static event Action<string> onSwapControls;
     
     public static Vector3 CrosshairPosition = Vector3.zero;
@@ -44,6 +45,7 @@ public class CrosshairInput : MonoBehaviour
                 transform.position = worldPoint;
                 if (Input.GetMouseButtonDown(0)) onPressFire1?.Invoke();
                 if (Input.GetMouseButtonUp(0)) onReleaseFire1?.Invoke();
+                if (Input.GetMouseButtonDown(1)) onPressFire2?.Invoke();
                 break;
             case InputType.XBox:
                 Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f) * Time.deltaTime * _speed;

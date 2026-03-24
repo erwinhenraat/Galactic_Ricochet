@@ -75,6 +75,7 @@ classDiagram
     class CrosshairInput {
         +static event onPressFire1
         +static event onReleaseFire1
+        +static event onPressFire2
         +static event onSwapControls
         +static Vector3 CrosshairPosition
         +static InputType SelectedType
@@ -88,6 +89,9 @@ classDiagram
         +static event onRelease
         -HandleShot()
         -DrawForceLine()
+        -HandlePressFire()
+        -HandleReleaseFire()
+        -HandleCancel()
         -DisableShot()
         -ReloadShot()
     }
@@ -278,12 +282,14 @@ classDiagram
 | ---------------- | ---------------- | ---------------------------------- | ------------------------------------------------- |
 | `onPressFire1`   | `Action`         | -                                  | Wordt geactiveerd wanneer Fire1 button ingedrukt  |
 | `onReleaseFire1` | `Action`         | -                                  | Wordt geactiveerd wanneer Fire1 button losgelaten |
+| `onPressFire2`   | `Action`         | -                                  | Wordt geactiveerd wanneer Fire2 button ingedrukt  |
 | `onSwapControls` | `Action<string>` | `message` (bv. "Mouse Activated!") | Signaleert input-type wissel d.m.v. TAB           |
 
 **Subscribers:**
 
 - `Shoot.HandlePressFire()`
 - `Shoot.HandleReleaseFire()`
+- `Shoot.HandleCancel()`
 - `ScorePop.PopMessage()`
 - `Restart.HandleFire()`
 
@@ -295,7 +301,7 @@ classDiagram
 | ---------------- | -------------------- | ----------------------------- | ------------------------------------ |
 | `onShootNewBall` | `Action<GameObject>` | `ball` (nieuw bal GameObject) | Bal is afgeschoten                   |
 | `onPress`        | `Action`             | -                             | Trigger ingedrukt (laden begonnen)   |
-| `onRelease`      | `Action`             | -                             | Trigger losgelaten (bal afgeschoten) |
+| `onRelease`      | `Action`             | -                             | Trigger losgelaten (bal afgeschoten of gecanceled) |
 
 **Subscribers:**
 
