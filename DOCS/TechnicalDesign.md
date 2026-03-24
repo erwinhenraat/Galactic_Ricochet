@@ -452,7 +452,7 @@ classDiagram
 
 ---
 
-#### 13. **ExtraBall Events** (Extra Leven)
+#### 13. **RNGbumpers** (RNGbumpers complete)
 
 | Event         | Type             | Argumenten     | Beschrijving             |
 | ------------- | ---------------- | -------------- | ------------------------ |
@@ -467,6 +467,23 @@ classDiagram
 
 ---
 
+
+#### 14. **Rail Events** (Events for rails to function)
+
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onIsOnRail` | `Action<SplineContainer, Vector2>` | `Spline for rail to follow and direction for ball exit` | Ball attached to rail |
+| `onRailPlaySound` | `Action<Bool>` | `Bool for if sound needs to be played` | Rail sounds started |
+| `onRailStopSound` | `Action<Bool>` | `Bool for if sound needs to be stopped` | Rail sounds stopped|
+
+**Subscribers:**
+
+- `col.gameObject.GetComponent<BallController>().onIsOnRail`
+- `BallController.onRailPlaySound += PlaySound.PlayRailEnter;`
+- `BallController.onRailPlaySound += PlaySound.PlayRailRoll;`
+- `BallController.onRailStopSound += PlaySound.StopRailRoll;`
+
+---
 
 ### Event-Flow Diagram
 
@@ -498,6 +515,11 @@ graph TD
 
     T --> U[GameManager.OnGameOver]
     T --> V[SelectInitials.Activate]
+
+    Z[Ball hits rail entrance] --> |RailController.onIsOnRail| Y[BallController.SetupRail]
+    Y -->  |BallController.onRailPlaySound| X[PlaySound.PlayRailEnter]
+    X --> W[PlaySound.PlayRailRoll]
+    Y -->  |BallController.onRailStopSound| 1[PlaySound.StopRailRoll]
 ```
 
 ---
@@ -638,7 +660,7 @@ graph TD
 - **Functie**: Toont floating tekst feedback
 - **Twee typen**:
   - Score popup (klein, op bumper locatie)
-  - Berichten popup (groot, centraal - "Extra Life", "Game Over", etc.)
+  - Berichten popup (groot, centraal - "Extra Life", "Now using...", etc.)
 - **Logic**: Animatie met schaal van 1 tot 4-8x over tijd
 
 #### **ComboMood**
