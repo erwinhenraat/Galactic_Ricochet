@@ -59,9 +59,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2262322401148545871, guid: c212010f64362344b9993b60f361b721, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1625971271269439192}
-    - targetCorrespondingSourceObject: {fileID: 2262322401148545871, guid: c212010f64362344b9993b60f361b721, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5095262929489318124}
   m_SourcePrefab: {fileID: 100100000, guid: c212010f64362344b9993b60f361b721, type: 3}
 --- !u!1 &8676425097315729012 stripped
 GameObject:
@@ -80,15 +77,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23011cec7e8441a4f910d81b1aef8856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuperBallMarker
---- !u!114 &5095262929489318124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8676425097315729012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52f6854b860726244af32e426882375d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SuperBallController
