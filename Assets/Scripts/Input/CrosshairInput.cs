@@ -10,6 +10,7 @@ public class CrosshairInput : MonoBehaviour
 {
     public static event Action onPressFire1;
     public static event Action onReleaseFire1;
+    public static event Action onPressPause;
     public static event Action<string> onSwapControls;
     
     public static Vector3 CrosshairPosition = Vector3.zero;
@@ -35,6 +36,7 @@ public class CrosshairInput : MonoBehaviour
         SwapInput();
         HandleInput();       
     }
+
     private void HandleInput() {
         switch (_inputType)
         {
@@ -44,6 +46,7 @@ public class CrosshairInput : MonoBehaviour
                 transform.position = worldPoint;
                 if (Input.GetMouseButtonDown(0)) onPressFire1?.Invoke();
                 if (Input.GetMouseButtonUp(0)) onReleaseFire1?.Invoke();
+                if (Input.GetKeyDown(KeyCode.Escape)) onPressPause?.Invoke();
                 break;
             case InputType.XBox:
                 Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f) * Time.deltaTime * _speed;
@@ -58,6 +61,7 @@ public class CrosshairInput : MonoBehaviour
                 CrosshairInput.CrosshairPosition = transform.position;
                 if (Input.GetButtonDown("Fire1")) onPressFire1?.Invoke();
                 if (Input.GetButtonUp("Fire1")) onReleaseFire1?.Invoke();
+                if (Input.GetButtonDown("Option")) Debug.Log("what");
                 break;
         }
     }
@@ -72,6 +76,7 @@ public class CrosshairInput : MonoBehaviour
                 _swapPressCount = 0;
             }
         }
+
         if (Input.GetKeyDown(KeyCode.Tab) && _swapTimer < 1f)
         {
             if (!_swapActive) _swapActive = true;

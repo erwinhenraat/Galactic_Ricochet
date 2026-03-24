@@ -26,7 +26,7 @@ public class Shoot : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private ParticleSystem particles;  
-
+    
     private void Start()
     {
         Lives.onDepleted += DisableShot;
@@ -54,7 +54,13 @@ public class Shoot : MonoBehaviour
 
         particles = GetComponent<ParticleSystem>();
         particles.Stop();
-
+    }
+    private void OnEnable()
+    {
+        Lives.onDepleted += DisableShot;
+        Lives.onReload += ReloadShot;
+        CrosshairInput.onPressFire1 += HandlePressFire;
+        CrosshairInput.onReleaseFire1 += HandleReleaseFire;
     }
     private void OnDisable()
     {
