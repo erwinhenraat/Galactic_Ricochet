@@ -452,6 +452,35 @@ classDiagram
 
 ---
 
+#### 13. **Rail Events** (Events for rails to function)
+
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onIsOnRail` | `Action<SplineContainer, Vector2>` | `Spline for rail to follow and direction for ball exit` | Ball attached to rail |
+| `onRailPlaySound` | `Action<Bool>` | `Bool for if sound needs to be played` | Rail sounds started |
+| `onRailStopSound` | `Action<Bool>` | `Bool for if sound needs to be stopped` | Rail sounds stopped|
+
+**Subscribers:**
+
+- `col.gameObject.GetComponent<BallController>().onIsOnRail`
+- `BallController.onRailPlaySound += PlaySound.PlayRailEnter;`
+- `BallController.onRailPlaySound += PlaySound.PlayRailRoll;`
+- `BallController.onRailStopSound += PlaySound.StopRailRoll;`
+
+---
+
+#### 14. **Flipper Events** (Events for flippers to function)
+
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onFlipperPlaySound` | `Action<bool>` | `Bool for if sound needs to be played` | Flipper sounds played |
+
+**Subscribers:**
+
+- `FlipperController.onFlipperPlaySound += PlaySound.PlayFlipperHit`
+
+---
+
 ### Event-Flow Diagram
 
 ```mermaid
@@ -482,6 +511,13 @@ graph TD
 
     T --> U[GameManager.OnGameOver]
     T --> V[SelectInitials.Activate]
+
+    Z[Ball hits rail entrance] --> |RailController.onIsOnRail| Y[BallController.SetupRail]
+    Y -->  |BallController.onRailPlaySound| X[PlaySound.PlayRailEnter]
+    X --> W[PlaySound.PlayRailRoll]
+    Y -->  |BallController.onRailStopSound| 1[PlaySound.StopRailRoll]
+
+    2[Ball hits flipper] --> |FlipperController.onFlipperPlaySound| 3[PlaySound.PlayFlipperHit]
 ```
 
 ---
@@ -542,6 +578,11 @@ graph TD
 - **Logica**: OnTriggerExit2D vernietigert bal en triggeert `onBallLost`
 
 <img height = "250" src = "../DOCS/src/Interaction_Layer.gif" />
+
+#### **FlipperController**
+
+- **Functie**: Controls flipper logic for rotation and forces
+- **Logica**: OnCollisionEnter2D detects ball and triggers `Flip()`
 
 ---
 
@@ -622,7 +663,7 @@ graph TD
 - **Functie**: Toont floating tekst feedback
 - **Twee typen**:
   - Score popup (klein, op bumper locatie)
-  - Berichten popup (groot, centraal - "Extra Life", "Game Over", etc.)
+  - Berichten popup (groot, centraal - "Extra Life", "Now using...", etc.)
 - **Logic**: Animatie met schaal van 1 tot 4-8x over tijd
 
 #### **ComboMood**
