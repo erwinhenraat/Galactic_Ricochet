@@ -5,30 +5,34 @@ public class SuperBallReward : MonoBehaviour
 {
     [SerializeField] private float duration = 10f;
 
-    private bool active;
+    public static bool IsSuperBallActive { get; private set; }
 
-    public static bool IsSuperBallActive;
+    private Coroutine routine;
 
     public void ActivateReward(string _)
     {
-        if (active) return;
+        if (IsSuperBallActive) return;
 
-        active = true;
         IsSuperBallActive = true;
 
-        Debug.Log("[SuperBallReward] ACTIVATED (10x boost)");
+        Debug.Log("[SuperBallReward] ACTIVATED → 10x ENABLED");
 
-        StartCoroutine(Timer());
+        if (routine != null)
+            StopCoroutine(routine);
+
+        routine = StartCoroutine(Timer());
     }
 
     public void ResetReward()
     {
-        if (!active) return;
+        if (!IsSuperBallActive) return;
 
-        active = false;
         IsSuperBallActive = false;
 
         Debug.Log("[SuperBallReward] DEACTIVATED");
+
+        if (routine != null)
+            StopCoroutine(routine);
     }
 
     private IEnumerator Timer()
@@ -36,6 +40,4 @@ public class SuperBallReward : MonoBehaviour
         yield return new WaitForSeconds(duration);
         ResetReward();
     }
-
-    public bool IsActive() => active;
 }

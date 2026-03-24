@@ -9,23 +9,15 @@ public class SuperBallController : MonoBehaviour
     {
         reward = FindObjectOfType<SuperBallReward>();
         marker = GetComponent<SuperBallMarker>();
-
-        Debug.Log("[SuperBallController] Initialized");
     }
 
     private void Update()
     {
         if (reward == null || marker == null) return;
 
-        if (reward.IsActive() && !marker.IsSuperBall)
-        {
-            Debug.Log("[SuperBallController] Enabling Super Ball on ball");
+        if (SuperBallReward.IsSuperBallActive && !marker.IsSuperBall)
             marker.Enable();
-        }
-        else if (!reward.IsActive() && marker.IsSuperBall)
-        {
-            Debug.Log("[SuperBallController] Disabling Super Ball on ball");
+        else if (!SuperBallReward.IsSuperBallActive && marker.IsSuperBall)
             marker.Disable();
-        }
     }
 }
