@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlipperController : MonoBehaviour
@@ -31,6 +32,20 @@ public class FlipperController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Flip();
+    }
+
+    public void CheckCollision(Collider2D collision)
+    {
+        if (collision.CompareTag("Ball"))
+        {
+            StartFlip();
+            collision.GetComponent<Rigidbody2D>().AddForce(flipperCollider.up * flipperForce, ForceMode2D.Impulse);
+        }
+    }
+
+    private void Flip()
+    {
         if (isFlipping)
         {
             targetRot = Vector3.Lerp(targetRot, new Vector3(0, transform.eulerAngles.y, -endAngle), moveSpeed);
@@ -41,16 +56,7 @@ public class FlipperController : MonoBehaviour
         }
     }
 
-    public void CheckCollision(Collider2D collision)
-    {
-        if (collision.CompareTag("Ball"))
-        {
-            Flip();
-            collision.GetComponent<Rigidbody2D>().AddForce(flipperCollider.up * flipperForce, ForceMode2D.Impulse);
-        }
-    }
-
-    private void Flip()
+    private void StartFlip()
     {
         isFlipping = true;
         onFlipperPlaySound.Invoke(true);
