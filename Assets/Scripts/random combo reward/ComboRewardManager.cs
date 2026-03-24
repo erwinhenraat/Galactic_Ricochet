@@ -1,34 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public class ComboRewardManager : MonoBehaviour
 {
-    [SerializeField] private List<MonoBehaviour> rewardBehaviours;
-
-    private readonly List<IComboReward> rewards = new();
-
-    // Shuffle bags per combo level
-    private readonly Dictionary<int, Queue<IComboReward>> rewardBags = new();
-
-    private void Awake()
+    [System.Serializable]
+    public class RewardData
     {
-        foreach (var behaviour in rewardBehaviours)
-        {
-            if (behaviour is IComboReward reward)
-            {
-                rewards.Add(reward);
-                Debug.Log($"[ComboRewardManager] Registered reward: {behaviour.name}");
-            }
-            else
-            {
-                Debug.LogError($"{behaviour.name} does not implement IComboReward");
-            }
-        }
+        public int requiredCombo;
+        public MonoBehaviour reward;
     }
+
+    [SerializeField] private List<RewardData> rewards;
+
+    private readonly Dictionary<int, Queue<MonoBehaviour>> rewardBags = new();
 
     private void OnEnable()
     {
-        Debug.Log("[ComboRewardManager] Enabled");
         Combo.onComboAchieved += HandleCombo;
         Combo.onComboLost += ResetAllRewards;
         PlayArea.onBallLost += ResetAllRewards;
@@ -36,7 +24,6 @@ public class ComboRewardManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Debug.Log("[ComboRewardManager] Disabled");
         Combo.onComboAchieved -= HandleCombo;
         Combo.onComboLost -= ResetAllRewards;
         PlayArea.onBallLost -= ResetAllRewards;
@@ -44,73 +31,93 @@ public class ComboRewardManager : MonoBehaviour
 
     private void HandleCombo(int comboLevel, string tag)
     {
-        Debug.Log($"[ComboRewardManager] Combo achieved: {comboLevel}, Tag: {tag}");
+        var bag = GetOrCreateBag(comboLevel);
 
-        var bag = GetShuffledBag(comboLevel);
+        if (bag.Count == 0)
+            return;
 
-        if (bag.Count > 0)
+        var reward = bag.Dequeue();
+
+        Debug.Log($"[ComboRewardManager] Reward chosen → {reward.name} ({reward.GetType().Name})");
+
+        // ✅ Proper handling for ExtraBall (reflection)
+        if (reward is ExtraBall extraBall)
         {
-            IComboReward chosenReward = bag.Dequeue();
+            Debug.Log("[ComboRewardManager] Attempting to trigger ExtraBall via reflection");
 
-            Debug.Log($"[ComboRewardManager] Bag reward chosen: {chosenReward}");
-            chosenReward.ActivateReward(tag);
+            MethodInfo method = typeof(ExtraBall).GetMethod(
+                "ExtraBallCheck",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+
+            if (method != null)
+            {
+                Debug.Log("[ComboRewardManager] ExtraBallCheck found — invoking");
+
+                method.Invoke(extraBall, new object[] { comboLevel, tag });
+            }
+            else
+            {
+                Debug.LogError("[ComboRewardManager] Failed to find ExtraBallCheck method");
+            }
+
+            return;
         }
-        else
-        {
-            Debug.LogWarning($"[ComboRewardManager] No rewards available for combo level {comboLevel}");
-        }
+
+        // Default reward behavior
+        reward.SendMessage("ActivateReward", tag, SendMessageOptions.DontRequireReceiver);
     }
 
-    private Queue<IComboReward> GetShuffledBag(int comboLevel)
+    private Queue<MonoBehaviour> GetOrCreateBag(int comboLevel)
     {
-        // If no bag exists OR it's empty → rebuild and reshuffle
-        if (!rewardBags.ContainsKey(comboLevel) || rewardBags[comboLevel].Count == 0)
+        if (rewardBags.ContainsKey(comboLevel) && rewardBags[comboLevel].Count > 0)
+            return rewardBags[comboLevel];
+
+        List<MonoBehaviour> bagList = new();
+
+        foreach (var entry in rewards)
         {
-            List<IComboReward> bagList = new();
-
-            foreach (var reward in rewards)
+            if (entry.reward != null && entry.requiredCombo == comboLevel)
             {
-                if (reward.RequiredCombo == comboLevel)
-                {
-                    bagList.Add(reward);
-                }
+                bagList.Add(entry.reward);
             }
-
-            if (bagList.Count == 0)
-            {
-                Debug.LogWarning($"[ComboRewardManager] No rewards found for combo level {comboLevel}");
-                return new Queue<IComboReward>();
-            }
-
-            // Fisher-Yates shuffle
-            for (int i = 0; i < bagList.Count; i++)
-            {
-                int j = Random.Range(i, bagList.Count);
-                (bagList[i], bagList[j]) = (bagList[j], bagList[i]);
-            }
-
-            rewardBags[comboLevel] = new Queue<IComboReward>(bagList);
-
-            Debug.Log($"[ComboRewardManager] Rebuilt shuffle bag for combo {comboLevel} with {bagList.Count} rewards");
         }
+
+        if (bagList.Count == 0)
+        {
+            Debug.LogWarning($"[ComboRewardManager] No rewards for combo {comboLevel}");
+            return new Queue<MonoBehaviour>();
+        }
+
+        // Shuffle (Fisher-Yates)
+        for (int i = 0; i < bagList.Count; i++)
+        {
+            int j = Random.Range(i, bagList.Count);
+            (bagList[i], bagList[j]) = (bagList[j], bagList[i]);
+        }
+
+        rewardBags[comboLevel] = new Queue<MonoBehaviour>(bagList);
+
+        Debug.Log($"[ComboRewardManager] Built bag for combo {comboLevel} with {bagList.Count} rewards");
 
         return rewardBags[comboLevel];
     }
 
     private void ResetAllRewards(int _, string __)
     {
-        Debug.Log("[ComboRewardManager] Resetting all rewards");
         ResetAllRewards();
     }
 
     private void ResetAllRewards()
     {
-        foreach (var reward in rewards)
+        foreach (var entry in rewards)
         {
-            reward.ResetReward();
+            if (entry.reward != null)
+            {
+                entry.reward.SendMessage("ResetReward", SendMessageOptions.DontRequireReceiver);
+            }
         }
 
-        // Optional: clear bags on reset so randomness fully refreshes
         rewardBags.Clear();
     }
 }
