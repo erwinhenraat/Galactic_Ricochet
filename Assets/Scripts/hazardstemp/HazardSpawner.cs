@@ -6,10 +6,12 @@ public class HazardSpawner : MonoBehaviour
     [SerializeField]private GameObject laserPrefab;
     [SerializeField]private List<Transform> spawnPoints = new List<Transform>();
     private float velocity;
+    private Vector3 position;
     void Start()
     {
         Score.onGetScore += CheckScoreThreshold;
         //HazardObject.Velocity = velocity;
+        //position = spawnPoints.transform.position;
     }
 
     private void OnDisable()
@@ -26,6 +28,11 @@ public class HazardSpawner : MonoBehaviour
         //instantiate, tenary voor link of rechts
         //tenary checken met 0 nul punt , midden van het scherm
         //velocity hoort 17 of -17 te zijn
+
+        if (position.x >= 0)
+        {
+            Debug.Log("testing");
+        }
 
     }
     private void CheckScoreThreshold(Vector2 _ , int __, int score) {
