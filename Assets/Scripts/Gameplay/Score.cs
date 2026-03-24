@@ -78,9 +78,10 @@ public class Score : MonoBehaviour
     private void ShowScore() { 
         textfield.text = "Score : "+value.ToString();
     }
-    private void SetMultiplier(int value) { 
-        scoreMultiplier = value;
-    }
+    private void SetMultiplier(int value) 
+{
+    scoreMultiplier = SuperBallReward.IsSuperBallActive ? value * 10 : value;
+}
     private void CheckForHighScore(string _)
     {
 
