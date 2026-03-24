@@ -53,6 +53,10 @@ public class ScorePop : MonoBehaviour
 
     }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
     private void Update()
     {
