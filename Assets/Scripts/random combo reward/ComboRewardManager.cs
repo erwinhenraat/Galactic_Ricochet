@@ -85,7 +85,7 @@ public class ComboRewardManager : MonoBehaviour
 
         if (bagList.Count == 0)
         {
-            Debug.LogWarning($"[ComboRewardManager] No rewards for combo {comboLevel}");
+            
             return new Queue<MonoBehaviour>();
         }
 
