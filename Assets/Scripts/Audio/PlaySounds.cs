@@ -4,7 +4,7 @@ using UnityEngine.Splines;
 
 public class PlaySounds : MonoBehaviour
 {
-    public enum SoundType { Bumper, Combo, GameOver, ExtraBall, BallLost, Loadup, RailEnter, RailRoll }
+    public enum SoundType { Bumper, Combo, GameOver, ExtraBall, BallLost, Loadup, RailEnter, RailRoll, FlipperHit }
 
     private Dictionary<SoundType, AudioSource> soundSources = new Dictionary<SoundType, AudioSource>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -12,9 +12,9 @@ public class PlaySounds : MonoBehaviour
     {
         AudioSource[] sources = GetComponents<AudioSource>();
 
-        if (sources.Length < 8)
+        if (sources.Length < 9)
         {
-            Debug.LogError("PlaySounds requires 8 AudioSource components!");
+            Debug.LogError("PlaySounds requires 9 AudioSource components!");
             return;
         }
 
@@ -26,6 +26,7 @@ public class PlaySounds : MonoBehaviour
         soundSources[SoundType.Loadup] = sources[5];
         soundSources[SoundType.RailEnter] = sources[6];
         soundSources[SoundType.RailRoll] = sources[7];
+        soundSources[SoundType.FlipperHit] = sources[8];
 
         HitBumper.onHitBumper += PlayBumper;
         Combo.onComboAchieved += PlayCombo;
@@ -37,6 +38,7 @@ public class PlaySounds : MonoBehaviour
         BallToRailConnector.onRailPlaySound += PlayRailEnter;
         BallToRailConnector.onRailPlaySound += PlayRailRoll;
         BallToRailConnector.onRailStopSound += StopRailRoll;
+        FlipperController.onFlipperPlaySound += PlayFlipperHit;
         sources = GetComponents<AudioSource>();
 
     }
@@ -52,6 +54,7 @@ public class PlaySounds : MonoBehaviour
         BallToRailConnector.onRailPlaySound -= PlayRailEnter;
         BallToRailConnector.onRailPlaySound -= PlayRailRoll;
         BallToRailConnector.onRailStopSound -= StopRailRoll;
+        FlipperController.onFlipperPlaySound -= PlayFlipperHit;
     }
     private void PlayBumper(Transform _, int __)
     {
@@ -98,5 +101,9 @@ public class PlaySounds : MonoBehaviour
     private void StopRailRoll(bool bl)
     {
         soundSources[SoundType.RailRoll].Stop();
+    }
+    private void PlayFlipperHit(bool bl)
+    {
+        soundSources[SoundType.FlipperHit].Play();
     }
 }
