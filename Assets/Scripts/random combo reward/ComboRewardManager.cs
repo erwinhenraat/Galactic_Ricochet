@@ -1,9 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public class ComboRewardManager : MonoBehaviour
 {
-    [SerializeField] private List<ComboRewardEntry> rewards;
+    [System.Serializable]
+    public class RewardData
+    {
+        public int requiredCombo;
+        public MonoBehaviour reward;
+    }
+
+    [SerializeField] private List<RewardData> rewards;
 
     private readonly Dictionary<int, Queue<MonoBehaviour>> rewardBags = new();
 
@@ -23,45 +31,66 @@ public class ComboRewardManager : MonoBehaviour
 
     private void HandleCombo(int comboLevel, string tag)
     {
-        var bag = GetShuffledBag(comboLevel);
+        var bag = GetOrCreateBag(comboLevel);
 
-        if (bag.Count > 0)
+        if (bag.Count == 0)
+            return;
+
+        var reward = bag.Dequeue();
+
+        Debug.Log($"[ComboRewardManager] Reward chosen → {reward.name} ({reward.GetType().Name})");
+
+        // Special handling for ExtraBall
+        if (reward is ExtraBall extraBall)
         {
-            var reward = bag.Dequeue();
+            MethodInfo method = typeof(ExtraBall).GetMethod(
+                "ExtraBallCheck",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
 
-            Debug.Log($"[ComboRewardManager] Reward chosen: {reward.name}");
+            if (method != null)
+            {
+                method.Invoke(extraBall, new object[] { comboLevel, tag });
+            }
 
-            // Call method dynamically
-            reward.SendMessage("ActivateReward", tag, SendMessageOptions.DontRequireReceiver);
+            return;
         }
+
+        // Default reward behavior
+        reward.SendMessage("ActivateReward", tag, SendMessageOptions.DontRequireReceiver);
     }
 
-    private Queue<MonoBehaviour> GetShuffledBag(int comboLevel)
+    private Queue<MonoBehaviour> GetOrCreateBag(int comboLevel)
     {
-        if (!rewardBags.ContainsKey(comboLevel) || rewardBags[comboLevel].Count == 0)
+        if (rewardBags.ContainsKey(comboLevel) && rewardBags[comboLevel].Count > 0)
+            return rewardBags[comboLevel];
+
+        List<MonoBehaviour> bagList = new();
+
+        foreach (var entry in rewards)
         {
-            List<MonoBehaviour> bagList = new();
-
-            foreach (var entry in rewards)
+            if (entry.reward != null && entry.requiredCombo == comboLevel)
             {
-                if (entry.requiredCombo == comboLevel && entry.reward != null)
-                {
-                    bagList.Add(entry.reward);
-                }
+                bagList.Add(entry.reward);
             }
-
-            if (bagList.Count == 0)
-                return new Queue<MonoBehaviour>();
-
-            // Shuffle
-            for (int i = 0; i < bagList.Count; i++)
-            {
-                int j = Random.Range(i, bagList.Count);
-                (bagList[i], bagList[j]) = (bagList[j], bagList[i]);
-            }
-
-            rewardBags[comboLevel] = new Queue<MonoBehaviour>(bagList);
         }
+
+        if (bagList.Count == 0)
+        {
+            Debug.LogWarning($"[ComboRewardManager] No rewards for combo {comboLevel}");
+            return new Queue<MonoBehaviour>();
+        }
+
+        // Shuffle
+        for (int i = 0; i < bagList.Count; i++)
+        {
+            int j = Random.Range(i, bagList.Count);
+            (bagList[i], bagList[j]) = (bagList[j], bagList[i]);
+        }
+
+        rewardBags[comboLevel] = new Queue<MonoBehaviour>(bagList);
+
+        Debug.Log($"[ComboRewardManager] Built bag for combo {comboLevel} with {bagList.Count} rewards");
 
         return rewardBags[comboLevel];
     }
