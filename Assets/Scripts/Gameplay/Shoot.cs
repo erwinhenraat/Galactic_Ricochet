@@ -8,12 +8,13 @@ public class Shoot : MonoBehaviour
     public static Action onPress;
     public static Action onRelease;
 
+
     [SerializeField] private GameObject prefab;
     [SerializeField] private float forcePerSecond = 20f;
     [SerializeField] private List<Color> beamColors = new List<Color>();
     [SerializeField] private float lineStartWidth = 0.1f;
     [SerializeField] private float lineEndWidth = 0.07f;
-    [SerializeField] private float maximumHoldSeconds = 1f;
+    [SerializeField] private float maximumHoldSeconds = 5f;
 
     private float _pressTimer = 0f;
     private float _launchForce = 0f;
@@ -22,7 +23,6 @@ public class Shoot : MonoBehaviour
     private bool _isEnabled = true;
     private bool _startPress = false;
     private bool _endPress = false;
-    private bool _cancel = false;
 
     private LineRenderer lineRenderer;
     private ParticleSystem particles;  
@@ -33,7 +33,6 @@ public class Shoot : MonoBehaviour
         Lives.onReload += ReloadShot;
         CrosshairInput.onPressFire1 += HandlePressFire;
         CrosshairInput.onReleaseFire1 += HandleReleaseFire;
-        CrosshairInput.onPressFire2 += HandleCancel;
 
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
@@ -63,7 +62,6 @@ public class Shoot : MonoBehaviour
         Lives.onReload -= ReloadShot; 
         CrosshairInput.onPressFire1 -= HandlePressFire;
         CrosshairInput.onReleaseFire1 -= HandleReleaseFire;
-        CrosshairInput.onPressFire2 -= HandleCancel;
     }
     void Update()
     {
@@ -72,18 +70,16 @@ public class Shoot : MonoBehaviour
             DrawForceLine();
         }
     }
-    void HandleShot() {
+    void HandleShot() { 
         if (_startPress)
         { //als de knop ingedrukt word
-            _cancel = false;
             _pressTimer = 0; //reset de timer
             ActivateLine(true);
             particles.Play();
             onPress?.Invoke();
 
         }
-
-        if (_endPress && !_cancel)
+        if (_endPress)
         { //als je de knop loslaat
             _launchForce = _pressTimer * forcePerSecond; //bepaal de kracht via de timer
             GameObject ball = Instantiate(prefab, transform.parent); //maak een bal
@@ -98,14 +94,6 @@ public class Shoot : MonoBehaviour
             particles.Stop();
 
         }
-
-        if (_cancel)
-        {
-            onRelease?.Invoke();
-            ActivateLine(false);
-            particles.Stop();
-        }
-
         if(_pressTimer < maximumHoldSeconds) _pressTimer += Time.deltaTime; //houd de teller bij
 
 
@@ -137,10 +125,5 @@ public class Shoot : MonoBehaviour
     }
     private void HandleReleaseFire() { 
         _endPress = true;
-    }
-
-    private void HandleCancel()
-    {
-        _cancel = true;
     }
 }
