@@ -40,9 +40,11 @@ public class ComboRewardManager : MonoBehaviour
 
         Debug.Log($"[ComboRewardManager] Reward chosen → {reward.name} ({reward.GetType().Name})");
 
-        // Special handling for ExtraBall
+        // ✅ Proper handling for ExtraBall (reflection)
         if (reward is ExtraBall extraBall)
         {
+            Debug.Log("[ComboRewardManager] Attempting to trigger ExtraBall via reflection");
+
             MethodInfo method = typeof(ExtraBall).GetMethod(
                 "ExtraBallCheck",
                 BindingFlags.NonPublic | BindingFlags.Instance
@@ -50,7 +52,13 @@ public class ComboRewardManager : MonoBehaviour
 
             if (method != null)
             {
+                Debug.Log("[ComboRewardManager] ExtraBallCheck found — invoking");
+
                 method.Invoke(extraBall, new object[] { comboLevel, tag });
+            }
+            else
+            {
+                Debug.LogError("[ComboRewardManager] Failed to find ExtraBallCheck method");
             }
 
             return;
@@ -81,7 +89,7 @@ public class ComboRewardManager : MonoBehaviour
             return new Queue<MonoBehaviour>();
         }
 
-        // Shuffle
+        // Shuffle (Fisher-Yates)
         for (int i = 0; i < bagList.Count; i++)
         {
             int j = Random.Range(i, bagList.Count);
