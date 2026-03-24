@@ -1680,81 +1680,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
   m_PrefabInstance: {fileID: 438143887}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &465269369
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 465269372}
-  - component: {fileID: 465269371}
-  - component: {fileID: 465269370}
-  - component: {fileID: 465269373}
-  m_Layer: 0
-  m_Name: ComboReward manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &465269370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465269369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b51076bc8463c418e6130e53feab43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SuperBallReward
-  requiredCombo: 10
-  duration: 10
---- !u!114 &465269371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465269369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f4783639d46aa4bb080f89cb956e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ComboRewardManager
-  rewardBehaviours:
-  - {fileID: 1612075289}
-  - {fileID: 465269370}
---- !u!4 &465269372
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465269369}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &465269373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465269369}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d9d6e018f52ea1439aaf7a9d7e3c7ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
 --- !u!1 &480411992
 GameObject:
   m_ObjectHideFlags: 0
@@ -9282,7 +9207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f04cd72b7a6c54da8d5b298f9bb453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredCombo: 10
+  comboLevelReached: 10
 --- !u!4 &1612075290
 Transform:
   m_ObjectHideFlags: 0
@@ -11370,7 +11295,7 @@ PrefabInstance:
     - target: {fileID: 8075201842533547678, guid: a0f875d11f9d5d840a7c75c2f70da037, type: 3}
       propertyPath: prefab
       value: 
-      objectReference: {fileID: 8676425097315729012, guid: 7b22da68d84be0343b5ec15acf64b79a, type: 3}
+      objectReference: {fileID: 2262322401148545871, guid: c212010f64362344b9993b60f361b721, type: 3}
     - target: {fileID: 8075201842533547678, guid: a0f875d11f9d5d840a7c75c2f70da037, type: 3}
       propertyPath: lineStartWidth
       value: 0.3
