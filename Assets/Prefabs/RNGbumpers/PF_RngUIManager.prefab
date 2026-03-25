@@ -254,7 +254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2919318449887962073}
   m_Layer: 5
-  m_Name: RngUIManager
+  m_Name: PF_RngUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

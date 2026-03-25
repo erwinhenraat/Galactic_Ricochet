@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4650153640261820893}
   - component: {fileID: 1377111568176247881}
   m_Layer: 5
-  m_Name: RngScorePop
+  m_Name: PF_RngScorePop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
