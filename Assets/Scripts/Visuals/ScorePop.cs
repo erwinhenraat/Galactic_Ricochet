@@ -18,7 +18,7 @@ public class ScorePop : MonoBehaviour
         ExtraBall.onExtraBall += PopMessage;
         CrosshairInput.onSwapControls += PopMessage;
         Restart.onRestart += PopMessage;
-        Lives.onGameOver += PopMessage;
+        //Lives.onGameOver += PopMessage;
 
         textfield = GetComponent<TMP_Text>();
         textfield.text = string.Empty;

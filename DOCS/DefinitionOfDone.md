@@ -157,7 +157,28 @@ Algemeen:
 
 ---
 
-_Heb je aan de bovenstaande voorwaarden voldaan? Maak dan een [pull request](https://github.com/erwinhenraat/Galactic_Ricochet/pulls) aan._
+## Pull request maken
+
+_Heb je aan de bovenstaande voorwaarden voldaan?_
+
+Zorg dat je de laatste aanpassingen op de development branch "Pulled" naar jouw feature branch.
+
+gebruik in github desktop `branch > update from development`
+
+of op de commandline :
+
+```
+git checkout jouw-branch-naam
+git fetch origin
+git merge origin/development
+
+```
+
+![update from dev](./src/update_from_development.png)
+
+Los eventuele conflicten op, voeg ze toe met git add . en voltooi met git commit.
+
+Nadat je dit hebt gedaan maak je een [pull request](https://github.com/erwinhenraat/Galactic_Ricochet/pulls) aan.\_
 
 ---
 
