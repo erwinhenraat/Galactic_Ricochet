@@ -75,6 +75,7 @@ classDiagram
     class CrosshairInput {
         +static event onPressFire1
         +static event onReleaseFire1
+        +static event onPressFire2
         +static event onSwapControls
         +static Vector3 CrosshairPosition
         +static InputType SelectedType
@@ -88,6 +89,9 @@ classDiagram
         +static event onRelease
         -HandleShot()
         -DrawForceLine()
+        -HandlePressFire()
+        -HandleReleaseFire()
+        -HandleCancel()
         -DisableShot()
         -ReloadShot()
     }
@@ -278,12 +282,14 @@ classDiagram
 | ---------------- | ---------------- | ---------------------------------- | ------------------------------------------------- |
 | `onPressFire1`   | `Action`         | -                                  | Wordt geactiveerd wanneer Fire1 button ingedrukt  |
 | `onReleaseFire1` | `Action`         | -                                  | Wordt geactiveerd wanneer Fire1 button losgelaten |
+| `onPressFire2`   | `Action`         | -                                  | Wordt geactiveerd wanneer Fire2 button ingedrukt  |
 | `onSwapControls` | `Action<string>` | `message` (bv. "Mouse Activated!") | Signaleert input-type wissel d.m.v. TAB           |
 
 **Subscribers:**
 
 - `Shoot.HandlePressFire()`
 - `Shoot.HandleReleaseFire()`
+- `Shoot.HandleCancel()`
 - `ScorePop.PopMessage()`
 - `Restart.HandleFire()`
 
@@ -295,7 +301,7 @@ classDiagram
 | ---------------- | -------------------- | ----------------------------- | ------------------------------------ |
 | `onShootNewBall` | `Action<GameObject>` | `ball` (nieuw bal GameObject) | Bal is afgeschoten                   |
 | `onPress`        | `Action`             | -                             | Trigger ingedrukt (laden begonnen)   |
-| `onRelease`      | `Action`             | -                             | Trigger losgelaten (bal afgeschoten) |
+| `onRelease`      | `Action`             | -                             | Trigger losgelaten (bal afgeschoten of gecanceled) |
 
 **Subscribers:**
 
@@ -452,6 +458,35 @@ classDiagram
 
 ---
 
+#### 13. **Rail Events** (Events for rails to function)
+
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onIsOnRail` | `Action<SplineContainer, Vector2>` | `Spline for rail to follow and direction for ball exit` | Ball attached to rail |
+| `onRailPlaySound` | `Action<Bool>` | `Bool for if sound needs to be played` | Rail sounds started |
+| `onRailStopSound` | `Action<Bool>` | `Bool for if sound needs to be stopped` | Rail sounds stopped|
+
+**Subscribers:**
+
+- `col.gameObject.GetComponent<BallController>().onIsOnRail`
+- `BallController.onRailPlaySound += PlaySound.PlayRailEnter;`
+- `BallController.onRailPlaySound += PlaySound.PlayRailRoll;`
+- `BallController.onRailStopSound += PlaySound.StopRailRoll;`
+
+---
+
+#### 14. **Flipper Events** (Events for flippers to function)
+
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onFlipperPlaySound` | `Action<bool>` | `Bool for if sound needs to be played` | Flipper sounds played |
+
+**Subscribers:**
+
+- `FlipperController.onFlipperPlaySound += PlaySound.PlayFlipperHit`
+
+---
+
 ### Event-Flow Diagram
 
 ```mermaid
@@ -482,6 +517,13 @@ graph TD
 
     T --> U[GameManager.OnGameOver]
     T --> V[SelectInitials.Activate]
+
+    Z[Ball hits rail entrance] --> |RailController.onIsOnRail| Y[BallController.SetupRail]
+    Y -->  |BallController.onRailPlaySound| X[PlaySound.PlayRailEnter]
+    X --> W[PlaySound.PlayRailRoll]
+    Y -->  |BallController.onRailStopSound| 1[PlaySound.StopRailRoll]
+
+    2[Ball hits flipper] --> |FlipperController.onFlipperPlaySound| 3[PlaySound.PlayFlipperHit]
 ```
 
 ---
@@ -542,6 +584,11 @@ graph TD
 - **Logica**: OnTriggerExit2D vernietigert bal en triggeert `onBallLost`
 
 <img height = "250" src = "../DOCS/src/Interaction_Layer.gif" />
+
+#### **FlipperController**
+
+- **Functie**: Controls flipper logic for rotation and forces
+- **Logica**: OnCollisionEnter2D detects ball and triggers `Flip()`
 
 ---
 
