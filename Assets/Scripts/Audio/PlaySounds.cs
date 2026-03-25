@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class PlaySounds : MonoBehaviour
 {
-    public enum SoundType { Bumper, Combo, GameOver, ExtraBall, BallLost, Loadup }
+    public enum SoundType { Bumper, Combo, GameOver, ExtraBall, BallLost, Loadup, ExplodeBall }
 
     private Dictionary<SoundType, AudioSource> soundSources = new Dictionary<SoundType, AudioSource>();
 
@@ -24,6 +24,7 @@ public class PlaySounds : MonoBehaviour
         soundSources[SoundType.ExtraBall] = sources[3];
         soundSources[SoundType.BallLost] = sources[4];
         soundSources[SoundType.Loadup] = sources[5];
+        soundSources[SoundType.ExplodeBall] = sources[6];
 
         HitBumper.onHitBumper += PlayBumper;
         Combo.onComboAchieved += PlayCombo;
@@ -32,6 +33,7 @@ public class PlaySounds : MonoBehaviour
         PlayArea.onBallLost += PlayBallLost;
         Shoot.onPress += PlayLoadup;
         Shoot.onRelease += StopLoadup;
+        HazardObject.onBallDestroyed += ExplodeBall;
     }
 
     private void OnDisable()
@@ -43,6 +45,7 @@ public class PlaySounds : MonoBehaviour
         PlayArea.onBallLost -= PlayBallLost;
         Shoot.onPress -= PlayLoadup;
         Shoot.onRelease -= StopLoadup;
+        HazardObject.onBallDestroyed -= ExplodeBall;
     }
 
     private void PlayBumper(Transform _, int __)
@@ -80,5 +83,10 @@ public class PlaySounds : MonoBehaviour
     private void StopLoadup()
     {
         soundSources[SoundType.Loadup].Stop();
+    }
+
+    private void ExplodeBall()
+    {
+        soundSources[SoundType.ExplodeBall].Play();
     }
 }
