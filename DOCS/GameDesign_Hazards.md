@@ -9,24 +9,24 @@
 
 | Veld             | Invullen                                      |
 | ---------------- | --------------------------------------------- |
-| **Feature Naam** | _Korte naam van de feature_                   |
-| **Auteur**       | _Naam van de ontwerper_                       |
-| **Datum**        | _dd-mm-jjjj_                                  |
+| **Feature Naam** | _lazer Hazard_                                |
+| **Auteur**       | _steale van Walbeek & Shannon Ruiter_         |
+| **Datum**        | _11-03-2026_                                  |
 | **Versie**       | _1.0_                                         |
-| **Branch**       | `Feature/[FeatureNaam]`                       |
+| **Branch**       | `Feature/Hazards`                             |
 | **Status**       | 📝 Concept / 🔨 In ontwikkeling / ✅ Afgerond |
 
 ---
 
 ## 2. User Story
 
-> Als **[type speler]** wil ik **[actie/mogelijkheid]** zodat **[gewenst resultaat / gevoel / doel]**.
+> Als player wil ik niet dat alle combo rewards positief is dus wil ik een instant death feature zodat de ball dan gelijk verdwijnt.
 
 ---
 
 ## 3. Beschrijving
 
-_Geef een uitgebreide beschrijving van de feature. Wat doet het? Hoe past het binnen Galactic Ricochet? Waarom maakt het het spel beter?_
+Deze feature voegt een _hazard-object_ toe die door het speelveld heen schiet en de bal laat verdwijnen op contact.
 
 ---
 
@@ -34,7 +34,9 @@ _Geef een uitgebreide beschrijving van de feature. Wat doet het? Hoe past het bi
 
 ### 4.1 Kernmechanisme
 
-_Beschrijf hoe de speler met deze feature interacteert. Welke input is nodig? Wat is het directe resultaat?_
+Tijdens het spelen neemt de speler een _Waarschuwings-Teken_ waar aan de zijkant van de scherm. Na een bepaald aantal tijd instantiate de _hazard-object_ en beweegt het object langs de scherm van de directie van de _Waarschuwings-Teken_. als de bal de _hazard-object_ raakt verdwijnt de bal.
+
+Na een bepaald aantal tijd speelt de routine weer opnieuw af in een random locatie.
 
 ### 4.2 Relatie met bestaande systemen
 
@@ -81,7 +83,8 @@ _Voeg schetsen, wireframes, of referentiebeelden toe. Beschrijf de gewenste look
 ### Schetsen / Referenties
 
 > _Plaats hier afbeeldingen of links naar referentiemateriaal._
-> `![beschrijving](pad/naar/afbeelding.png)`
+> [Concept idee van de feature](./DOCS_Content/GalacticHazard_Concept.png)
+[Idee van de graphics van de warning sign](./DOCS_Content/GalacticWarning_Concept.png)
 
 ### Placeholder Art Beschrijving
 
@@ -95,8 +98,9 @@ _Welke geluiden zijn nodig? Beschrijf per geluid het gewenste karakter._
 
 | Geluid               | Beschrijving / Karakter            | Placeholder  |
 | -------------------- | ---------------------------------- | ------------ |
-| _bijv. activate SFX_ | _Korte, punchy synth hit_          | ☐ Ja / ☐ Nee |
-| _bijv. loop SFX_     | _Zacht ambient hum tijdens actief_ | ☐ Ja / ☐ Nee |
+| Ball_Destroyed.SFX   | _Korte, punchy synth hit_          | ☐ Ja / ☐ Nee |
+| Hazard_Fired.SFX     | _Zacht ambient hum tijdens actief_ | ☐ Ja / ☐ Nee |
+| Warning_Sign.SFX     | vervelend biepend geluid            | ☐ Ja / ☐ Nee |
 
 ---
 
@@ -108,13 +112,13 @@ _In welke laag van de architectuur past deze feature? (Input & Control / Interac
 
 ```
 ┌─────────────────────────────────────┐
-│   Feedback Layer                    │  ☐
+│   Feedback Layer                    │  ✅
 │   (UI, Visuals, Sound)              │
 ├─────────────────────────────────────┤
-│   Game Logic Layer                  │  ☐
+│   Game Logic Layer                  │  ✅
 │   (Scoring, Lives, Combos)          │
 ├─────────────────────────────────────┤
-│   Interaction Layer                 │  ☐
+│   Interaction Layer                 │  ✅
 │   (Bumpers, Ball Physics)           │
 ├─────────────────────────────────────┤
 │   Input & Control Layer             │  ☐

@@ -35,6 +35,7 @@ public class HazardObject : MonoBehaviour
         {
             onBallDestroyed?.Invoke();
             Destroy(collision.gameObject);
+            Debug.Log("Event Fired");
         }
     }
 

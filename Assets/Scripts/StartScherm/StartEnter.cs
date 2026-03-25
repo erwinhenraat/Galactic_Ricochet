@@ -26,18 +26,18 @@ public class StartEnter : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer < 1 ) return;
+        if (timer < 1) return;
         CanvasGroup.alpha = (CanvasGroup.alpha == 1f) ? 0f : 1f;
         timer = 0;
     }
 
     private void ToggleMenu()
     {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.JoystickButton7))
-        { 
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetButtonDown("Fire1"))
+        {
             levelMenu.SetActive(true);
             gameObject.SetActive(false);
         }
- 
+
     }
 }
