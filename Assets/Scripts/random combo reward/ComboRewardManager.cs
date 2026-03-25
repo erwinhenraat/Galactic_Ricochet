@@ -40,7 +40,7 @@ public class ComboRewardManager : MonoBehaviour
 
         Debug.Log($"[ComboRewardManager] Reward chosen → {reward.name} ({reward.GetType().Name})");
 
-        // ✅ Proper handling for ExtraBall (reflection)
+       
         if (reward is ExtraBall extraBall)
         {
             Debug.Log("[ComboRewardManager] Attempting to trigger ExtraBall via reflection");
@@ -64,7 +64,7 @@ public class ComboRewardManager : MonoBehaviour
             return;
         }
 
-        // Default reward behavior
+        
         reward.SendMessage("ActivateReward", tag, SendMessageOptions.DontRequireReceiver);
     }
 
@@ -89,7 +89,7 @@ public class ComboRewardManager : MonoBehaviour
             return new Queue<MonoBehaviour>();
         }
 
-        // Shuffle (Fisher-Yates)
+      
         for (int i = 0; i < bagList.Count; i++)
         {
             int j = Random.Range(i, bagList.Count);

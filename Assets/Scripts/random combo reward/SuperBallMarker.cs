@@ -13,7 +13,7 @@ public class SuperBallMarker : MonoBehaviour
         // Check the global SuperBall state every frame
         if (SuperBallReward.IsSuperBallActive)
         {
-            transform.localScale = originalScale * 1.5f;
+            transform.localScale = originalScale * 1.3f;
         }
         else
         {
