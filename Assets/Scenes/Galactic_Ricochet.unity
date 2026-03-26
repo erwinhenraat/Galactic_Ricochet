@@ -2624,7 +2624,7 @@ GameObject:
   - component: {fileID: 730144882}
   - component: {fileID: 730144881}
   - component: {fileID: 730144883}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ScorePop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2670,7 +2670,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caabc9be49dcbb34ab9a5d4d379a1c95, type: 2}
   m_sharedMaterial: {fileID: 433719321404842576, guid: caabc9be49dcbb34ab9a5d4d379a1c95, type: 2}
@@ -9207,7 +9207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f04cd72b7a6c54da8d5b298f9bb453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboLevelReached: 10
+  comboLevelReached: 2
 --- !u!4 &1612075290
 Transform:
   m_ObjectHideFlags: 0
@@ -10946,7 +10946,7 @@ Canvas:
   m_GameObject: {fileID: 2025420064}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 213758119}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
