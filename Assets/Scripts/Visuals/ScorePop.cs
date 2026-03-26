@@ -8,6 +8,8 @@ public class ScorePop : MonoBehaviour
     private float currentScale;
     private float scaleDiff;
     private TMP_Text textfield;
+    private Canvas canvas;
+    private RectTransform canvasRect;
     [SerializeField] float seconds;
 
     private bool _priority = false;
@@ -21,6 +23,8 @@ public class ScorePop : MonoBehaviour
         //Lives.onGameOver += PopMessage;
 
         textfield = GetComponent<TMP_Text>();
+        canvas = GetComponentInParent<Canvas>();
+        canvasRect = canvas.GetComponent<RectTransform>();
         textfield.text = string.Empty;
     }
     private void OnDisable()
@@ -39,7 +43,14 @@ public class ScorePop : MonoBehaviour
             currentScale = startScale;
             scaleDiff = maxScale - startScale;
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(location);
-            textfield.transform.position = screenPoint;
+            Camera canvasCamera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRect,
+                screenPoint,
+                canvasCamera,
+                out Vector2 localPoint
+            );
+            textfield.transform.localPosition = localPoint;
             textfield.text = string.Empty + value;
             StartCoroutine(Animate());
         }
@@ -53,7 +64,14 @@ public class ScorePop : MonoBehaviour
         currentScale = startScale;
         scaleDiff = maxScale - startScale;
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(Vector3.zero);
-        textfield.transform.position = screenPoint;
+        Camera canvasCamera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            screenPoint,
+            canvasCamera,
+            out Vector2 localPoint
+        );
+        textfield.transform.localPosition = localPoint;
         textfield.text = string.Empty + message;
         StartCoroutine(Animate());
 
