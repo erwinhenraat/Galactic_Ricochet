@@ -15,16 +15,14 @@ public class Lives : MonoBehaviour
 
     public int LivesLeft { get => lives; }
     public int ShotsLeft { get => shotsLeft; }
-
     void Awake()
     {
         shotsLeft = lives;
     }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //shotsLeft = lives;
-
         PlayArea.onBallLost += LoseLife;
         Shoot.onShootNewBall += LoseShot;
         ExtraBall.onExtraBall += AddShotAndLife;
