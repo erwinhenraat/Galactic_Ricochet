@@ -42,7 +42,7 @@ public class RGBui : MonoBehaviour
     private void Start()
     {
         _isPlaying = playOnStart;
-        _startHue = Random.value;
+        _startHue = Random.value; // small variation between instances
     }
 
     private void Update()
@@ -58,7 +58,7 @@ public class RGBui : MonoBehaviour
         _image.color = rgb;
     }
 
-    
+    // Controls
     public void Play() => _isPlaying = true;
     public void Stop() => _isPlaying = false;
     public void Toggle() => _isPlaying = !_isPlaying;

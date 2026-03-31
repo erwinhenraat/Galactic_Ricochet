@@ -20,8 +20,6 @@ public class RNGHitBumper : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            Debug.Log(onHitRNGBumper == null ? "Nobody listening" : "Someone listening");
-
             int randomValue = UnityEngine.Random.Range(minValue, maxValue + 1);
             onHitRNGBumper?.Invoke(transform, randomValue);
 
