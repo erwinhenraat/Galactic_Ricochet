@@ -65,3 +65,5 @@ MonoBehaviour:
   vol: {fileID: 11400000, guid: f6face9a13d9fb34bab98c41dfb568f7, type: 2}
   noColorFilter: {r: 1, g: 1, b: 1, a: 1}
   colorFilter: {r: 1, g: 0.45597476, b: 0.45597476, a: 1}
+  effectPower: 0.15
+  effectTime: 0.02

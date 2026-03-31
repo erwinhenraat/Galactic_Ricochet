@@ -12,6 +12,8 @@ public class ComboMood : MonoBehaviour
     [SerializeField] private VolumeProfile vol;
     [SerializeField] private Color noColorFilter;
     [SerializeField] private Color colorFilter;
+    [SerializeField] private float effectPower = 0.2f;
+    [SerializeField] private float effectTime = 0.02f;
     private void Start()
     {
         Combo.onComboAchieved += AddComboEffects;
@@ -53,12 +55,12 @@ public class ComboMood : MonoBehaviour
         ChromaticAberration ca;
         if (vol.TryGet<ChromaticAberration>(out ca))
         {
-            ca.intensity.value -= 0.02f;
+            ca.intensity.value -= effectTime;
         }
         LensDistortion ld;
         if (vol.TryGet<LensDistortion>(out ld))
         {
-            ld.intensity.value = math.clamp(ld.intensity.value - 0.02f,0,1);
+            ld.intensity.value = math.clamp(ld.intensity.value - effectTime,0,1);
         }
         ColorAdjustments col;
         if (vol.TryGet<ColorAdjustments>(out col))
@@ -73,11 +75,11 @@ public class ComboMood : MonoBehaviour
         LensDistortion ld;
         if(vol.TryGet<ChromaticAberration>(out ca))
         {
-            ca.intensity.value += 0.2f;
+            ca.intensity.value += effectPower;
         }
         if (vol.TryGet<LensDistortion>(out ld))
         {
-            ld.intensity.value += 0.2f;
+            ld.intensity.value += effectPower;
         }
     }
 
