@@ -21,7 +21,7 @@ public class Combo : MonoBehaviour
     }
     private void ResetCombo()
     {
-        onComboLost?.Invoke(0, "None");
+        onComboLost?.Invoke(tagSequence.Count, "None");
         tagSequence.Clear();
     }
     private void CheckForCombo(Transform transform, int _) {
