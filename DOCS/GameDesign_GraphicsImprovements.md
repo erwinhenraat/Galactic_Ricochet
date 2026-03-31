@@ -1,32 +1,28 @@
-# Game Design Document — [Feature Naam]
+# Game Design Document — Graphics improvements
 
-> **Instructie:** Kopieer dit bestand en hernoem het naar `GameDesign_[FeatureNaam].md`.
-> Vul alle secties zo volledig mogelijk in voordat je begint met ontwikkelen.
-
----
 
 ## 1. Overzicht
 
 | Veld             | Invullen                                      |
 | ---------------- | --------------------------------------------- |
-| **Feature Naam** | _Korte naam van de feature_                   |
-| **Auteur**       | _Naam van de ontwerper_                       |
-| **Datum**        | _dd-mm-jjjj_                                  |
+| **Feature Naam** | Graphics Update                   |
+| **Auteur**       | Ellie and Isa                       |
+| **Datum**        | 31/03/2026                                  |
 | **Versie**       | _1.0_                                         |
-| **Branch**       | `Feature/[FeatureNaam]`                       |
-| **Status**       | 📝 Concept / 🔨 In ontwikkeling / ✅ Afgerond |
+| **Branch**       | `Feature/graphics-update`                       |
+| **Status**       | ✅ Afgerond |
 
 ---
 
 ## 2. User Story
 
-> Als **[type speler]** wil ik **[actie/mogelijkheid]** zodat **[gewenst resultaat / gevoel / doel]**.
+> 13. as a player, I want to have clear and appealing graphics so that I can enjoy the look of the game
 
 ---
 
 ## 3. Beschrijving
 
-_Geef een uitgebreide beschrijving van de feature. Wat doet het? Hoe past het binnen Galactic Ricochet? Waarom maakt het het spel beter?_
+Added different character graphics for the bumpers, added different sounds to the bumpers to fit the graphics and reworked the post processing system
 
 ---
 
@@ -34,7 +30,7 @@ _Geef een uitgebreide beschrijving van de feature. Wat doet het? Hoe past het bi
 
 ### 4.1 Kernmechanisme
 
-_Beschrijf hoe de speler met deze feature interacteert. Welke input is nodig? Wat is het directe resultaat?_
+the feature is passive it just improves already exisiting features
 
 ### 4.2 Relatie met bestaande systemen
 
@@ -42,10 +38,10 @@ _Geef aan welke bestaande systemen worden beïnvloed of aangevuld (bijv. Score, 
 
 | Bestaand Systeem   | Relatie / Impact               |
 | ------------------ | ------------------------------ |
-| Score              | _bijv. verhoogt score met X_   |
-| Combo / Multiplier | _bijv. reset combo bij missen_ |
-| Lives              | _bijv. geen invloed_           |
-| Input              | _bijv. extra knop nodig_       |
+| Score              | same as before_   |
+| Combo / Multiplier | same as before |
+| Lives              | same as before           |
+| Input              | same as before       |
 | _Ander systeem_    | _…_                            |
 
 ### 4.3 Game Feel
@@ -54,11 +50,11 @@ _Welke feedback krijgt de speler? Denk aan: screenshake, geluid, visuele effecte
 
 | Feedback Type | Beschrijving                       |
 | ------------- | ---------------------------------- |
-| Visueel       | _bijv. particle effect bij impact_ |
-| Audio         | _bijv. power-up geluid_            |
-| Screenshake   | _bijv. korte shake bij activatie_  |
-| UI            | _bijv. icoon verschijnt in HUD_    |
-| Animatie      | _bijv. idle → active state_        |
+| Visueel       | particles on bumper hit, psot processing effects |
+| Audio         | pain sounds from bumpers collision            |
+| Screenshake   | same as before  |
+| UI            | no color changing UI for consitency    |
+| Animatie      | bumper animations upon collision with ball       |
 
 ---
 
@@ -68,24 +64,26 @@ _Definieer de concrete spelregels en instelbare waarden voor deze feature._
 
 | Parameter            | Waarde  | Beschrijving                    |
 | -------------------- | ------- | ------------------------------- |
-| _bijv. cooldown_     | _2 sec_ | _Tijd voordat het opnieuw kan_  |
-| _bijv. puntenwaarde_ | _500_   | _Punten per activatie_          |
-| _bijv. duur_         | _5 sec_ | _Hoe lang het effect actief is_ |
+| _bijv. cooldown_     | _2 sec_ | none  |
+| _bijv. puntenwaarde_ | _500_   | depends on bumper          |
+| _bijv. duur_         | _5 sec_ |none |
 
 ---
 
 ## 6. Visueel Ontwerp
 
-_Voeg schetsen, wireframes, of referentiebeelden toe. Beschrijf de gewenste look & feel._
+
 
 ### Schetsen / Referenties
-
-> _Plaats hier afbeeldingen of links naar referentiemateriaal._
-> `![beschrijving](pad/naar/afbeelding.png)`
+<img width="940" height="727" alt="Lava Alien" src="https://github.com/user-attachments/assets/09d865ee-0d19-4ce3-b0b4-458332376513" />
+<img width="752" height="750" alt="Dino Alien" src="https://github.com/user-attachments/assets/9b3e37b6-dc58-446e-b9df-3f505e135729" />
+<img width="791" height="844" alt="Bug Alien" src="https://github.com/user-attachments/assets/63c33b92-dd91-4477-9da7-ad474b1e17df" />
+<img width="758" height="889" alt="Frog Alien" src="https://github.com/user-attachments/assets/8a648e79-0640-407a-abca-02045a876cda" />
+<img width="816" height="738" alt="Eye Alien" src="https://github.com/user-attachments/assets/b394006b-13c2-4892-ad18-a00d4547f9a9" />
 
 ### Placeholder Art Beschrijving
 
-_Beschrijf welke placeholder art nodig is om de feature te ontwikkelen en te testen._
+no placeholders, art is final
 
 ---
 
@@ -95,8 +93,9 @@ _Welke geluiden zijn nodig? Beschrijf per geluid het gewenste karakter._
 
 | Geluid               | Beschrijving / Karakter            | Placeholder  |
 | -------------------- | ---------------------------------- | ------------ |
-| _bijv. activate SFX_ | _Korte, punchy synth hit_          | ☐ Ja / ☐ Nee |
-| _bijv. loop SFX_     | _Zacht ambient hum tijdens actief_ | ☐ Ja / ☐ Nee |
+| pain1 | synthetic pain sound          | ☐ Nee |
+| pain2 | synthetic pain sound          | ☐ Nee |
+| pain3 | synthetic pain sound          | ☐ Nee |
 
 ---
 
@@ -108,58 +107,41 @@ _In welke laag van de architectuur past deze feature? (Input & Control / Interac
 
 ```
 ┌─────────────────────────────────────┐
-│   Feedback Layer                    │  ☐
+│   Feedback Layer                    │  
 │   (UI, Visuals, Sound)              │
 ├─────────────────────────────────────┤
-│   Game Logic Layer                  │  ☐
-│   (Scoring, Lives, Combos)          │
-├─────────────────────────────────────┤
-│   Interaction Layer                 │  ☐
-│   (Bumpers, Ball Physics)           │
-├─────────────────────────────────────┤
-│   Input & Control Layer             │  ☐
-│   (Crosshair, Aim, Shoot)           │
-└─────────────────────────────────────┘
 ```
 
 ### 8.2 Benodigde Events
 
 _Welke nieuwe events worden aangemaakt? Op welke bestaande events wordt geabonneerd?_
 
-| Event                        | Richting        | Beschrijving                  |
-| ---------------------------- | --------------- | ----------------------------- |
-| _bijv. `onPowerUpCollected`_ | Publish (nieuw) | _Fired bij oppakken power-up_ |
-| _bijv. `onHitBumper`_        | Subscribe       | _Luistert naar bumper hits_   |
+no events added
 
 ### 8.3 Benodigde Scripts / Componenten
 
-| Script / Component   | Verantwoordelijkheid                   |
-| -------------------- | -------------------------------------- |
-| _bijv. PowerUp.cs_   | _Detectie collision, activeren effect_ |
-| _bijv. PowerUpUI.cs_ | _Tonen van actief power-up icoon_      |
+no scripts added
 
 ### 8.4 Uitschakelbaar
 
-_Beschrijf hoe deze feature uitgeschakeld kan worden zonder dat de rest van het spel breekt (conform de [Definition of Done](./DefinitionOfDone.md)). Welk GameObject moet gedeactiveerd worden?_
-
----
+bumpers are updated, they work slightly different now, the post processing is still easily disablable
 
 ## 9. Todo Lijst
 
 _Maak een concrete checklist van alle taken die nodig zijn om deze feature te implementeren._
 
-- [ ] Game design document invullen en reviewen
-- [ ] Placeholder art maken / verzamelen
-- [ ] Placeholder audio maken / verzamelen
-- [ ] Script(s) aanmaken en implementeren
-- [ ] Events koppelen aan bestaande systemen
-- [ ] UI elementen toevoegen
-- [ ] Feature testen op bugs
-- [ ] Usertest uitvoeren (min. 3 spelers)
-- [ ] Usertest documentatie schrijven (`Usertest_[FeatureNaam].md`)
-- [ ] Technisch design document updaten
-- [ ] Code review / pull request aanmaken
-- [ ] _Voeg extra taken toe indien nodig_
+- [DONE] Game design document invullen en reviewen
+- [DONE] Placeholder art maken / verzamelen
+- [DONE] Placeholder audio maken / verzamelen
+- [DONE] Script(s) aanmaken en implementeren
+- [NA] Events koppelen aan bestaande systemen
+- [NA] UI elementen toevoegen
+- [DONE] Feature testen op bugs
+- [NA] Usertest uitvoeren (min. 3 spelers)
+- [NA] Usertest documentatie schrijven (`Usertest_[FeatureNaam].md`)
+- [DONE] Technisch design document updaten
+- [DONE] Code review / pull request aanmaken
+- [NA] _Voeg extra taken toe indien nodig_
 
 ---
 
@@ -167,14 +149,14 @@ _Maak een concrete checklist van alle taken die nodig zijn om deze feature te im
 
 _Wanneer is deze feature "af"? Verwijs ook naar de [Definition of Done](./DefinitionOfDone.md)._
 
-- [ ] De user story is volledig geïmplementeerd
-- [ ] Alle parameters zijn instelbaar via de Unity Inspector
-- [ ] De feature is uitschakelbaar zonder bugs
-- [ ] Alle placeholder art/audio is aanwezig
-- [ ] Usertest is afgerond en gedocumenteerd
-- [ ] Geen errors of bugs in test build
-- [ ] Technisch design document is bijgewerkt
-- [ ] Pull request is goedgekeurd en gemerged naar `development`
+- [DONE] De user story is volledig geïmplementeerd
+- [DONE] Alle parameters zijn instelbaar via de Unity Inspector
+- [DONE] De feature is uitschakelbaar zonder bugs
+- [DONE] Alle placeholder art/audio is aanwezig
+- [NA] Usertest is afgerond en gedocumenteerd
+- [DONE] Geen errors of bugs in test build
+- [DONE] Technisch design document is bijgewerkt
+- [DONE] Pull request is goedgekeurd en gemerged naar `development`
 
 ---
 
