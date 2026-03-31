@@ -13,8 +13,7 @@ public class SuperBallMarker : MonoBehaviour
 
         if (SuperBallReward.IsSuperBallActive)
         {
-            transform.localScale = originalScale * 1.5f;
-            Debug.Log("[SuperBallMarker] Super Ball is active → Marker ENLARGED");
+            transform.localScale = originalScale * 1.3f;
         }
         else
         {

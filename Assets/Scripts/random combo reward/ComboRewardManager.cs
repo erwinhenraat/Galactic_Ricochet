@@ -89,7 +89,7 @@ public class ComboRewardManager : MonoBehaviour
             return new Queue<MonoBehaviour>();
         }
 
-        
+      
         for (int i = 0; i < bagList.Count; i++)
         {
             int j = Random.Range(i, bagList.Count);
