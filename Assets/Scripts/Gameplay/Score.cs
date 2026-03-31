@@ -104,4 +104,11 @@ public class Score : MonoBehaviour
 
 
     }
+    public void ResetRunScore()
+    {
+        //ShowScore();
+        value = 0; //maakt een nieuwe "run" en zet de score naar 0
+        scoreMultiplier = 1;
+        ShowScore();
+    }
 }
