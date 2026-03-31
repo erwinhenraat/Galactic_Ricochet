@@ -1710,7 +1710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b51076bc8463c418e6130e53feab43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuperBallReward
-  requiredCombo: 10
   duration: 10
 --- !u!114 &465269371
 MonoBehaviour:
@@ -1724,8 +1723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f4783639d46aa4bb080f89cb956e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComboRewardManager
-  rewardBehaviours:
-  - {fileID: 465269370}
+  rewards: []
 --- !u!4 &465269372
 Transform:
   m_ObjectHideFlags: 0
