@@ -10,14 +10,16 @@ public class SuperBallMarker : MonoBehaviour
     }
     private void Update()
     {
-        // Check the global SuperBall state every frame
+
         if (SuperBallReward.IsSuperBallActive)
         {
             transform.localScale = originalScale * 1.5f;
+            Debug.Log("[SuperBallMarker] Super Ball is active → Marker ENLARGED");
         }
         else
         {
             transform.localScale = originalScale;
+            Debug.Log("[SuperBallMarker] Super Ball is inactive → Marker NORMAL");
         }
     }
 }
