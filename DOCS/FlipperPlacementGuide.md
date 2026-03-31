@@ -1,10 +1,7 @@
 # Galactic Ricochet - Flipper placement guide
 
 1. Place flipper prefab in scene, make sure the flipper z-axis is set to 0 otherwise positions may not be aligned (see image 1)
-
-2. Click on the rail in the scene and select spline tool in the tools widget (see image 1)
-<img width="84" height="237" alt="image" src="https://github.com/user-attachments/assets/10eb7c4f-3c10-4cd0-9296-1ee90bc2b6f9" />
-
-4. Edit the spline points using the tool, you must use auto tangent mode (see image 2) <img width="397" height="293" alt="image" src="https://github.com/user-attachments/assets/5ba9f1ad-35bb-4030-a250-d78e1f21c1f7" />
-5. The entrance radius can be configured in the RailController script (see image 3) <img width="452" height="190" alt="image" src="https://github.com/user-attachments/assets/35989d2a-3ed6-4e39-a14d-9f9aca94c7e3" />
-6. The purple entrance ring will move to the entrance point marked with the wireSphere gizmo at runtime
+<img width="453" height="147" alt="image" src="https://github.com/user-attachments/assets/830e2fee-f29f-4ec9-bff7-daf965bca0e7" />
+2. Do not rotate the flipper to adjust angles, edit the parameters on the flipper script to change start and end angles instaid (see image 2)
+<img width="461" height="292" alt="image" src="https://github.com/user-attachments/assets/c88c4865-a3db-4328-955c-77f432201e43" />
+3. Use left flipper for hitting the ball on the left, and the right flipper for the right, do not rotate or scale the flipper
