@@ -318,6 +318,7 @@ classDiagram
 - `Score.GetScore()` - voegt punten toe
 - `PlaySounds.PlayBumper()` - speelt geluid
 - `Screenshake.Shake()` - camera trilt
+- 
 
 ---
 
@@ -345,7 +346,8 @@ classDiagram
 **Subscribers:**
 
 - `Multiplier.SetMultiplier()` - stelt vermenigvuldiger in
-- `ComboMood.ChangeMood()` - wijzigt visuele stijl
+- `ComboMood.AddComboEffects()` - adds effects to the screen based on the combo
+- `ComboMood.AddComboLoseEffects()` - adds effects to the screen based on the combo loss
 - `ExtraBall.ExtraBallCheck()` - controleert extra leven trigger
 - `Screenshake.Tremble()` - sterke camera-beving
 - `PlaySounds.PlayCombo()` - combo geluid
@@ -378,7 +380,7 @@ classDiagram
 - `PlaySounds.PlayGameOver()` - voor `onGameOver`
 - `Shoot.DisableShot()` - voor `onDepleted`
 - `Shoot.ReloadShot()` - voor `onReload`
-- `ComboMood.LoopMoods()` - voor `onGameOver`
+- `ComboMood.AddGameOverEffects()` - voor `onGameOver`
 
 ---
 
@@ -499,7 +501,8 @@ graph TD
     H -->|Combo verloren| K[Combo.onComboLost]
 
     J --> L[Multiplier.SetMultiplier]
-    J --> M[ComboMood.ChangeMood]
+    J --> M[ComboMood.AddComboEffects]
+    K --> 4[ComboMood.AddComboLoseEffects]
     J --> N[ExtraBall.ExtraBallCheck]
 
     N -->|Combo >= 10| O[ExtraBall.onExtraBall]
@@ -510,6 +513,7 @@ graph TD
     S -->|Lives = 0| T[Lives.onGameOver]
 
     T --> U[GameManager.OnGameOver]
+    T --> 5[ComboMood.AddGameOverEffects]
     T --> V[SelectInitials.Activate]
 
     Z[Ball hits rail entrance] --> |RailController.onIsOnRail| Y[BallController.SetupRail]
