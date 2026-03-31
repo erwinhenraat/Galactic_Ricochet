@@ -6,10 +6,10 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Score : MonoBehaviour
 {
+    public static event Action<Vector2, int> onGetRNGScore;
     public static event Action<Vector2, int> onGetScore;
     public static event Action<int> onSaveNewHighscore;
     public static event Action onHighScoreBrokenAtPlay;
-
     private int value = 0;
     private TMP_Text textfield;
     private int scoreMultiplier = 1;
@@ -22,6 +22,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         HitBumper.onHitBumper += GetScore;
+        RNGHitBumper.onHitRNGBumper += GetRNGScore;
         Multiplier.onMultiplierUpdate += SetMultiplier;
         Lives.onGameOver += CheckForHighScore;
         SelectInitials.onInitialsSubmitted += SaveHighScore;
@@ -33,6 +34,7 @@ public class Score : MonoBehaviour
     private void OnDisable()
     {
         HitBumper.onHitBumper -= GetScore;
+        RNGHitBumper.onHitRNGBumper -= GetRNGScore;
         Multiplier.onMultiplierUpdate -= SetMultiplier;
         Lives.onGameOver -= CheckForHighScore;
         SelectInitials.onInitialsSubmitted -= SaveHighScore;
@@ -60,24 +62,53 @@ public class Score : MonoBehaviour
         }
     }
 
-   
 
-    private void GetScore(Transform bumper , int baseScore) {
+
+    private void GetScore(Transform bumper, int baseScore)
+    {
         int addedScore = baseScore * scoreMultiplier;
         value += addedScore;
+
         onGetScore?.Invoke((Vector2)bumper.position, addedScore);
-        ShowScore();
         
+        ShowScore();
+
+
+
         //check highscore during play
-        if (value > highscore) { 
+        if (value > highscore)
+        {
             onHighScoreBrokenAtPlay.Invoke();
         }
-        
+
 
     }
-    private void ShowScore() { 
-        textfield.text = "Score : "+value.ToString();
+
+    private void GetRNGScore(Transform bumper, int baseScore)
+    {
+        int addedScore = baseScore * scoreMultiplier;
+        value += addedScore;
+
+        onGetRNGScore?.Invoke((Vector2)bumper.position, addedScore);
+
+        ShowRNGScore();
+
+        if (value > highscore)
+        {
+            onHighScoreBrokenAtPlay.Invoke();
+        }
     }
+
+    private void ShowRNGScore()
+    {
+
+        textfield.text = "ChromaScore : " + value.ToString();
+    }
+
+    private void ShowScore() {
+            textfield.text = "Score : " + value.ToString();
+    }
+    
     private void SetMultiplier(int value) { 
         scoreMultiplier = value;
     }

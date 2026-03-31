@@ -199,6 +199,16 @@ classDiagram
         -Animator _animator
     }
 
+    class RNGBUmper {
+        +static event onHitRNGBumper
+        +int bumperValue
+        -OnCollisionEnter2D()
+    }
+
+    class RNGScorePop {
+        +RNGPop
+    }
+
     GameManager --> CrosshairInput
     GameManager --> Lives
     GameManager --> SelectInitials
@@ -230,6 +240,7 @@ classDiagram
     Score --> GameManager
     Score --> ScorePop
     Score --> SelectInitials
+    Score --> RNGScorePop
 
     Lives --> GameManager
     Lives --> PlaySounds
@@ -247,9 +258,11 @@ classDiagram
     PlaySounds --> Lives
     PlaySounds --> ExtraBall
     PlaySounds --> Shoot
+    PlaySounds --> RNGHitBumper
 
     Screenshake --> HitBumper
     Screenshake --> Combo
+    Screenshake --> RNgHitBumper
 
     ScorePop --> Score
     ScorePop --> ExtraBall
@@ -264,6 +277,13 @@ classDiagram
 
     TrackBalls --> Shoot
     TrackBalls --> ExtraBall
+
+    RNGHitBumper --> Combo
+    RNGHitBumper --> Score
+    RNGHitBumper --> PlaySounds
+    RNGHitBumper --> Screenshake
+
+    RNGScorePop --> Score
 ```
 
 ---
@@ -478,6 +498,22 @@ classDiagram
 **Subscribers:**
 
 - `FlipperController.onFlipperPlaySound += PlaySound.PlayFlipperHit`
+
+---
+
+#### 15. **HitRNGBumper Events** (Bumper Botsing)
+
+| Event         | Type                     | Argumenten                                             | Beschrijving     |
+| ------------- | ------------------------ | ------------------------------------------------------ | ---------------- |
+| `onHitRNGBumper` | `Action<Transform, int>` | `transform` (bumper transform), `bumperValue` (punten) | Bal raakt RNG bumper |
+
+**Subscribers:**
+
+- `Combo.CheckForCombo()` - tagt bumper
+- `Score.GetScore()` - voegt punten toe
+- `PlaySounds.PlayBumper()` - speelt geluid
+- `Screenshake.Shake()` - camera trilt
+- `RNGScorePop.RNGPop()` - RNGscore text
 
 ---
 
