@@ -5,7 +5,7 @@ using UnityEngine.Splines;
 
 public class PlaySounds : MonoBehaviour
 {
-    public enum SoundType { Bumper, Combo, GameOver, ExtraBall, BallLost, Loadup, RailEnter, RailRoll, FlipperHit }
+    public enum SoundType { Bumper, Combo, GameOver, ExtraBall, BallLost, Loadup, RailEnter, RailRoll, FlipperHit, ExplodeBall, Warning, Laser}
 
     private Dictionary<SoundType, AudioSource> soundSources = new Dictionary<SoundType, AudioSource>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -13,9 +13,9 @@ public class PlaySounds : MonoBehaviour
     {
         AudioSource[] sources = GetComponents<AudioSource>();
 
-        if (sources.Length < 9)
+        if (sources.Length < 12)
         {
-            Debug.LogError("PlaySounds requires 9 AudioSource components!");
+            Debug.LogError("PlaySounds requires 12 udioSource components!");
             return;
         }
 
@@ -28,6 +28,9 @@ public class PlaySounds : MonoBehaviour
         soundSources[SoundType.RailEnter] = sources[6];
         soundSources[SoundType.RailRoll] = sources[7];
         soundSources[SoundType.FlipperHit] = sources[8];
+        soundSources[SoundType.ExplodeBall] = sources[9];
+        soundSources[SoundType.Warning] = sources[10];
+        soundSources[SoundType.Laser] = sources[11];
 
         HitBumper.onHitBumper += PlayBumper;
         Combo.onComboAchieved += PlayCombo;
@@ -40,6 +43,10 @@ public class PlaySounds : MonoBehaviour
         BallToRailConnector.onRailPlaySound += PlayRailRoll;
         BallToRailConnector.onRailStopSound += StopRailRoll;
         FlipperController.onFlipperPlaySound += PlayFlipperHit;
+        HazardObject.onBallDestroyed += PlayExplodeBall;
+        HazardSpawner.onTimerHit += PlayWarning;
+        HazardWarning.onHazardWarning += StopWarning;
+        HazardWarning.onHazardWarning += PlayLaser;
         sources = GetComponents<AudioSource>();
 
     }
@@ -56,6 +63,10 @@ public class PlaySounds : MonoBehaviour
         BallToRailConnector.onRailPlaySound -= PlayRailRoll;
         BallToRailConnector.onRailStopSound -= StopRailRoll;
         FlipperController.onFlipperPlaySound -= PlayFlipperHit;
+        HazardObject.onBallDestroyed -= PlayExplodeBall;
+        HazardSpawner.onTimerHit -= PlayWarning;
+        HazardWarning.onHazardWarning -= StopWarning;
+        HazardWarning.onHazardWarning -= PlayLaser;
     }
     private void PlayBumper(Transform _, int __)
     {
@@ -106,5 +117,24 @@ public class PlaySounds : MonoBehaviour
     private void PlayFlipperHit(bool bl)
     {
         soundSources[SoundType.FlipperHit].Play();
+    }
+
+    private void PlayExplodeBall()
+    {
+        soundSources[SoundType.ExplodeBall].Play();
+    }
+
+    private void PlayWarning()
+    {
+        soundSources[SoundType.Warning].Play();
+    }
+    private void StopWarning()
+    {
+        soundSources[SoundType.Warning].Stop();
+    }
+
+    private void PlayLaser()
+    {
+        soundSources[SoundType.Laser].Play();
     }
 }
