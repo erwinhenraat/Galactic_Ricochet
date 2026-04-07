@@ -6,17 +6,19 @@ public class HazardWarning : MonoBehaviour
 {
     public static event Action onHazardWarning;
 
-    private float timer = 0f;
+    [SerializeField]private float timer = 0f;
+    private float spawnTimer = 0f;
     private SpriteRenderer spriteRenderer;
+    private bool visibility = false;
     void Start()
     {
-        onHazardWarning?.Invoke();
-
         HazardSpawner.onTimerHit += WarningEffect;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         WarningEffect();
+
+
     }
 
     private void OnDisable()
@@ -26,15 +28,28 @@ public class HazardWarning : MonoBehaviour
 
     private void WarningEffect() {
         timer += Time.deltaTime;
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer > 4f) {
+            onHazardWarning?.Invoke();
+            spawnTimer = 0f;
+        }
 
         if (timer < 0.5) return;
-        //CanvasGroup.alpha = (CanvasGroup.alpha == 1f) ? 0f : 1f;
+        visibility = !visibility;
         timer = 0;
     }
 
 
     void Update()
     {
-        
+        if (visibility == true)
+        {
+            spriteRenderer.enabled = false;
+        }
+        else
+        {
+            spriteRenderer.enabled = true;
+        }
     }
 }

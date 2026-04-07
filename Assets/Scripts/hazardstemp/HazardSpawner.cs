@@ -11,8 +11,8 @@ public class HazardSpawner : MonoBehaviour
     [SerializeField]private List<Transform> spawnPoints = new List<Transform>();
     private float velocity;
     private bool scoreCheck;
-    private float timer;
-    private int randomizedTime;
+    [SerializeField]private float timer;
+    [SerializeField]private int randomizedTime;
 
 
     void Start()
