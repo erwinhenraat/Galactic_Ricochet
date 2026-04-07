@@ -55,6 +55,7 @@ _Welke feedback krijgt de speler? Denk aan: screenshake, geluid, visuele effecte
 | UI            | _een lijst met alle bumpers die je kan plaatsen en een knoppen waarbij je het kan opslaan/spelen_    |
 | Animatie      | _builder overlay heeft miniscule animatie_        |
 
+
 ---
 
 ## 5. Regels & Parameters
@@ -131,6 +132,7 @@ _Welke nieuwe events worden aangemaakt? Op welke bestaande events wordt geabonne
 | _BuilderUI.cs_ | _de interacties van UI coderen_      |
 | _SaveLayout.cs_ | _map data sturen naar json file_      |
 | _SavedMap.json_ | _map data opslaan_      |
+| Object-layer      | alle bumpers hebben een bumper layer nodig        |
 
 ### 8.4 Uitschakelbaar
 
