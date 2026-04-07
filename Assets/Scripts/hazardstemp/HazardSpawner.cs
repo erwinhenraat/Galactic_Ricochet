@@ -8,30 +8,56 @@ public class HazardSpawner : MonoBehaviour
 {
     public static event Action onTimerHit;
     [SerializeField]private GameObject laserPrefab;
-    [SerializeField]private List<Transform> spawnPoints = new List<Transform>();
+    [SerializeField]private List<GameObject> spawnPoints = new List<GameObject>();
     private float velocity;
     private bool scoreCheck;
     [SerializeField]private float timer;
     [SerializeField]private int randomizedTime;
+    [SerializeField] private int i;
+
+    public static event Action onHazardWarning;
+    [SerializeField] private float warningTimer = 0f;
+    private float spawnTimer = 0f;
+    private GameObject spawnObject;
+    private SpriteRenderer spriteRenderer;
+    private bool visibility = false;
 
 
     void Start()
     {
         Score.onGetScore += CheckScoreThreshold;
-        HazardWarning.onHazardWarning += SpawnLaser;
+        HazardSpawner.onHazardWarning += SpawnLaser;
+        HazardSpawner.onTimerHit += WarningEffect;
+
         randomizedTime = UnityEngine.Random.Range(5, 20);
+
+
+        
+        spawnObject = spawnPoints[i];
+
+        spriteRenderer = spawnObject.GetComponent<SpriteRenderer>();
     }
 
     private void OnDisable()
     {
         Score.onGetScore -= CheckScoreThreshold;
-        HazardWarning.onHazardWarning -= SpawnLaser;
+        HazardSpawner.onHazardWarning -= SpawnLaser;
+        HazardSpawner.onTimerHit -= WarningEffect;
     }
 
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Space)) {
             SpawnLaser();
+        }
+
+        if (visibility == true)
+        {
+            spriteRenderer.enabled = false;
+        }
+        else
+        {
+            spriteRenderer.enabled = true;
         }
 
         RandomTimer();
@@ -54,7 +80,27 @@ public class HazardSpawner : MonoBehaviour
 
     }
 
+    private void WarningEffect()
+    {
+        warningTimer += Time.deltaTime;
+        spawnTimer += Time.deltaTime;
 
+        
+
+        spawnObject = spawnPoints[i];
+
+        spriteRenderer = spawnObject.GetComponent<SpriteRenderer>();
+
+        if (spawnTimer > 4f)
+        {
+            onHazardWarning?.Invoke();
+            spawnTimer = 0f;
+        }
+
+        if (warningTimer < 0.5) return;
+        visibility = !visibility;
+        warningTimer = 0;
+    }
 
     private void SpawnLaser() {
 
@@ -63,7 +109,7 @@ public class HazardSpawner : MonoBehaviour
 
         float vel = 0f;
 
-        int i = UnityEngine.Random.Range(0, spawnPoints.Count);
+        
 
         Vector3 position = spawnPoints[i].transform.position;
 
@@ -71,6 +117,8 @@ public class HazardSpawner : MonoBehaviour
         laser.transform.position = position;
 
         laser.GetComponent<HazardObject>().Velocity = vel;
+
+        i = UnityEngine.Random.Range(0, spawnPoints.Count);
 
         timer = 0f;
         randomizedTime = UnityEngine.Random.Range(5, 20);

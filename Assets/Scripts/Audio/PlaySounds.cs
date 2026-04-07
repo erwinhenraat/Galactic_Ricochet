@@ -45,8 +45,8 @@ public class PlaySounds : MonoBehaviour
         FlipperController.onFlipperPlaySound += PlayFlipperHit;
         HazardObject.onBallDestroyed += PlayExplodeBall;
         HazardSpawner.onTimerHit += PlayWarning;
-        HazardWarning.onHazardWarning += StopWarning;
-        HazardWarning.onHazardWarning += PlayLaser;
+        HazardSpawner.onHazardWarning += StopWarning;
+        HazardSpawner.onHazardWarning += PlayLaser;
         sources = GetComponents<AudioSource>();
 
     }
@@ -65,8 +65,8 @@ public class PlaySounds : MonoBehaviour
         FlipperController.onFlipperPlaySound -= PlayFlipperHit;
         HazardObject.onBallDestroyed -= PlayExplodeBall;
         HazardSpawner.onTimerHit -= PlayWarning;
-        HazardWarning.onHazardWarning -= StopWarning;
-        HazardWarning.onHazardWarning -= PlayLaser;
+        HazardSpawner.onHazardWarning -= StopWarning;
+        HazardSpawner.onHazardWarning -= PlayLaser;
     }
     private void PlayBumper(Transform _, int __)
     {

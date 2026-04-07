@@ -50,10 +50,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HazardSpawner
   laserPrefab: {fileID: 3656301524347477883, guid: ec94b49da3f07f54aa9f5b3528ef2666, type: 3}
   spawnPoints:
-  - {fileID: 3091201561077358702}
-  - {fileID: 4744123962983821295}
-  - {fileID: 4129626101660375288}
-  - {fileID: 4514118212011974340}
+  - {fileID: 8081360590695718144}
+  - {fileID: 7617222374701069632}
+  - {fileID: 3475911128081568393}
+  - {fileID: 6203686310516070964}
+  timer: 0
+  randomizedTime: 0
+  i: 0
+  warningTimer: 0
 --- !u!1 &3475911128081568393
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +68,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4129626101660375288}
   - component: {fileID: 1988437432111576559}
-  - component: {fileID: 7898449644346968393}
   m_Layer: 0
   m_Name: Square (2)
   m_TagString: Untagged
@@ -95,7 +98,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3475911128081568393}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -146,18 +149,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &7898449644346968393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3475911128081568393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ccf208f7db38641a7250eeb24e5009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HazardWarning
 --- !u!1 &6203686310516070964
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +159,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4514118212011974340}
   - component: {fileID: 4375325071447877985}
-  - component: {fileID: 20042959206392901}
   m_Layer: 0
   m_Name: Square2 (1)
   m_TagString: Untagged
@@ -199,7 +189,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6203686310516070964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -250,18 +240,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &20042959206392901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6203686310516070964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ccf208f7db38641a7250eeb24e5009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HazardWarning
 --- !u!1 &7617222374701069632
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +250,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4744123962983821295}
   - component: {fileID: 2817162537117220656}
-  - component: {fileID: 4492190670916995439}
   m_Layer: 0
   m_Name: Square2
   m_TagString: Untagged
@@ -303,7 +280,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7617222374701069632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -354,18 +331,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &4492190670916995439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617222374701069632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ccf208f7db38641a7250eeb24e5009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HazardWarning
 --- !u!1 &8081360590695718144
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +341,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3091201561077358702}
   - component: {fileID: 7481549025381262996}
-  - component: {fileID: 18954730335511052}
   m_Layer: 0
   m_Name: Square (1)
   m_TagString: Untagged
@@ -407,7 +371,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8081360590695718144}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -458,15 +422,3 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &18954730335511052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8081360590695718144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0ccf208f7db38641a7250eeb24e5009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HazardWarning
