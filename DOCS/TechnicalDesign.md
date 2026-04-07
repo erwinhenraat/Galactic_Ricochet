@@ -1,4 +1,4 @@
-# Galactic Ricochet - Technische Documentatie mads
+# Galactic Ricochet - Technische Documentatie
 
 ## Inhoudsopgave
 
@@ -199,6 +199,16 @@ classDiagram
         -Animator _animator
     }
 
+    class RNGBUmper {
+        +static event onHitRNGBumper
+        +int bumperValue
+        -OnCollisionEnter2D()
+    }
+
+    class RNGScorePop {
+        +RNGPop
+    }
+
     GameManager --> CrosshairInput
     GameManager --> Lives
     GameManager --> SelectInitials
@@ -230,6 +240,7 @@ classDiagram
     Score --> GameManager
     Score --> ScorePop
     Score --> SelectInitials
+    Score --> RNGScorePop
 
     Lives --> GameManager
     Lives --> PlaySounds
@@ -247,9 +258,11 @@ classDiagram
     PlaySounds --> Lives
     PlaySounds --> ExtraBall
     PlaySounds --> Shoot
+    PlaySounds --> RNGHitBumper
 
     Screenshake --> HitBumper
     Screenshake --> Combo
+    Screenshake --> RNgHitBumper
 
     ScorePop --> Score
     ScorePop --> ExtraBall
@@ -264,6 +277,13 @@ classDiagram
 
     TrackBalls --> Shoot
     TrackBalls --> ExtraBall
+
+    RNGHitBumper --> Combo
+    RNGHitBumper --> Score
+    RNGHitBumper --> PlaySounds
+    RNGHitBumper --> Screenshake
+
+    RNGScorePop --> Score
 ```
 
 ---
@@ -452,21 +472,50 @@ classDiagram
 
 ---
 
-#### 13. **ExtraBall Events** (Extra Leven)
+#### 13. **Rail Events** (Events for rails to function)
 
-| Event         | Type             | Argumenten     | Beschrijving             |
-| ------------- | ---------------- | -------------- | ------------------------ |
-| `RNGbumpers`  | `Action<Transform, int>` | `random int` | get a random score       |
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onIsOnRail` | `Action<SplineContainer, Vector2>` | `Spline for rail to follow and direction for ball exit` | Ball attached to rail |
+| `onRailPlaySound` | `Action<Bool>` | `Bool for if sound needs to be played` | Rail sounds started |
+| `onRailStopSound` | `Action<Bool>` | `Bool for if sound needs to be stopped` | Rail sounds stopped|
 
 **Subscribers:**
 
-- `Combo.OnhitRNGbumper()`
-- `PlaySounds.PlayRNGbumper()`
-- `ScorePop.ChromaPop`
-- `Score.OnGetChromaScore`
+- `col.gameObject.GetComponent<BallController>().onIsOnRail`
+- `BallController.onRailPlaySound += PlaySound.PlayRailEnter;`
+- `BallController.onRailPlaySound += PlaySound.PlayRailRoll;`
+- `BallController.onRailStopSound += PlaySound.StopRailRoll;`
 
 ---
 
+#### 14. **Flipper Events** (Events for flippers to function)
+
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onFlipperPlaySound` | `Action<bool>` | `Bool for if sound needs to be played` | Flipper sounds played |
+
+**Subscribers:**
+
+- `FlipperController.onFlipperPlaySound += PlaySound.PlayFlipperHit`
+
+---
+
+#### 15. **HitRNGBumper Events** (Bumper Botsing)
+
+| Event         | Type                     | Argumenten                                             | Beschrijving     |
+| ------------- | ------------------------ | ------------------------------------------------------ | ---------------- |
+| `onHitRNGBumper` | `Action<Transform, int>` | `transform` (bumper transform), `bumperValue` (punten) | Bal raakt RNG bumper |
+
+**Subscribers:**
+
+- `Combo.CheckForCombo()` - tagt bumper
+- `Score.GetScore()` - voegt punten toe
+- `PlaySounds.PlayBumper()` - speelt geluid
+- `Screenshake.Shake()` - camera trilt
+- `RNGScorePop.RNGPop()` - RNGscore text
+
+---
 
 ### Event-Flow Diagram
 
@@ -498,6 +547,13 @@ graph TD
 
     T --> U[GameManager.OnGameOver]
     T --> V[SelectInitials.Activate]
+
+    Z[Ball hits rail entrance] --> |RailController.onIsOnRail| Y[BallController.SetupRail]
+    Y -->  |BallController.onRailPlaySound| X[PlaySound.PlayRailEnter]
+    X --> W[PlaySound.PlayRailRoll]
+    Y -->  |BallController.onRailStopSound| 1[PlaySound.StopRailRoll]
+
+    2[Ball hits flipper] --> |FlipperController.onFlipperPlaySound| 3[PlaySound.PlayFlipperHit]
 ```
 
 ---
@@ -558,6 +614,11 @@ graph TD
 - **Logica**: OnTriggerExit2D vernietigert bal en triggeert `onBallLost`
 
 <img height = "250" src = "../DOCS/src/Interaction_Layer.gif" />
+
+#### **FlipperController**
+
+- **Functie**: Controls flipper logic for rotation and forces
+- **Logica**: OnCollisionEnter2D detects ball and triggers `Flip()`
 
 ---
 
@@ -638,7 +699,7 @@ graph TD
 - **Functie**: Toont floating tekst feedback
 - **Twee typen**:
   - Score popup (klein, op bumper locatie)
-  - Berichten popup (groot, centraal - "Extra Life", "Game Over", etc.)
+  - Berichten popup (groot, centraal - "Extra Life", "Now using...", etc.)
 - **Logic**: Animatie met schaal van 1 tot 4-8x over tijd
 
 #### **ComboMood**
@@ -875,4 +936,3 @@ Deze geluiden worden getriggerd door Action Events.
 - Screenshake: `shakeTime`, `shakeForce` per event type (`Shake`&`Tremble`) moet in de code aangepast worden om de screenshake timing te tweaken.
 
 ---
-
