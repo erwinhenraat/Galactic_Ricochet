@@ -98,10 +98,21 @@ public class Score : MonoBehaviour
             onHighScoreBrokenAtPlay.Invoke();
         }
     }
-    private void SetMultiplier(int value) 
-{
-    scoreMultiplier = SuperBallReward.IsSuperBallActive ? value * 10 : value;
-}
+
+    private void ShowRNGScore()
+    {
+
+        textfield.text = "ChromaScore : " + value.ToString();
+    }
+
+    private void ShowScore() {
+            textfield.text = "Score : " + value.ToString();
+    }
+    
+    private void SetMultiplier(int value)
+    {
+        scoreMultiplier = SuperBallReward.IsSuperBallActive ? value * 10 : value;
+        }
     private void CheckForHighScore(string _)
     {
 
