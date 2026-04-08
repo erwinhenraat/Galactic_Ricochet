@@ -33,7 +33,7 @@ public class HazardObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            onBallDestroyed?.Invoke();
+            onBallDestroyed?.Invoke();// Nodig voor PlaySound.cs
             Destroy(collision.gameObject);
             Debug.Log("Event Fired");
         }

@@ -1,8 +1,5 @@
 # Game Design Document — [Feature Naam]
 
-> **Instructie:** Kopieer dit bestand en hernoem het naar `GameDesign_[FeatureNaam].md`.
-> Vul alle secties zo volledig mogelijk in voordat je begint met ontwikkelen.
-
 ---
 
 ## 1. Overzicht
@@ -20,13 +17,13 @@
 
 ## 2. User Story
 
-> Als player wil ik niet dat alle combo rewards positief is dus wil ik een instant death feature zodat de ball dan gelijk verdwijnt.
+als player wil ik niet dat alle combo rewards positief zijn dus wil ik een instant death feature zodat de ball dan gelijk verdwijnt
 
 ---
 
 ## 3. Beschrijving
 
-Deze feature voegt een _hazard-object_ toe die door het speelveld heen schiet en de bal laat verdwijnen op contact.
+[!] Deze feature voegt een _hazard-object_ toe die door het speelveld heen schiet en de bal laat verdwijnen op contact.
 
 ---
 
@@ -34,7 +31,7 @@ Deze feature voegt een _hazard-object_ toe die door het speelveld heen schiet en
 
 ### 4.1 Kernmechanisme
 
-Tijdens het spelen neemt de speler een _Waarschuwings-Teken_ waar aan de zijkant van de scherm. Na een bepaald aantal tijd instantiate de _hazard-object_ en beweegt het object langs de scherm van de directie van de _Waarschuwings-Teken_. als de bal de _hazard-object_ raakt verdwijnt de bal.
+Tijdens het spelen neemt de speler een _Waarschuwings-Teken_ waar aan de zijkant van de scherm. Na een bepaald aantal tijd instantiate de _hazard-object_ en beweegt het object langs de scherm van de directie van de _Waarschuwings-Teken_. als de bal de _hazard-object_ raakt verdwijnt de bal, verliest de speler zijn combo en een van zijn levens.
 
 Na een bepaald aantal tijd speelt de routine weer opnieuw af in een random locatie.
 
@@ -42,25 +39,20 @@ Na een bepaald aantal tijd speelt de routine weer opnieuw af in een random locat
 
 _Geef aan welke bestaande systemen worden beïnvloed of aangevuld (bijv. Score, Combo, Lives, Multiplier, Input). Verwijs waar nodig naar het [Technisch Design](./TechnicalDesign.md)._
 
-| Bestaand Systeem   | Relatie / Impact               |
-| ------------------ | ------------------------------ |
-| Score              | _bijv. verhoogt score met X_   |
-| Combo / Multiplier | _bijv. reset combo bij missen_ |
-| Lives              | _bijv. geen invloed_           |
-| Input              | _bijv. extra knop nodig_       |
-| _Ander systeem_    | _…_                            |
+| Bestaand Systeem   | Relatie / Impact                                             |
+| ------------------ | ------------------------------------------------------------ |
+| Combo / Multiplier | _reset combo bij missen bij impact van Hazard-Object en bal_ |
+| SoundFX            | _SFX toegevoegd_                                             |
+| Lives              | _Haalt leven weg bij impact van Hazard-Object en bal_        |
 
 ### 4.3 Game Feel
 
 _Welke feedback krijgt de speler? Denk aan: screenshake, geluid, visuele effecten, UI-updates, animaties._
 
-| Feedback Type | Beschrijving                       |
-| ------------- | ---------------------------------- |
-| Visueel       | _bijv. particle effect bij impact_ |
-| Audio         | _bijv. power-up geluid_            |
-| Screenshake   | _bijv. korte shake bij activatie_  |
-| UI            | _bijv. icoon verschijnt in HUD_    |
-| Animatie      | _bijv. idle → active state_        |
+| Feedback Type | Beschrijving                                              |
+| ------------- | --------------------------------------------------------- |
+| Visueel       | _User krijgt waarschuwing van directie van Hazard-Object_ |
+| Audio         | _SFX bij 'Waarschuwing, Hazard fired en Ball destroyed'_  |
 
 ---
 
@@ -78,8 +70,6 @@ _Definieer de concrete spelregels en instelbare waarden voor deze feature._
 
 ## 6. Visueel Ontwerp
 
-_Voeg schetsen, wireframes, of referentiebeelden toe. Beschrijf de gewenste look & feel._
-
 ### Schetsen / Referenties
 
 > _Plaats hier afbeeldingen of links naar referentiemateriaal._
@@ -88,27 +78,25 @@ _Voeg schetsen, wireframes, of referentiebeelden toe. Beschrijf de gewenste look
 
 ### Placeholder Art Beschrijving
 
-_Beschrijf welke placeholder art nodig is om de feature te ontwikkelen en te testen._
+- Visual van de _Warning-sign_
+- visual van de _Hazard-Object_
+- VFX voor impat van _Hazard-Object_ en _bal_
 
 ---
 
 ## 7. Audio Ontwerp
 
-_Welke geluiden zijn nodig? Beschrijf per geluid het gewenste karakter._
-
 | Geluid               | Beschrijving / Karakter            | Placeholder  |
 | -------------------- | ---------------------------------- | ------------ |
 | Ball_Destroyed.SFX   | _Korte, punchy synth hit_          | ☐ Ja / ☐ Nee |
 | Hazard_Fired.SFX     | _Zacht ambient hum tijdens actief_ | ☐ Ja / ☐ Nee |
-| Warning_Sign.SFX     | vervelend biepend geluid            | ☐ Ja / ☐ Nee |
+| Warning_Sign.SFX     | _Alarmerend waarschuw geluid_      | ☐ Ja / ☐ Nee |
 
 ---
 
 ## 8. Technische Overwegingen
 
 ### 8.1 Architectuurlaag
-
-_In welke laag van de architectuur past deze feature? (Input & Control / Interaction / Game Logic / Feedback)_
 
 ```
 ┌─────────────────────────────────────┐
@@ -130,17 +118,20 @@ _In welke laag van de architectuur past deze feature? (Input & Control / Interac
 
 _Welke nieuwe events worden aangemaakt? Op welke bestaande events wordt geabonneerd?_
 
-| Event                        | Richting        | Beschrijving                  |
-| ---------------------------- | --------------- | ----------------------------- |
-| _bijv. `onPowerUpCollected`_ | Publish (nieuw) | _Fired bij oppakken power-up_ |
-| _bijv. `onHitBumper`_        | Subscribe       | _Luistert naar bumper hits_   |
+| Event                        | Richting        | Beschrijving                            |
+| ---------------------------- | --------------- | --------------------------------------- |
+| `onTimerHit`                 | Publish         | _Fired bij activering van warningteken_ |
+| `onHazardWarning`            | Publish         | _Fired als laser geinstantieerd wordt_  |
+| `onBallDestroyed`            | Publish         | _Fired als laser en bal impact maken_   |
+| `onGetScore`                 | Subscribe       | _Luistert naar behaalde score waarde_   |
 
 ### 8.3 Benodigde Scripts / Componenten
 
-| Script / Component   | Verantwoordelijkheid                   |
-| -------------------- | -------------------------------------- |
-| _bijv. PowerUp.cs_   | _Detectie collision, activeren effect_ |
-| _bijv. PowerUpUI.cs_ | _Tonen van actief power-up icoon_      |
+| Script / Component   | Verantwoordelijkheid                                            |
+| -------------------- | --------------------------------------------------------------- |
+| Score.cs             | _Bepaald score-treshhold voor waneer de laser begint met vuren_ |
+| HazardObject.cs      | _Geeft functionaliteit aan Hazard-Object_                       |
+| HazardSpawner.cs     | _Bepaald waar en waneer hazard-object inspawned_                |
 
 ### 8.4 Uitschakelbaar
 
