@@ -1,49 +1,69 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 
 public class HazardSpawner : MonoBehaviour
 {
     public static event Action onTimerHit;
-    [SerializeField]private GameObject laserPrefab;
-    [SerializeField]private List<GameObject> spawnPoints = new List<GameObject>();
+    public static event Action onHazardWarning;
+
     private float velocity;
     private bool scoreCheck;
+    private float spawnTimer = 0f;
+    private bool visibility = false;
+    private bool warningActive = false;
+    private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+
+    [SerializeField]private GameObject laserPrefab;
+    [SerializeField]private List<GameObject> spawnPoints = new List<GameObject>();
     [SerializeField]private float timer;
     [SerializeField]private int randomizedTime;
-    [SerializeField] private int i;
-
-    public static event Action onHazardWarning;
-    [SerializeField] private float warningTimer = 0f;
-    private float spawnTimer = 0f;
-    private GameObject spawnObject;
-    private SpriteRenderer spriteRenderer;
-    private bool visibility = false;
-
+    [SerializeField]private int i;    
+    [SerializeField]private float warningTimer = 0f;
+   
+    
 
     void Start()
     {
         Score.onGetScore += CheckScoreThreshold;
-        HazardSpawner.onHazardWarning += SpawnLaser;
-        HazardSpawner.onTimerHit += WarningEffect;
-
-        randomizedTime = UnityEngine.Random.Range(5, 20);
+       
+        randomizedTime = UnityEngine.Random.Range(3, 6);
 
 
-        
-        spawnObject = spawnPoints[i];
+        foreach (var p in spawnPoints) {
+ 
 
-        spriteRenderer = spawnObject.GetComponent<SpriteRenderer>();
+            spriteRenderers.Add(p.GetComponent<SpriteRenderer>());
+
+            p.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        /*
+        for (int i = 0; i < spawnPoints.Count; i++)
+        {
+            GameObject spawnObject;
+            spawnObject = spawnPoints[i];
+
+            spriteRenderers.Add(spawnObject.GetComponent<SpriteRenderer>());
+
+            spriteRenderers[i].enabled = false;
+
+
+        }*/
+        i = UnityEngine.Random.Range(0, spawnPoints.Count);
+
     }
+
 
     private void OnDisable()
     {
         Score.onGetScore -= CheckScoreThreshold;
         HazardSpawner.onHazardWarning -= SpawnLaser;
-        HazardSpawner.onTimerHit -= WarningEffect;
+        //HazardSpawner.onTimerHit -= WarningEffect;
     }
+
+   
 
     void Update()
     {
@@ -51,20 +71,24 @@ public class HazardSpawner : MonoBehaviour
             SpawnLaser();
         }
 
-        if (visibility == true)
+        //if (visibility == true)
+        if (warningActive == true)
         {
-            spriteRenderer.enabled = false;
-        }
-        else
-        {
-            spriteRenderer.enabled = true;
+            if (visibility == true)
+            {
+                spriteRenderers[i].enabled = false;
+            }
+            else
+            {
+                spriteRenderers[i].enabled = true;
+            }
         }
 
         RandomTimer();
 
     }
     private void CheckScoreThreshold(Vector2 _ , int __, int score) {
-        if (score >= 70000) { 
+        if (score >= 1000) { 
             scoreCheck = true;
         }
     
@@ -72,10 +96,12 @@ public class HazardSpawner : MonoBehaviour
 
     private void RandomTimer()
     {
-        //if (scoreCheck == false) return;
+        if (scoreCheck == false) return;
         timer += Time.deltaTime;
         if (timer > randomizedTime) {
-            onTimerHit?.Invoke();
+            onTimerHit?.Invoke();   // wordt gebruikt in sound script
+
+            WarningEffect();                     
         }
 
     }
@@ -85,16 +111,15 @@ public class HazardSpawner : MonoBehaviour
         warningTimer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
 
-        
-
-        spawnObject = spawnPoints[i];
-
-        spriteRenderer = spawnObject.GetComponent<SpriteRenderer>();
+        warningActive = true;
+               
 
         if (spawnTimer > 4f)
         {
-            onHazardWarning?.Invoke();
+            onHazardWarning?.Invoke();//ook voor sound
+            SpawnLaser();
             spawnTimer = 0f;
+            warningActive = false;
         }
 
         if (warningTimer < 0.5) return;
@@ -108,7 +133,6 @@ public class HazardSpawner : MonoBehaviour
         GameObject laser = Instantiate(laserPrefab);
 
         float vel = 0f;
-
         
 
         Vector3 position = spawnPoints[i].transform.position;
@@ -118,9 +142,12 @@ public class HazardSpawner : MonoBehaviour
 
         laser.GetComponent<HazardObject>().Velocity = vel;
 
-        i = UnityEngine.Random.Range(0, spawnPoints.Count);
+      
 
         timer = 0f;
-        randomizedTime = UnityEngine.Random.Range(5, 20);
+        randomizedTime = UnityEngine.Random.Range(3, 6);
+        
+        spriteRenderers[i].enabled = false;
+        i = UnityEngine.Random.Range(0, spawnPoints.Count);
     }
 }

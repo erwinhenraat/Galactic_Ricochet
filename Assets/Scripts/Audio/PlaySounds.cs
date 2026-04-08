@@ -15,7 +15,7 @@ public class PlaySounds : MonoBehaviour
 
         if (sources.Length < 12)
         {
-            Debug.LogError("PlaySounds requires 12 udioSource components!");
+            Debug.LogError("PlaySounds requires 12 AudioSource components!");
             return;
         }
 
