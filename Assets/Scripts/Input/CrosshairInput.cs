@@ -31,14 +31,20 @@ public class CrosshairInput : MonoBehaviour
     private float _swapTimer = 0f;
     private bool _swapActive = false;
 
+    private void Awake()
+    {
+        Scene tempScene = SceneManager.GetActiveScene();
+        if (tempScene.name == "Galactic_Ricochet") PlayOrEditorMode = GameStateMachine.Play;
+        else PlayOrEditorMode = GameStateMachine.Editor;
+    }
     private void Start()
     {
         SpriteRenderer _crosshairSpriteRenderer = GetComponent<SpriteRenderer>();
         Cursor.visible = false;
         CrosshairInput.SelectedType = _inputType;
-        Scene tempScene = SceneManager.GetActiveScene();
-        if (tempScene.name == "Galactic_Ricochet")PlayOrEditorMode = GameStateMachine.Play;
-        else PlayOrEditorMode = GameStateMachine.Editor;
+
+        
+        Debug.Log(PlayOrEditorMode);
     }
 
 

@@ -497,6 +497,7 @@ GameObject:
   - component: {fileID: 644996500}
   - component: {fileID: 644996502}
   - component: {fileID: 644996503}
+  - component: {fileID: 644996504}
   m_Layer: 7
   m_Name: Square (1)
   m_TagString: BumperInstance
@@ -637,78 +638,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BumperInstances
   _bumperColor: BlueCombo
---- !u!1001 &661718666
-PrefabInstance:
+--- !u!114 &644996504
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3709443744097075318, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: stopAction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 8.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053129286820682214, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8715983564485907861, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_Name
-      value: PF_bumper (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8715983564485907861, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8715983564485907861, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      propertyPath: m_TagString
-      value: BlueCombo
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8715983564485907861, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 984417968}
-  m_SourcePrefab: {fileID: 100100000, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644996499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfc896293815c944886140d4ee1806f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BumpersNotBeingDragged
 --- !u!1 &834461016
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,23 +831,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &984417967 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8715983564485907861, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
-  m_PrefabInstance: {fileID: 661718666}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &984417968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 984417967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edfc896293815c944886140d4ee1806f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BumpersNotBeingDragged
 --- !u!1 &1099526616 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 480076401306870892, guid: 91495dba43cd4c34585bd351196dee0a, type: 3}
@@ -959,6 +883,7 @@ GameObject:
   - component: {fileID: 1601518642}
   - component: {fileID: 1601518644}
   - component: {fileID: 1601518645}
+  - component: {fileID: 1601518646}
   m_Layer: 7
   m_Name: Square
   m_TagString: BumperInstance
@@ -1099,6 +1024,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BumperInstances
   _bumperColor: CyanCombo
+--- !u!114 &1601518646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601518641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfc896293815c944886140d4ee1806f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BumpersNotBeingDragged
 --- !u!1001 &1660565873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1171,4 +1108,3 @@ SceneRoots:
   - {fileID: 834461019}
   - {fileID: 1660565873}
   - {fileID: 438959095}
-  - {fileID: 661718666}

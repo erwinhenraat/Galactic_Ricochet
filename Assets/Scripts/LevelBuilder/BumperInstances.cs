@@ -8,6 +8,7 @@ public class BumperInstances : MonoBehaviour
     private void Start()
     {
         //DragAndDropSystem.onGameObjectInstanced += BackToStartingPos;
+        //set starting pos
         _startingTransform = transform.position;
     }
 
@@ -15,11 +16,13 @@ public class BumperInstances : MonoBehaviour
     {
         transform.position = startingTransform.position;
     }*/
-    public Vector3 startingPosition
+    //make sure staring position is correct so no setter
+    public Vector3 StartingPosition
     {
         get { return _startingTransform; }
     }
 
+    // to give tag to instance
     public string BumperColor
     {
         get { return _bumperColor; }

@@ -15,10 +15,10 @@ TagManager:
   - BlueCombo
   - YellowCombo
   - PinkCombo
-  - GreenCombo
   - JustAnotherTag
   - InitialUp
   - InitialDown
+  - BumperInstance
   layers:
   - Default
   - TransparentFX
@@ -27,7 +27,7 @@ TagManager:
   - Water
   - UI
   - BG
-  - 
+  - Bumper
   - 
   - 
   - 
