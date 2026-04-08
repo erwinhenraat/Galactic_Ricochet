@@ -12,16 +12,21 @@ public class Combo : MonoBehaviour
     void Start()
     {
         HitBumper.onHitBumper += CheckForCombo;
-        PlayArea.onBallLost += ResetCombo;        
+        PlayArea.onBallLost += ResetComboFromLostBall;
     }
     private void OnDisable()
     {
         HitBumper.onHitBumper -= CheckForCombo;
-        PlayArea.onBallLost -= ResetCombo;
+        PlayArea.onBallLost -= ResetComboFromLostBall;
     }
     private void ResetCombo()
     {
         onComboLost?.Invoke(tagSequence.Count, "None");
+        tagSequence.Clear();
+    }
+
+    private void ResetComboFromLostBall()
+    {
         tagSequence.Clear();
     }
     private void CheckForCombo(Transform transform, int _) {

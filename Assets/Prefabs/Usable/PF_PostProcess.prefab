@@ -64,6 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vol: {fileID: 11400000, guid: f6face9a13d9fb34bab98c41dfb568f7, type: 2}
   noColorFilter: {r: 1, g: 1, b: 1, a: 1}
-  colorFilter: {r: 1, g: 0.45597476, b: 0.45597476, a: 1}
+  colorFilter: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+  colorFilterBall: {r: 1, g: 0.54402506, b: 0.54402506, a: 1}
   effectPower: 0.15
   effectTime: 0.02

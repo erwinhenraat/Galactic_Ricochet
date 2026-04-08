@@ -12,6 +12,7 @@ public class ComboMood : MonoBehaviour
     [SerializeField] private VolumeProfile vol;
     [SerializeField] private Color noColorFilter;
     [SerializeField] private Color colorFilter;
+    [SerializeField] private Color colorFilterBall;
     [SerializeField] private float effectPower = 0.2f;
     [SerializeField] private float effectTime = 0.02f;
     private void Start()
@@ -19,6 +20,7 @@ public class ComboMood : MonoBehaviour
         Combo.onComboAchieved += AddComboEffects;
         Combo.onComboLost += AddComboLoseEffects;
         Lives.onGameOver += AddGameOverEffects;
+        PlayArea.onBallLost += AddBallLostEffects;
         ColorAdjustments col;
         if (vol.TryGet<ColorAdjustments>(out col))
         {
@@ -43,6 +45,7 @@ public class ComboMood : MonoBehaviour
         Combo.onComboAchieved -= AddComboEffects;
         Combo.onComboLost -= AddComboLoseEffects;
         Lives.onGameOver -= AddGameOverEffects;
+        PlayArea.onBallLost -= AddBallLostEffects;
     }
 
     private void Update()
@@ -98,6 +101,15 @@ public class ComboMood : MonoBehaviour
         if (vol.TryGet<ColorAdjustments>(out col))
         {
             col.saturation.value = -100;
+        }
+    }
+
+    private void AddBallLostEffects() 
+    {
+        ColorAdjustments col;
+        if (vol.TryGet<ColorAdjustments>(out col))
+        {
+            col.colorFilter.value = colorFilterBall;
         }
     }
 }
