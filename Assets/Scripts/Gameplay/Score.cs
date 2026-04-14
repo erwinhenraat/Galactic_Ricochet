@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Score : MonoBehaviour
 {
+    public static event Action<Vector2, int> onGetRNGScore;
     public static event Action<Vector2, int, int> onGetScore;
     public static event Action<int> onSaveNewHighscore;
     public static event Action onHighScoreBrokenAtPlay;
@@ -22,6 +23,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         HitBumper.onHitBumper += GetScore;
+        RNGHitBumper.onHitRNGBumper += GetRNGScore;
         Multiplier.onMultiplierUpdate += SetMultiplier;
         Lives.onGameOver += CheckForHighScore;
         SelectInitials.onInitialsSubmitted += SaveHighScore;
@@ -33,6 +35,7 @@ public class Score : MonoBehaviour
     private void OnDisable()
     {
         HitBumper.onHitBumper -= GetScore;
+        RNGHitBumper.onHitRNGBumper -= GetRNGScore;
         Multiplier.onMultiplierUpdate -= SetMultiplier;
         Lives.onGameOver -= CheckForHighScore;
         SelectInitials.onInitialsSubmitted -= SaveHighScore;
@@ -75,6 +78,28 @@ public class Score : MonoBehaviour
         
 
     }
+
+    private void GetRNGScore(Transform bumper, int baseScore)
+    {
+        int addedScore = baseScore * scoreMultiplier;
+        value += addedScore;
+
+        onGetRNGScore?.Invoke((Vector2)bumper.position, addedScore);
+
+        ShowRNGScore();
+
+        if (value > highscore)
+        {
+            onHighScoreBrokenAtPlay.Invoke();
+        }
+    }
+
+    private void ShowRNGScore()
+    {
+
+        textfield.text = "ChromaScore : " + value.ToString();
+    }
+
     private void ShowScore() { 
         textfield.text = "Score : "+value.ToString();
     }

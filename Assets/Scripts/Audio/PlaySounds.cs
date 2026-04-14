@@ -5,16 +5,16 @@ using UnityEngine.Splines;
 
 public class PlaySounds : MonoBehaviour
 {
-    public enum SoundType { Bumper, Combo, GameOver, ExtraBall, BallLost, Loadup, RailEnter, RailRoll, FlipperHit, RNGBumper }
+    public enum SoundType { Bumper, Combo, GameOver, ExtraBall, BallLost, Loadup, RailEnter, RailRoll, FlipperHit, RNGBumper, ExplodeBall, Laser }
 
     private Dictionary<SoundType, AudioSource> soundSources = new Dictionary<SoundType, AudioSource>();
     void Start()
     {
         AudioSource[] sources = GetComponents<AudioSource>();
 
-        if (sources.Length < 9)
+        if (sources.Length < 11)
         {
-            Debug.LogError("PlaySounds requires 10 AudioSource components!");
+            Debug.LogError("PlaySounds requires 12 AudioSource components!");
             return;
         }
 
@@ -28,6 +28,8 @@ public class PlaySounds : MonoBehaviour
         soundSources[SoundType.RailRoll] = sources[7];
         soundSources[SoundType.FlipperHit] = sources[8];
         soundSources[SoundType.RNGBumper] = sources[9];
+        soundSources[SoundType.ExplodeBall] = sources[10];
+        soundSources[SoundType.Laser] = sources[11];
 
         HitBumper.onHitBumper += PlayBumper;
         Combo.onComboAchieved += PlayCombo;
@@ -41,6 +43,8 @@ public class PlaySounds : MonoBehaviour
         BallToRailConnector.onRailStopSound += StopRailRoll;
         FlipperController.onFlipperPlaySound += PlayFlipperHit;
         RNGHitBumper.onHitRNGBumper += PlayRNGBumper;
+        HazardObject.onBallDestroyed += PlayExplodeBall;
+        HazardSpawner.onHazardWarning += PlayLaser;
     }
     private void OnDisable()
     {
@@ -56,6 +60,8 @@ public class PlaySounds : MonoBehaviour
         BallToRailConnector.onRailStopSound -= StopRailRoll;
         FlipperController.onFlipperPlaySound -= PlayFlipperHit;
         RNGHitBumper.onHitRNGBumper -= PlayRNGBumper;
+        HazardObject.onBallDestroyed -= PlayExplodeBall;
+        HazardSpawner.onHazardWarning -= PlayLaser;
     }
     private void PlayBumper(Transform _, int __)
     {
@@ -112,5 +118,15 @@ public class PlaySounds : MonoBehaviour
     {
         soundSources[SoundType.RNGBumper].pitch = Random.Range(0.5f, 1.5f);
         soundSources[SoundType.RNGBumper].Play();
+    }
+
+    private void PlayExplodeBall()
+    {
+        soundSources[SoundType.ExplodeBall].Play();
+    }
+
+    private void PlayLaser()
+    {
+        soundSources[SoundType.Laser].Play();
     }
 }

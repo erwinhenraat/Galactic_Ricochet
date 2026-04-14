@@ -97,7 +97,7 @@ public class HazardSpawner : MonoBehaviour
         warningActive = true;
                
 
-        if (spawnTimer > 4f)
+        if (spawnTimer > 2f)
         {
             onHazardWarning?.Invoke();//ook voor sound
             SpawnLaser();
