@@ -25,7 +25,10 @@ public class DragAndDropSystem : MonoBehaviour
     {
         set { _timeElapsed = value; }
     }
-
+    public bool Attached
+    {
+        get { return _attached; }
+    }
     public SpriteRenderer newBumperSpriteRenderer
     {
         get { return _newBumperSpriteRenderer; }

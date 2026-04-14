@@ -29,6 +29,7 @@ public class BumpersNotBeingDragged : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (!_dragAndDropSystem.Attached) return;
         //check for overlapping objects
         _hit = Physics2D.BoxCast(transform.position, new Vector2(3f, 2.5f), 0, -transform.up, 0, _dragAndDropSystem.bumperLayer);
         //if overlapping object is not bumper being dragged return

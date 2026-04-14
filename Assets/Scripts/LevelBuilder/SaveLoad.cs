@@ -24,6 +24,7 @@ public class SaveLoad : MonoBehaviour
 
     [SerializeField] private GameObject prefab;
     [SerializeField] private TextAsset loadFile;
+    [SerializeField] private string _bumperLayer;
 
     private string savePath;
 
@@ -57,7 +58,7 @@ public class SaveLoad : MonoBehaviour
     void Save()
     {
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
-        int playAreaLayer = LayerMask.NameToLayer("Bumpers");
+        int playAreaLayer = LayerMask.NameToLayer(_bumperLayer);
 
         SaveFile saveFile = new SaveFile();
 
@@ -65,7 +66,8 @@ public class SaveLoad : MonoBehaviour
         {
             if (obj.layer != playAreaLayer)
                 continue;
-
+            if (obj.tag == "BumperInstance")
+                continue;
             SavedObject data = new SavedObject();
             data.tag = obj.tag;
             data.layer = obj.layer;

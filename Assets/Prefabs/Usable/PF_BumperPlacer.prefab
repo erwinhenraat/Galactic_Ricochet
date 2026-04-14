@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1240766740894004539}
   - component: {fileID: 2019483473276973549}
   - component: {fileID: 4588469570799324384}
-  m_Layer: 7
-  m_Name: Square (1)
-  m_TagString: Untagged
+  m_Layer: 3
+  m_Name: PF_BumperPlacer
+  m_TagString: BumperInstance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
