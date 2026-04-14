@@ -283,8 +283,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 429.30054, y: 33}
-  m_SizeDelta: {x: 853.1011, y: 50}
+  m_AnchoredPosition: {x: 295, y: 33}
+  m_SizeDelta: {x: 584.5, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &145922104
 MonoBehaviour:
@@ -385,11 +385,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-<<<<<<< Updated upstream
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-=======
   m_margin: {x: 0, y: 0, z: -598.52747, w: 0}
->>>>>>> Stashed changes
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -435,8 +431,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RNGBumpers
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: 2804680658135263204, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: maxValue
       value: 2500
@@ -445,7 +439,6 @@ PrefabInstance:
       propertyPath: minValue
       value: 1000
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
     - target: {fileID: 3005765229125111459, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -454,8 +447,6 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: cfa04482047eae4429259054e45afc68, type: 2}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: 3470942701654654889, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: maxValue
       value: 5000
@@ -472,7 +463,6 @@ PrefabInstance:
       propertyPath: minValue
       value: 1500
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
     - target: {fileID: 3808380273581405901, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -481,8 +471,6 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: cfa04482047eae4429259054e45afc68, type: 2}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: 4094285202014014438, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: maxValue
       value: 10000
@@ -491,7 +479,6 @@ PrefabInstance:
       propertyPath: minValue
       value: 5000
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
     - target: {fileID: 4477368775048256439, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -500,13 +487,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: cfa04482047eae4429259054e45afc68, type: 2}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: 5049104799178089471, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
     - target: {fileID: 5542484819142446725, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -551,8 +535,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: 6900866365517884267, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: maxValue
       value: 3500
@@ -561,7 +543,6 @@ PrefabInstance:
       propertyPath: minValue
       value: 1500
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
     - target: {fileID: 7107670283981178316, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -570,8 +551,6 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: cfa04482047eae4429259054e45afc68, type: 2}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: 7924123285888110596, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: maxValue
       value: 5000
@@ -580,7 +559,6 @@ PrefabInstance:
       propertyPath: minValue
       value: 2500
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
     - target: {fileID: 7992264656644796482, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -589,8 +567,6 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: cfa04482047eae4429259054e45afc68, type: 2}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: 8237870643320457586, guid: 7a33b36974fef6742978cdfd4fc4bbf4, type: 3}
       propertyPath: maxValue
       value: 2500
@@ -599,7 +575,6 @@ PrefabInstance:
       propertyPath: minValue
       value: 1000
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -669,11 +644,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-<<<<<<< Updated upstream
-  orthographic size: 6.5
-=======
   orthographic size: 7
->>>>>>> Stashed changes
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2279,7 +2250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 79.4694
+      value: 93.4636
       objectReference: {fileID: 0}
     - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2287,17 +2258,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
       propertyPath: m_LocalScale.x
-<<<<<<< Updated upstream
-      value: 1.913835
-      objectReference: {fileID: 0}
-    - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.913835
-      objectReference: {fileID: 0}
-    - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.69594
-=======
       value: 1.6276971
       objectReference: {fileID: 0}
     - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
@@ -2307,7 +2267,6 @@ PrefabInstance:
     - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.59188986
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2339,6 +2298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
       propertyPath: m_AnchoredPosition.x
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       value: -879.1913
       objectReference: {fileID: 0}
@@ -2352,6 +2312,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -323.16
 >>>>>>> Stashed changes
+=======
+      value: -865.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -301.6
+>>>>>>> parent of a9a6a59 (Update TestScene.unity)
       objectReference: {fileID: 0}
     - target: {fileID: 2919318449887962073, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2365,6 +2332,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 3215312708546214595, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
       propertyPath: m_SizeDelta.y
 <<<<<<< Updated upstream
@@ -2377,6 +2345,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -10.9
       objectReference: {fileID: 0}
+=======
+>>>>>>> parent of a9a6a59 (Update TestScene.unity)
     - target: {fileID: 4325128862546281027, guid: 8758afd6dd3d0664a8c702775893fb80, type: 3}
       propertyPath: m_Name
       value: PF_RngUIManager
