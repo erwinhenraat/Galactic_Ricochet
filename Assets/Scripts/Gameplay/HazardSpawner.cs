@@ -18,10 +18,10 @@ public class HazardSpawner : MonoBehaviour
 
     [SerializeField]private GameObject laserPrefab;
     [SerializeField]private List<GameObject> spawnPoints = new List<GameObject>();
-    [SerializeField]private float timer;
-    [SerializeField]private int randomizedTime;
-    [SerializeField]private int i;    
-    [SerializeField]private float warningTimer = 0f;
+    private float timer;
+    private int randomizedTime;
+    private int i;    
+    private float warningTimer = 0f;
    
     
 
@@ -39,18 +39,7 @@ public class HazardSpawner : MonoBehaviour
 
             p.GetComponent<SpriteRenderer>().enabled = false;
         }
-        /*
-        for (int i = 0; i < spawnPoints.Count; i++)
-        {
-            GameObject spawnObject;
-            spawnObject = spawnPoints[i];
 
-            spriteRenderers.Add(spawnObject.GetComponent<SpriteRenderer>());
-
-            spriteRenderers[i].enabled = false;
-
-
-        }*/
         i = UnityEngine.Random.Range(0, spawnPoints.Count);
 
     }
@@ -59,19 +48,13 @@ public class HazardSpawner : MonoBehaviour
     private void OnDisable()
     {
         Score.onGetScore -= CheckScoreThreshold;
-        HazardSpawner.onHazardWarning -= SpawnLaser;
-        //HazardSpawner.onTimerHit -= WarningEffect;
     }
 
    
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space)) {
-            SpawnLaser();
-        }
 
-        //if (visibility == true)
         if (warningActive == true)
         {
             if (visibility == true)
@@ -88,7 +71,7 @@ public class HazardSpawner : MonoBehaviour
 
     }
     private void CheckScoreThreshold(Vector2 _ , int __, int score) {
-        if (score >= 1000) { 
+        if (score >= 10000) { 
             scoreCheck = true;
         }
     

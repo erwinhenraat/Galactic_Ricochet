@@ -11,10 +11,6 @@ public class HazardObject : MonoBehaviour
     {
         get { return velocity; } set { velocity = value; }
     }
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -35,7 +31,6 @@ public class HazardObject : MonoBehaviour
         {
             onBallDestroyed?.Invoke();// Nodig voor PlaySound.cs
             Destroy(collision.gameObject);
-            Debug.Log("Event Fired");
         }
     }
 
