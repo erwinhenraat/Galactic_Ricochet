@@ -57,7 +57,7 @@ public class SaveLoad : MonoBehaviour
     void Save()
     {
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
-        int playAreaLayer = LayerMask.NameToLayer("Play Area");
+        int playAreaLayer = LayerMask.NameToLayer("Bumpers");
 
         SaveFile saveFile = new SaveFile();
 
