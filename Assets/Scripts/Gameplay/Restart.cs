@@ -43,7 +43,7 @@ public class Restart : MonoBehaviour
             textfield.enabled = false;
             if (titleField != null) titleField.enabled = false;
 
-            SceneManager.LoadScene((int)Scenes.Start);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

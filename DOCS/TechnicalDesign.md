@@ -75,7 +75,6 @@ classDiagram
     class CrosshairInput {
         +static event onPressFire1
         +static event onReleaseFire1
-        +static event onPressFire2
         +static event onSwapControls
         +static Vector3 CrosshairPosition
         +static InputType SelectedType
@@ -89,9 +88,6 @@ classDiagram
         +static event onRelease
         -HandleShot()
         -DrawForceLine()
-        -HandlePressFire()
-        -HandleReleaseFire()
-        -HandleCancel()
         -DisableShot()
         -ReloadShot()
     }
@@ -203,6 +199,16 @@ classDiagram
         -Animator _animator
     }
 
+    class RNGBUmper {
+        +static event onHitRNGBumper
+        +int bumperValue
+        -OnCollisionEnter2D()
+    }
+
+    class RNGScorePop {
+        +RNGPop
+    }
+
     GameManager --> CrosshairInput
     GameManager --> Lives
     GameManager --> SelectInitials
@@ -234,6 +240,7 @@ classDiagram
     Score --> GameManager
     Score --> ScorePop
     Score --> SelectInitials
+    Score --> RNGScorePop
 
     Lives --> GameManager
     Lives --> PlaySounds
@@ -251,9 +258,11 @@ classDiagram
     PlaySounds --> Lives
     PlaySounds --> ExtraBall
     PlaySounds --> Shoot
+    PlaySounds --> RNGHitBumper
 
     Screenshake --> HitBumper
     Screenshake --> Combo
+    Screenshake --> RNgHitBumper
 
     ScorePop --> Score
     ScorePop --> ExtraBall
@@ -268,6 +277,13 @@ classDiagram
 
     TrackBalls --> Shoot
     TrackBalls --> ExtraBall
+
+    RNGHitBumper --> Combo
+    RNGHitBumper --> Score
+    RNGHitBumper --> PlaySounds
+    RNGHitBumper --> Screenshake
+
+    RNGScorePop --> Score
 ```
 
 ---
@@ -282,14 +298,12 @@ classDiagram
 | ---------------- | ---------------- | ---------------------------------- | ------------------------------------------------- |
 | `onPressFire1`   | `Action`         | -                                  | Wordt geactiveerd wanneer Fire1 button ingedrukt  |
 | `onReleaseFire1` | `Action`         | -                                  | Wordt geactiveerd wanneer Fire1 button losgelaten |
-| `onPressFire2`   | `Action`         | -                                  | Wordt geactiveerd wanneer Fire2 button ingedrukt  |
 | `onSwapControls` | `Action<string>` | `message` (bv. "Mouse Activated!") | Signaleert input-type wissel d.m.v. TAB           |
 
 **Subscribers:**
 
 - `Shoot.HandlePressFire()`
 - `Shoot.HandleReleaseFire()`
-- `Shoot.HandleCancel()`
 - `ScorePop.PopMessage()`
 - `Restart.HandleFire()`
 
@@ -301,7 +315,7 @@ classDiagram
 | ---------------- | -------------------- | ----------------------------- | ------------------------------------ |
 | `onShootNewBall` | `Action<GameObject>` | `ball` (nieuw bal GameObject) | Bal is afgeschoten                   |
 | `onPress`        | `Action`             | -                             | Trigger ingedrukt (laden begonnen)   |
-| `onRelease`      | `Action`             | -                             | Trigger losgelaten (bal afgeschoten of gecanceled) |
+| `onRelease`      | `Action`             | -                             | Trigger losgelaten (bal afgeschoten) |
 
 **Subscribers:**
 
@@ -484,6 +498,22 @@ classDiagram
 **Subscribers:**
 
 - `FlipperController.onFlipperPlaySound += PlaySound.PlayFlipperHit`
+
+---
+
+#### 15. **HitRNGBumper Events** (Bumper Botsing)
+
+| Event         | Type                     | Argumenten                                             | Beschrijving     |
+| ------------- | ------------------------ | ------------------------------------------------------ | ---------------- |
+| `onHitRNGBumper` | `Action<Transform, int>` | `transform` (bumper transform), `bumperValue` (punten) | Bal raakt RNG bumper |
+
+**Subscribers:**
+
+- `Combo.CheckForCombo()` - tagt bumper
+- `Score.GetScore()` - voegt punten toe
+- `PlaySounds.PlayBumper()` - speelt geluid
+- `Screenshake.Shake()` - camera trilt
+- `RNGScorePop.RNGPop()` - RNGscore text
 
 ---
 

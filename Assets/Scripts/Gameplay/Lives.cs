@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Lives : MonoBehaviour
 {
-    
+
     public static event Action<string> onGameOver;
     public static event Action onDepleted;
     public static event Action onReload;
@@ -15,44 +15,52 @@ public class Lives : MonoBehaviour
 
     public int LivesLeft { get => lives; }
     public int ShotsLeft { get => shotsLeft; }
+    void Awake()
+    {
+        shotsLeft = lives;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        shotsLeft = lives;
-
         PlayArea.onBallLost += LoseLife;
         HazardObject.onBallDestroyed += LoseLife;
         Shoot.onShootNewBall += LoseShot;
         ExtraBall.onExtraBall += AddShotAndLife;
-       
+
 
     }
     private void OnDisable()
-    {       
+    {
         PlayArea.onBallLost -= LoseLife;
         HazardObject.onBallDestroyed -= LoseLife;
         Shoot.onShootNewBall -= LoseShot;
         ExtraBall.onExtraBall -= AddShotAndLife;
     }
-    private void LoseLife() {
+    private void LoseLife()
+    {
         lives--;
-        
-        if (lives <= 0) {  
+
+        if (lives <= 0)
+        {
             onGameOver?.Invoke("Game Over !");
         }
     }
-    private void LoseShot(GameObject _) { 
+    private void LoseShot(GameObject _)
+    {
         shotsLeft--;
-        if (shotsLeft <= 0) { 
+        if (shotsLeft <= 0)
+        {
             onDepleted?.Invoke();
         }
     }
-    private void AddShotAndLife(string _) {       
+    private void AddShotAndLife(string _)
+    {
         shotsLeft++;
         lives++;
-        if(shotsLeft>0)onReload?.Invoke();
+        if (shotsLeft > 0) onReload?.Invoke();
 
     }
-  
+
 
 }
