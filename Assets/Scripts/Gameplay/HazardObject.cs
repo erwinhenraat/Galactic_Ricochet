@@ -6,6 +6,7 @@ public class HazardObject : MonoBehaviour
     public static event Action onBallDestroyed;
     private float timer = 0f;
     private float velocity;
+    [SerializeField] private GameObject explosionPrefab;
 
     public float Velocity
     {
@@ -30,7 +31,10 @@ public class HazardObject : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball"))
         {
             onBallDestroyed?.Invoke();// Nodig voor PlaySound.cs
+            GameObject explosion = Instantiate(explosionPrefab);
+            explosion.transform.position = collision.gameObject.transform.position;
             Destroy(collision.gameObject);
+            Destroy(explosion, 2f);
         }
     }
 
