@@ -6,39 +6,118 @@ public class SuperBallMarker : MonoBehaviour
     private Renderer ballRenderer;
     private Color originalColor;
 
+    [Header("Effects")]
+    [SerializeField] private GameObject activationEffectPrefab; // 👈 drag CFXR prefab here
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip activationSound;
+
+    private ParticleSystem activationEffectInstance;
+    private bool wasActiveLastFrame = false;
+
     private void Awake()
     {
         originalScale = transform.localScale;
 
-        // Get the Renderer component
         ballRenderer = GetComponent<Renderer>();
         if (ballRenderer != null)
         {
-            originalColor = ballRenderer.material.color; // store the original color
+            originalColor = ballRenderer.material.color;
         }
-        else
+    }
+
+    private void Start()
+    {
+        if (SuperBallReward.IsSuperBallActive)
         {
-            Debug.LogWarning("[SuperBallMarker] No Renderer found on this object!");
+            ActivateEffects();
+            wasActiveLastFrame = true;
         }
     }
 
     private void Update()
     {
-        if (SuperBallReward.IsSuperBallActive)
+        bool isActive = SuperBallReward.IsSuperBallActive;
+
+        if (isActive && !wasActiveLastFrame)
+        {
+            ActivateEffects();
+        }
+
+        if (!isActive && wasActiveLastFrame)
+        {
+            DeactivateEffects();
+        }
+
+        // Continuous visuals
+        if (isActive)
         {
             transform.localScale = originalScale * 1.3f;
 
             if (ballRenderer != null)
-                ballRenderer.material.color = Color.green; // change color to green
+                ballRenderer.material.color = Color.green;
+
+            if (activationEffectInstance != null && !activationEffectInstance.isPlaying)
+            {
+                activationEffectInstance.Play();
+            }
         }
         else
         {
             transform.localScale = originalScale;
 
             if (ballRenderer != null)
-                ballRenderer.material.color = originalColor; // reset to original color
+                ballRenderer.material.color = originalColor;
 
-            Debug.Log("[SuperBallMarker] Super Ball is inactive → Marker NORMAL");
+            if (activationEffectInstance != null && activationEffectInstance.isPlaying)
+            {
+                activationEffectInstance.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            }
+        }
+
+        wasActiveLastFrame = isActive;
+    }
+
+    private void ActivateEffects()
+    {
+        Debug.Log("[SuperBallMarker] ACTIVATED on " + gameObject.name);
+
+        // Spawn effect ONCE and attach it
+        if (activationEffectInstance == null && activationEffectPrefab != null)
+        {
+            GameObject fx = Instantiate(activationEffectPrefab, transform);
+
+            fx.transform.localPosition = Vector3.zero;
+            fx.transform.localRotation = Quaternion.identity;
+
+            activationEffectInstance = fx.GetComponent<ParticleSystem>();
+
+            if (activationEffectInstance == null)
+            {
+                Debug.LogWarning("No ParticleSystem found on prefab root!");
+            }
+        }
+
+        // Restart effect cleanly
+        if (activationEffectInstance != null)
+        {
+            activationEffectInstance.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            activationEffectInstance.Play();
+        }
+
+        // Play sound
+        if (audioSource != null && activationSound != null)
+        {
+            audioSource.PlayOneShot(activationSound);
+        }
+    }
+
+    private void DeactivateEffects()
+    {
+        Debug.Log("[SuperBallMarker] DEACTIVATED on " + gameObject.name);
+
+        if (activationEffectInstance != null)
+        {
+            activationEffectInstance.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }
 }
