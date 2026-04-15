@@ -2,34 +2,30 @@ using UnityEngine;
 
 public class BumperColor : MonoBehaviour
 {
-     void Start()
+    void Start()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
         switch (gameObject.tag)
         {
             case "RedCombo":
-                sr.color = Color.red;
+                sr.color = new Color32(255, 0, 0, 255);
                 break;
 
             case "CyanCombo":
-                sr.color = Color.cyan;
+                sr.color = new Color32(0, 255, 250, 255);
                 break;
 
             case "BlueCombo":
-                sr.color = Color.blue;
+                sr.color = new Color32(36, 112, 255, 255);
                 break;
 
-            case "YellowCombo": 
-                sr.color = Color.yellow;
+            case "YellowCombo":
+                sr.color = new Color32(242, 255, 0, 255);
                 break;
 
             case "PinkCombo":
-                sr.color = Color.magenta;
-                break;
-
-            case "GreenCombo":
-                sr.color = Color.green;
+                sr.color = new Color32(255, 132, 232, 255);
                 break;
 
             default:
