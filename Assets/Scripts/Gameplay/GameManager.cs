@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,10 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CrosshairInput crosshairInput;
     [SerializeField] private Aim aim;
     [SerializeField] private GameObject _prefab;
-    [SerializeField] private TextAsset _loadFile;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    { 
+    {
         Scene tempScene = SceneManager.GetActiveScene();
         if (tempScene.name == "Loaded_Scene") Load();
         Score.onHighScoreBrokenAtPlay += OnHighScoreBroken;
@@ -60,13 +60,8 @@ public class GameManager : MonoBehaviour
     }
     void Load()
     {
-        if (_loadFile == null)
-        {
-            Debug.LogWarning("No load file assigned.");
-            return;
-        }
 
-        string json = _loadFile.text;
+        string json = File.ReadAllText(Application.dataPath + "/save.json");
         SaveFile saveFile = JsonUtility.FromJson<SaveFile>(json);
 
         foreach (SavedObject data in saveFile.objects)

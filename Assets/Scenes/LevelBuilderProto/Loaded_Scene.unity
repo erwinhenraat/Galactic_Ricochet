@@ -4722,10 +4722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bcb10d2ba045b4cae3028a0554ebdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadFile: {fileID: 4900000, guid: e53dbe2994c08c94485b6fda6986a902, type: 3}
   crosshairInput: {fileID: 323350716}
   aim: {fileID: 1517038658}
-  prefab: {fileID: 8715983564485907861, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
+  _prefab: {fileID: 8715983564485907861, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}
+  _loadFile: {fileID: 4900000, guid: e53dbe2994c08c94485b6fda6986a902, type: 3}
 --- !u!4 &1038824823
 Transform:
   m_ObjectHideFlags: 0

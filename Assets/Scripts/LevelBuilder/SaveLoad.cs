@@ -27,7 +27,7 @@ public class SaveLoad : MonoBehaviour
     [SerializeField] private string _bumperLayer;
     //privates
     private string _savePath;
-
+    
     void Awake()
     {
         //get path to save

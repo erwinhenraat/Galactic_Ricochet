@@ -5043,6 +5043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfc896293815c944886140d4ee1806f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BumpersNotBeingDragged
+  _borderCheck: {x: 2, y: 2, z: 0}
 --- !u!114 &-1191503555937212711
 MonoBehaviour:
   m_ObjectHideFlags: 0

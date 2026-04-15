@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219343226}
     m_Modifications:
+    - target: {fileID: -740192001720279336, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
+      propertyPath: _bumperColor
+      value: RedCombo
+      objectReference: {fileID: 0}
     - target: {fileID: 1240766740894004539, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -186,34 +190,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1521036670}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
 --- !u!4 &108222241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1240766740894004539, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
   m_PrefabInstance: {fileID: 108222240}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &265290243 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-  m_PrefabInstance: {fileID: 959283251}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &265290247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265290243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dffbf6520e26fd41954b5960b0d6cb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BumperInstances
-  _bumperColor: BlueCombo
 --- !u!1 &451506911
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,6 +592,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219343226}
     m_Modifications:
+    - target: {fileID: -740192001720279336, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
+      propertyPath: _bumperColor
+      value: YellowCombo
+      objectReference: {fileID: 0}
     - target: {fileID: 1240766740894004539, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -668,34 +655,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 841712721}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
 --- !u!4 &841712719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1240766740894004539, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
   m_PrefabInstance: {fileID: 841712718}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &841712720 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-  m_PrefabInstance: {fileID: 841712718}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &841712721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841712720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dffbf6520e26fd41954b5960b0d6cb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BumperInstances
-  _bumperColor: YellowCombo
 --- !u!1001 &959283251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -704,6 +670,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219343226}
     m_Modifications:
+    - target: {fileID: -740192001720279336, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
+      propertyPath: _bumperColor
+      value: BlueCombo
+      objectReference: {fileID: 0}
     - target: {fileID: 1240766740894004539, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -759,10 +729,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 265290247}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
 --- !u!4 &959283252 stripped
 Transform:
@@ -1267,24 +1234,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &1521036669 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-  m_PrefabInstance: {fileID: 108222240}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1521036670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1521036669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dffbf6520e26fd41954b5960b0d6cb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BumperInstances
-  _bumperColor: RedCombo
 --- !u!1001 &1619352164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1293,6 +1242,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219343226}
     m_Modifications:
+    - target: {fileID: -740192001720279336, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
+      propertyPath: _bumperColor
+      value: PinkCombo
+      objectReference: {fileID: 0}
     - target: {fileID: 1240766740894004539, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -1352,34 +1305,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1619352167}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
 --- !u!4 &1619352165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1240766740894004539, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
   m_PrefabInstance: {fileID: 1619352164}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1619352166 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-  m_PrefabInstance: {fileID: 1619352164}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1619352167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619352166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dffbf6520e26fd41954b5960b0d6cb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BumperInstances
-  _bumperColor: PinkCombo
 --- !u!1001 &1650514712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1388,6 +1320,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219343226}
     m_Modifications:
+    - target: {fileID: -740192001720279336, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
+      propertyPath: _bumperColor
+      value: CyanCombo
+      objectReference: {fileID: 0}
     - target: {fileID: 1240766740894004539, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -1447,34 +1383,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1650514715}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
 --- !u!4 &1650514713 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1240766740894004539, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
   m_PrefabInstance: {fileID: 1650514712}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1650514714 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3263742315806441832, guid: a31fa6fe27dcbf14185e91c5d0ef9bf2, type: 3}
-  m_PrefabInstance: {fileID: 1650514712}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1650514715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1650514714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dffbf6520e26fd41954b5960b0d6cb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BumperInstances
-  _bumperColor: CyanCombo
 --- !u!1 &1803351288
 GameObject:
   m_ObjectHideFlags: 0

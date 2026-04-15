@@ -9,7 +9,7 @@ public class BumpersNotBeingDragged : MonoBehaviour
     private DragAndDropSystem _dragAndDropSystem;
     private RaycastHit2D _hit;
     private Vector3 _startingTransform;
-    
+    [SerializeField] private Vector3 _borderCheck;
 
     //to change pos after placing
     public Vector3 StartingPosition
@@ -31,7 +31,7 @@ public class BumpersNotBeingDragged : MonoBehaviour
     {
         if (!_dragAndDropSystem.Attached) return;
         //check for overlapping objects
-        _hit = Physics2D.BoxCast(transform.position, new Vector2(3f, 2.5f), 0, -transform.up, 0, _dragAndDropSystem.bumperLayer);
+        _hit = Physics2D.BoxCast(transform.position, _borderCheck, 0, -transform.up, 0, _dragAndDropSystem.bumperLayer);
         //if overlapping object is not bumper being dragged return
         if (_hit.transform != _dragAndDropSystem.newBumper)return; 
         //call touching and reset color change timer
@@ -41,6 +41,6 @@ public class BumpersNotBeingDragged : MonoBehaviour
     // draw threshold in editor
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position - transform.up * 0, new Vector2(3f, 2.5f));
+        Gizmos.DrawWireCube(transform.position - transform.up * 0, _borderCheck);
     }
 }
