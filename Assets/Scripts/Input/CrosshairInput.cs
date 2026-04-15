@@ -2,10 +2,13 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
-public enum InputType { 
+public enum InputType
+{
     Mouse,
-    XBox
+    XBox,
+    Namco
 }
 
 public enum GameStateMachine
@@ -19,32 +22,37 @@ public class CrosshairInput : MonoBehaviour
     public static event Action onPressFire1;
     public static event Action onReleaseFire1;
     public static event Action<string> onSwapControls;
-    
+
     public static Vector3 CrosshairPosition = Vector3.zero;
     public static InputType SelectedType;
     public static GameStateMachine PlayOrEditorMode;
 
     [SerializeField] private InputType _inputType = InputType.Mouse;
     [SerializeField] private float _speed = 30f;
-    
+
     private int _swapPressCount = 0;
     private float _swapTimer = 0f;
     private bool _swapActive = false;
+    private Gamepad _gamepad_1;
 
     private void Awake()
     {
         Scene tempScene = SceneManager.GetActiveScene();
-        if (tempScene.name == "Galactic_Ricochet") PlayOrEditorMode = GameStateMachine.Play;
-        else PlayOrEditorMode = GameStateMachine.Editor;
+        //if editor scene changes change temp.scene
+        if (tempScene.name == "Drag_And_Drop") PlayOrEditorMode = GameStateMachine.Editor;
+        else PlayOrEditorMode = GameStateMachine.Play;
     }
+
     private void Start()
     {
-        SpriteRenderer _crosshairSpriteRenderer = GetComponent<SpriteRenderer>();
+
         Cursor.visible = false;
         CrosshairInput.SelectedType = _inputType;
 
-        
-        Debug.Log(PlayOrEditorMode);
+        if (CrosshairInput.SelectedType == InputType.Namco)
+        {
+            _gamepad_1 = Gamepad.all[0];
+        }
     }
 
 
@@ -52,11 +60,14 @@ public class CrosshairInput : MonoBehaviour
     private void Update()
     {
         SwapInput();
-        HandleInput();       
+        HandleInput();
     }
-    private void HandleInput() {
+    private void HandleInput()
+    {
+        Vector3 movement = Vector3.zero;
         switch (_inputType)
         {
+
             case InputType.Mouse:
                 Vector3 worldPoint = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z + transform.position.z));
                 CrosshairInput.CrosshairPosition = worldPoint;
@@ -65,22 +76,33 @@ public class CrosshairInput : MonoBehaviour
                 if (Input.GetMouseButtonUp(0)) onReleaseFire1?.Invoke();
                 break;
             case InputType.XBox:
-                Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f) * Time.deltaTime * _speed;
+                movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f) * Time.deltaTime * _speed;
                 transform.position += movement;
-                //knockback from edge
-                Vector2 posInViewport = Camera.main.WorldToViewportPoint(transform.position);
-                if (posInViewport.x < -0.1f) transform.position -= movement;
-                if (posInViewport.y < -0.1f) transform.position -= movement;
-                if (posInViewport.x > 1.1f) transform.position -= movement;
-                if (posInViewport.y > 1.1f) transform.position -= movement;
 
-                CrosshairInput.CrosshairPosition = transform.position;
+                //handle fire input
                 if (Input.GetButtonDown("Fire1")) onPressFire1?.Invoke();
                 if (Input.GetButtonUp("Fire1")) onReleaseFire1?.Invoke();
                 break;
+
+            case InputType.Namco:
+                movement = new Vector3(_gamepad_1.leftStick.ReadValue().x, _gamepad_1.leftStick.ReadValue().y, 0f) * Time.deltaTime * _speed;
+                transform.position += movement;
+
+                if (_gamepad_1.buttonSouth.wasPressedThisFrame) onPressFire1?.Invoke();
+                if (_gamepad_1.buttonSouth.wasReleasedThisFrame) onReleaseFire1?.Invoke();
+                break;
         }
+        //knockback from edge
+        Vector2 posInViewport = Camera.main.WorldToViewportPoint(transform.position);
+        if (posInViewport.x < -0.1f) transform.position -= movement;
+        if (posInViewport.y < -0.1f) transform.position -= movement;
+        if (posInViewport.x > 1.1f) transform.position -= movement;
+        if (posInViewport.y > 1.1f) transform.position -= movement;
+
+        CrosshairInput.CrosshairPosition = transform.position;
     }
-    private void SwapInput() {
+    private void SwapInput()
+    {
         if (_swapActive)
         {
             _swapTimer += Time.deltaTime;
