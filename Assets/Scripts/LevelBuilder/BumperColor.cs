@@ -5,7 +5,7 @@ public class BumperColor : MonoBehaviour
     void Start()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-
+        //change color based on tag
         switch (gameObject.tag)
         {
             case "RedCombo":

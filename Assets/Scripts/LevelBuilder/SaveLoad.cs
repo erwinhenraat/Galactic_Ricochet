@@ -20,21 +20,21 @@ public class SaveFile
 
 public class SaveLoad : MonoBehaviour
 {
+    //events
     public static event Action onSave;
     public static event Action onLoad;
-
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private TextAsset loadFile;
+    //serializable objects
     [SerializeField] private string _bumperLayer;
-
-    private string savePath;
+    //privates
+    private string _savePath;
 
     void Awake()
     {
-        savePath = Application.dataPath + "/save.json";
+        //get path to save
+        _savePath = Application.dataPath + "/save.json";
     }
 
-    void Start()
+    /*void Start()
     {
         onLoad += LoadButton;
         onSave += Save;
@@ -45,24 +45,26 @@ public class SaveLoad : MonoBehaviour
         onLoad -= LoadButton;
         onSave -= Save;
     }
-
+    */
+    //save button
     public void TriggerSave()
     {
-        onSave?.Invoke();
+        Save();
     }
-
+    //load button
     public void TriggerLoad()
     {
-        onLoad?.Invoke();
+        LoadButton();
     }
 
     void Save()
     {
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
+        //find bumperlayer
         int playAreaLayer = LayerMask.NameToLayer(_bumperLayer);
 
         SaveFile saveFile = new SaveFile();
-
+        //sort based on layer
         foreach (GameObject obj in allObjects)
         {
             if (obj.layer != playAreaLayer)
@@ -76,11 +78,11 @@ public class SaveLoad : MonoBehaviour
 
             saveFile.objects.Add(data);
         }
-
+        //write json file
         string json = JsonUtility.ToJson(saveFile, true);
-        File.WriteAllText(savePath, json);
+        File.WriteAllText(_savePath, json);
 
-        Debug.Log("Saved to:" + savePath);
+        Debug.Log("Saved to:" + _savePath);
     }
 
     void LoadButton()
@@ -88,6 +90,7 @@ public class SaveLoad : MonoBehaviour
         //input
         //GameManager.loadFile = Resources.Load<TextAsset>(savePath);
         //Debug.Log(savePath);
+        //load scene
         SceneManager.LoadScene("Loaded_Scene");
     }
 }

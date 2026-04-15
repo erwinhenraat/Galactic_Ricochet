@@ -8,7 +8,7 @@
 | **Feature Naam** | _Level builder_                               |
 | **Auteur**       | _Penny de boer & Marcos vinicius Martins Carvalho_                       |
 | **Datum**        | _18-2-2026_                                   |
-| **Versie**       | _1.0_                                         |
+| **Versie**       | _1.2_                                         |
 | **Branch**       | `Feature/LevelBuilder`                        |
 | **Status**       | **📝 Concept** / ~~🔨 In ontwikkeling~~ / ~~✅ Afgerond~~|
 
@@ -16,7 +16,7 @@
 
 ## 2. User Story
 
-> Als **player** wil ik **[een level builder]** zodat **[ik vrijheid heb om eigen levels te maken en die te spelen]**.
+> Als **player** wil ik **een level builder** zodat **ik vrijheid heb om eigen levels te maken en die te spelen**.
 
 ---
 
@@ -64,7 +64,7 @@ _Definieer de concrete spelregels en instelbare waarden voor deze feature._
 
 | Parameter            | Waarde  | Beschrijving                    |
 | -------------------- | ------- | ------------------------------- |
-| _Hoeveelheid bumpers_     | _gebaseerd op score? of gedefineerd nummer_ | _zodat je niet 1 miljoen bumpers tegenlijk hebt_  |
+| _Hoeveelheid bumpers_     | _gebaseerd op score? of gedefineerd nummer_ | _zodat je niet 1 miljoen bumpers tegenlijk hebt_  **Niet geimplementeerd**|
 
 ---
 
@@ -119,20 +119,20 @@ _Welke nieuwe events worden aangemaakt? Op welke bestaande events wordt geabonne
 
 | Event                        | Richting        | Beschrijving                  |
 | ---------------------------- | --------------- | ----------------------------- |
-| _`onBumperPlaced`_ | Publish (nieuw) | _Fired bij bumper geplaatst_ |
-| _`onBumperPlacedWrong`_ | Publish (nieuw) | _Fired bij bumper verkeerd geplaatst_ |
-| _`onSaved`_ | Publish (nieuw) | _Fired bij save button geplaatst_ |
+| _`onBumpersTouching`_ | Publish (nieuw) | _Fired bij bumpers overlappen_ |
+| _`onPressFire1`_ | Geabonneerd | _Roept dragging op_ |
+| _`onReleaseFire1`_ | Geabonneerd | _Roept dropping op_ |
 
 ### 8.3 Benodigde Scripts / Componenten
 
 | Script / Component   | Verantwoordelijkheid                   |
 | -------------------- | -------------------------------------- |
-| _DragAndDropSystem.cs_   | _zorgen dat je bumpers kan plaatsen_ |
-| _PlaceBumpers.cs_   | _bumpers plaatsen op de toegewijsde plekken_ |
-| _BuilderUI.cs_ | _de interacties van UI coderen_      |
-| _SaveLayout.cs_ | _map data sturen naar json file_      |
-| _SavedMap.json_ | _map data opslaan_      |
-| Object-layer      | alle bumpers hebben een bumper layer nodig        |
+| _DragAndDropSystem.cs_   | _Zorgen dat je bumpers kan plaatsen_ |
+| _BumperColor.cs_   | _Gebaseerd op tags een kleur geven aan de bumpers bij de load_ |
+| _BumperNotBeingDragged.cs_ | _De bumpers die niet gedragged worden checken of de bumper die geplaatst word te dichtbij is_      |
+| _SaveLoad.cs_ | _map data sturen naar een nieuwgemaakte json file en json file inladen_      |
+| _save.json_ | _map data opslaan_      |
+| _Object-layer_      | _alle bumpers hebben een bumper layer nodig_        |
 
 ### 8.4 Uitschakelbaar
 
@@ -143,15 +143,15 @@ _De scene en knop naar scene kunnen uit de delen in scene kunnen uit maar dan ka
 ## 9. Todo Lijst
 
 
-- [ ] Game design document invullen en reviewen
+- [x] Game design document invullen en reviewen
 - [ ] Placeholder art maken / verzamelen
-- [ ] Script(s) aanmaken en implementeren
-- [ ] UI elementen toevoegen
-- [ ] Feature testen op bugs
+- [x] Script(s) aanmaken en implementeren
+- [x] UI elementen toevoegen
+- [x] Feature testen op bugs
 - [ ] Usertest uitvoeren (min. 3 spelers)
 - [ ] Usertest documentatie schrijven (`Usertest_LevelBuilder.md`)
-- [ ] Technisch design document updaten
-- [ ] Code review / pull request aanmaken
+- [x] Technisch design document updaten
+- [x] Code review / pull request aanmaken
 
 ---
 

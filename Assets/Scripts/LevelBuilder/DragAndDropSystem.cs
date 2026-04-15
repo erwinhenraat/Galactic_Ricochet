@@ -19,7 +19,7 @@ public class DragAndDropSystem : MonoBehaviour
     private bool _attached;
     private float _timeElapsed;
     private bool _touching;
-
+    private string _color;
     //get setters
     public float TimeElapsed
     {
@@ -49,6 +49,15 @@ public class DragAndDropSystem : MonoBehaviour
         CrosshairInput.onPressFire1 += DraggingCrosshair;
         CrosshairInput.onReleaseFire1 += DroppingCrosshair;
         BumpersNotBeingDragged.onBumpersTouching += ChangeColor;
+        _newBumperSpriteRenderer = null;
+        _newBumper = null;
+        _attached = false;
+    }
+    private void OnDisable()
+    {
+        CrosshairInput.onPressFire1 -= DraggingCrosshair;
+        CrosshairInput.onReleaseFire1 -= DroppingCrosshair;
+        BumpersNotBeingDragged.onBumpersTouching -= ChangeColor;
     }
     private void Update()
     {
@@ -74,7 +83,13 @@ public class DragAndDropSystem : MonoBehaviour
         if (!_attached && _hit)
         {
             _newBumper = _hit.transform;
-            if (_newBumper.tag != "BumperInstance")_newBumper.GetComponent<BumpersNotBeingDragged>().enabled = false;
+            if (_newBumper.tag != "BumperInstance")
+            {
+                _newBumper.GetComponent<BumpersNotBeingDragged>().enabled = false;
+                _color = _newBumper.tag;
+            }
+            else
+                _color = _newBumper.GetComponent<BumperInstances>().BumperColor;
             _newBumperSpriteRenderer = _newBumper.gameObject.GetComponent<SpriteRenderer>();
             _attached = true;
         }
@@ -99,6 +114,7 @@ public class DragAndDropSystem : MonoBehaviour
             ChangeColor(false);
 
             //reset variables
+            _newBumperSpriteRenderer = null;
             _newBumper = null;
             _attached = false;
             return;
@@ -117,6 +133,7 @@ public class DragAndDropSystem : MonoBehaviour
             //onGameObjectInstanced?.Invoke();
 
             //reset variables
+            _newBumperSpriteRenderer = null;
             _newBumper = null;
             _attached = false;
             return;
@@ -126,6 +143,7 @@ public class DragAndDropSystem : MonoBehaviour
         _newBumper.GetComponent<BumpersNotBeingDragged>().StartingPosition = _newBumper.position;
 
         //reset variables
+        _newBumperSpriteRenderer = null;
         _newBumper = null;
         _attached = false;
     }
@@ -145,30 +163,26 @@ public class DragAndDropSystem : MonoBehaviour
         //set the bumper color correctly after leaving bumper theshold and tell the dropping they arent touching
         else 
         { 
-            switch (_newBumper.tag)
+            switch (_color)
             {
                 case "RedCombo":
-                    _newBumperSpriteRenderer.color = Color.red;
+                    _newBumperSpriteRenderer.color = new Color32(255, 0, 0, 255);
                     break;
 
                 case "CyanCombo":
-                    _newBumperSpriteRenderer.color = Color.cyan;
+                    _newBumperSpriteRenderer.color = new Color32(0, 255, 250, 255);
                     break;
 
                 case "BlueCombo":
-                    _newBumperSpriteRenderer.color = Color.blue;
+                    _newBumperSpriteRenderer.color = new Color32(36, 112, 255, 255);
                     break;
 
                 case "YellowCombo":
-                    _newBumperSpriteRenderer.color = Color.yellow;
+                    _newBumperSpriteRenderer.color = new Color32(242, 255, 0, 255);
                     break;
 
                 case "PinkCombo":
-                    _newBumperSpriteRenderer.color = Color.magenta;
-                    break;
-
-                case "GreenCombo":
-                    _newBumperSpriteRenderer.color = Color.green;
+                    _newBumperSpriteRenderer.color = new Color32(255, 132, 232, 255);
                     break;
 
                 default:

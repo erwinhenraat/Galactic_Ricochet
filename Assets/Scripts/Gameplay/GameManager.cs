@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static event Action onReadyToRestart;
-    [SerializeField] private TextAsset loadFile;
     private bool waitForHighScoreInitials = false;
     [SerializeField] private CrosshairInput crosshairInput;
     [SerializeField] private Aim aim;
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private GameObject _prefab;
+    [SerializeField] private TextAsset _loadFile;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     { 
@@ -27,7 +27,13 @@ public class GameManager : MonoBehaviour
         Score.onHighScoreBrokenAtPlay -= OnHighScoreBroken;
         Lives.onGameOver -= OnGameOver;
     }
-
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            SceneManager.LoadScene("Drag_And_Drop");
+        }
+    }
     private void OnHighScoreBroken() {
         waitForHighScoreInitials = true;
     }
@@ -54,18 +60,18 @@ public class GameManager : MonoBehaviour
     }
     void Load()
     {
-        if (loadFile == null)
+        if (_loadFile == null)
         {
             Debug.LogWarning("No load file assigned.");
             return;
         }
 
-        string json = loadFile.text;
+        string json = _loadFile.text;
         SaveFile saveFile = JsonUtility.FromJson<SaveFile>(json);
 
         foreach (SavedObject data in saveFile.objects)
         {
-            GameObject obj = Instantiate(prefab);
+            GameObject obj = Instantiate(_prefab);
             obj.tag = data.tag;
             obj.layer = data.layer;
             obj.transform.position = data.position;
