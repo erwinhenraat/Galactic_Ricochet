@@ -4,7 +4,7 @@ using UnityEngine;
 public class ExtraBall : MonoBehaviour
 {
     public static event Action<string> onExtraBall;
-    [SerializeField] private int comboLevelReached = 20;
+    [SerializeField] private int comboLevelReached = 10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
