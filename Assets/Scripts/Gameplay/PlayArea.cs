@@ -7,12 +7,13 @@ public class PlayArea : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ball")) {
-
-            onBallLost?.Invoke();
-            Destroy(collision.gameObject);
-
-
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            if (collision.GetComponent<BallToRailConnector>() != null && collision.GetComponent<BallToRailConnector>().isOnRail == false)
+            {
+                onBallLost?.Invoke();
+                Destroy(collision.gameObject);
+            }
         }
     }
 }
