@@ -119,6 +119,8 @@ public class Shoot : MonoBehaviour
     private void ReloadShot()
     {
         _isEnabled = true;
+        _startPress = false;
+        _endPress = false;
     }
     private void HandlePressFire() {
         _startPress = true;
