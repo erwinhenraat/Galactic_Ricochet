@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7430022955620123524}
   - component: {fileID: 6073214842663299225}
   - component: {fileID: 6915625835888506134}
+  - component: {fileID: 5599897367503923339}
   m_Layer: 0
-  m_Name: crosshair
+  m_Name: PF_crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,3 +107,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputType: 0
   _speed: 30
+--- !u!114 &5599897367503923339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480076401306870892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b754a6d2a177d294186dd9410489d17d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragAndDropSystem
+  _castDistance: 0
+  _boxSize: {x: 1, y: 1}
+  _bumperLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _bumperPrefab: {fileID: 8715983564485907861, guid: 1a5525c5a084cec4d9532745f7e86189, type: 3}

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class SavedObject
@@ -35,14 +36,14 @@ public class SaveLoad : MonoBehaviour
 
     void Start()
     {
+        onLoad += LoadButton;
         onSave += Save;
-        onLoad += Load;
     }
 
     void OnDisable()
     {
+        onLoad -= LoadButton;
         onSave -= Save;
-        onLoad -= Load;
     }
 
     public void TriggerSave()
@@ -82,25 +83,11 @@ public class SaveLoad : MonoBehaviour
         Debug.Log("Saved to:" + savePath);
     }
 
-    void Load()
+    void LoadButton()
     {
-        if (loadFile == null)
-        {
-            Debug.LogWarning("No load file assigned.");
-            return;
-        }
-
-        string json = loadFile.text;
-        SaveFile saveFile = JsonUtility.FromJson<SaveFile>(json);
-
-        foreach (SavedObject data in saveFile.objects)
-        {
-            GameObject obj = Instantiate(prefab);
-            obj.tag = data.tag;
-            obj.layer = data.layer;
-            obj.transform.position = data.position;
-        }
-
-        Debug.Log("Loaded");
+        //input
+        //GameManager.loadFile = Resources.Load<TextAsset>(savePath);
+        //Debug.Log(savePath);
+        SceneManager.LoadScene("Loaded_Scene");
     }
 }
