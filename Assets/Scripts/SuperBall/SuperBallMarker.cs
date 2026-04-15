@@ -7,7 +7,7 @@ public class SuperBallMarker : MonoBehaviour
     private Color originalColor;
 
     [Header("Effects")]
-    [SerializeField] private GameObject activationEffectPrefab; // 👈 drag CFXR prefab here
+    [SerializeField] private GameObject activationEffectPrefab; 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip activationSound;
 
