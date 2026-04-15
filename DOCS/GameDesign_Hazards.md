@@ -11,7 +11,7 @@
 | **Datum**        | _11-03-2026_                                  |
 | **Versie**       | _1.0_                                         |
 | **Branch**       | `Feature/Hazards`                             |
-| **Status**       | 📝 Concept / 🔨 In ontwikkeling / ✅ Afgerond |
+| **Status**       | 🔨 In ontwikkeling                            |
 
 ---
 
@@ -23,7 +23,7 @@ als player wil ik niet dat alle combo rewards positief zijn dus wil ik een insta
 
 ## 3. Beschrijving
 
-[!] Deze feature voegt een _hazard-object_ toe die door het speelveld heen schiet en de bal laat verdwijnen op contact.
+Deze feature voegt een _hazard-object_ toe die door het speelveld heen schiet en de bal laat verdwijnen op contact en een leven aftrekt.
 
 ---
 
@@ -36,8 +36,6 @@ Tijdens het spelen neemt de speler een _Waarschuwings-Teken_ waar aan de zijkant
 Na een bepaald aantal tijd speelt de routine weer opnieuw af in een random locatie.
 
 ### 4.2 Relatie met bestaande systemen
-
-_Geef aan welke bestaande systemen worden beïnvloed of aangevuld (bijv. Score, Combo, Lives, Multiplier, Input). Verwijs waar nodig naar het [Technisch Design](./TechnicalDesign.md)._
 
 | Bestaand Systeem   | Relatie / Impact                                             |
 | ------------------ | ------------------------------------------------------------ |
@@ -72,15 +70,15 @@ _Definieer de concrete spelregels en instelbare waarden voor deze feature._
 
 ### Schetsen / Referenties
 
-> _Plaats hier afbeeldingen of links naar referentiemateriaal._
-> [Concept idee van de feature](./DOCS_Content/GalacticHazard_Concept.png)
+[Concept idee van de feature](./DOCS_Content/GalacticHazard_Concept.png)
+
 [Idee van de graphics van de warning sign](./DOCS_Content/GalacticWarning_Concept.png)
 
 ### Placeholder Art Beschrijving
 
-- Visual van de _Warning-sign_
-- visual van de _Hazard-Object_
-- VFX voor impat van _Hazard-Object_ en _bal_
+- Sprite van de _Warning-sign_
+- Sprite van de _Hazard-Object_
+- VFX voor impact van _Hazard-Object_ en _bal_
 
 ---
 
@@ -88,9 +86,8 @@ _Definieer de concrete spelregels en instelbare waarden voor deze feature._
 
 | Geluid               | Beschrijving / Karakter            | Placeholder  |
 | -------------------- | ---------------------------------- | ------------ |
-| Ball_Destroyed.SFX   | _Korte, punchy synth hit_          | ☐ Ja / ☐ Nee |
-| Hazard_Fired.SFX     | _Zacht ambient hum tijdens actief_ | ☐ Ja / ☐ Nee |
-| Warning_Sign.SFX     | _Alarmerend waarschuw geluid_      | ☐ Ja / ☐ Nee |
+| Ball_Destroyed.SFX   | _Korte, punchy synth hit_          | Nee          |
+| Hazard_Fired.SFX     | _Zacht ambient hum tijdens actief_ | Nee          |
 
 ---
 
@@ -135,7 +132,7 @@ _Welke nieuwe events worden aangemaakt? Op welke bestaande events wordt geabonne
 
 ### 8.4 Uitschakelbaar
 
-_Beschrijf hoe deze feature uitgeschakeld kan worden zonder dat de rest van het spel breekt (conform de [Definition of Done](./DefinitionOfDone.md)). Welk GameObject moet gedeactiveerd worden?_
+Wil je de fearture deactiveren? Dan moet je alleen de _Spawnpoints_ GameObject uitdoen in de Inspector.
 
 ---
 
@@ -143,18 +140,16 @@ _Beschrijf hoe deze feature uitgeschakeld kan worden zonder dat de rest van het 
 
 _Maak een concrete checklist van alle taken die nodig zijn om deze feature te implementeren._
 
-- [ ] Game design document invullen en reviewen
-- [ ] Placeholder art maken / verzamelen
-- [ ] Placeholder audio maken / verzamelen
-- [ ] Script(s) aanmaken en implementeren
-- [ ] Events koppelen aan bestaande systemen
-- [ ] UI elementen toevoegen
-- [ ] Feature testen op bugs
+- [✅] Game design document invullen en reviewen
+- [✅] Placeholder art maken / verzamelen
+- [✅] Placeholder audio maken / verzamelen
+- [✅] Script(s) aanmaken en implementeren
+- [✅] Events koppelen aan bestaande systemen
+- [✅] Feature testen op bugs
 - [ ] Usertest uitvoeren (min. 3 spelers)
 - [ ] Usertest documentatie schrijven (`Usertest_[FeatureNaam].md`)
-- [ ] Technisch design document updaten
+- [✅] Technisch design document updaten
 - [ ] Code review / pull request aanmaken
-- [ ] _Voeg extra taken toe indien nodig_
 
 ---
 
@@ -162,13 +157,13 @@ _Maak een concrete checklist van alle taken die nodig zijn om deze feature te im
 
 _Wanneer is deze feature "af"? Verwijs ook naar de [Definition of Done](./DefinitionOfDone.md)._
 
-- [ ] De user story is volledig geïmplementeerd
+- [✅] De user story is volledig geïmplementeerd
 - [ ] Alle parameters zijn instelbaar via de Unity Inspector
-- [ ] De feature is uitschakelbaar zonder bugs
-- [ ] Alle placeholder art/audio is aanwezig
+- [✅] De feature is uitschakelbaar zonder bugs
+- [✅] Alle placeholder art/audio is aanwezig
 - [ ] Usertest is afgerond en gedocumenteerd
-- [ ] Geen errors of bugs in test build
-- [ ] Technisch design document is bijgewerkt
+- [✅] Geen errors of bugs in test build
+- [✅] Technisch design document is bijgewerkt
 - [ ] Pull request is goedgekeurd en gemerged naar `development`
 
 ---

@@ -209,6 +209,21 @@ classDiagram
         +RNGPop
     }
 
+    class HazardSpawner {
+        +static event onTimerHit
+        +static event onHazardWarning
+        -CheckScoreTreshhold()
+        -RandomTimer()
+        -WarningEffect()
+        -SpawnLaser()
+    }
+
+    class HazardObject {
+        +static event onBallDestroyed
+        +float Velocity
+        -OnTriggerEnter2D
+    }
+
     GameManager --> CrosshairInput
     GameManager --> Lives
     GameManager --> SelectInitials
@@ -241,6 +256,7 @@ classDiagram
     Score --> ScorePop
     Score --> SelectInitials
     Score --> RNGScorePop
+    Score --> HazardSpawner
 
     Lives --> GameManager
     Lives --> PlaySounds
@@ -284,6 +300,12 @@ classDiagram
     RNGHitBumper --> Screenshake
 
     RNGScorePop --> Score
+
+    HazardSpawner --> HazardObject
+    HazardSpawner --> PlaySounds
+
+    HazardObject --> Lives
+    HazardObject --> PlaySounds
 ```
 
 ---
@@ -430,6 +452,7 @@ classDiagram
 - `ScorePop.Pop()` - voor `onGetScore`
 - `SelectInitials.Activate()` - voor `onSaveNewHighscore`
 - `GameManager.OnHighScoreBroken()` - voor `onHighScoreBrokenAtPlay`
+- `HazardSpawner.CheckScoreTreshold` Bepaalt waneer script actief is
 
 ---
 
@@ -517,6 +540,32 @@ classDiagram
 
 ---
 
+#### 16. **HazardSpawner Events** (Events for spawning lasers)
+
+| Event             | Type     | Argumenten | Beschrijving                                      |
+| ----------------- | -------- | ---------- | ------------------------------------------------- |
+| `onTimerHit`      | `Action` | -          | Tijd to de waarschuwing luid is bereikt           |
+| `onHazardWarning` | `Action` | -          | laser schiet nadat de Warning klaar is met luiden |
+
+**Subscribers:**
+
+- `PlaySounds.PlayLaser()` - tagt bumper
+
+---
+
+#### 17. **HazardObject Events** (Event for ball hitting laser)
+
+| Event             | Type     | Argumenten | Beschrijving                                        |
+| ----------------- | -------- | ---------- | --------------------------------------------------- |
+| `onBallDestroyed` | `Action` | -          | Er vindt een colisie plaats tussen de ball en laser |
+
+**Subscribers:**
+
+- `Playsounds.PlayExplodeBall` speelt geluid
+- `Lives.onBallDestroyed` Trekt een leven af
+
+---
+
 ### Event-Flow Diagram
 
 ```mermaid
@@ -553,7 +602,13 @@ graph TD
     X --> W[PlaySound.PlayRailRoll]
     Y -->  |BallController.onRailStopSound| 1[PlaySound.StopRailRoll]
 
-    2[Ball hits flipper] --> |FlipperController.onFlipperPlaySound| 3[PlaySound.PlayFlipperHit]
+    2[Ball hit
+    
+    flipper] --> |FlipperController.onFlipperPlaySound| 3[PlaySound.PlayFlipperHit]
+
+    4[Ball hits laser] --> 5[Ball gets destroyed]
+    5 --> |Lives.onBallDestroyed| 6[Player loses live]
+    5 --> 7[PlaySounds.ExplodeBall]
 ```
 
 ---
@@ -619,6 +674,11 @@ graph TD
 
 - **Functie**: Controls flipper logic for rotation and forces
 - **Logica**: OnCollisionEnter2D detects ball and triggers `Flip()`
+
+#### **HazardObject**
+
+- **Functie**: Destroys ball on collision
+- **Logica**: OnCollisionEnter2D detects ball and triggers `onBallDestroyed`
 
 ---
 
