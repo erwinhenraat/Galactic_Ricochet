@@ -61,7 +61,7 @@ public class CrosshairInput : MonoBehaviour
                 CrosshairInput.CrosshairPosition = transform.position;
                 if (Input.GetButtonDown("Fire1")) onPressFire1?.Invoke();
                 if (Input.GetButtonUp("Fire1")) onReleaseFire1?.Invoke();
-                if (Input.GetButtonDown("Option")) Debug.Log("what");
+                if (Input.GetButtonDown("Option")) onPressPause?.Invoke();
                 break;
         }
     }

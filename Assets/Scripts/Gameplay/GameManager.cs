@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     private bool paused = false;
     [SerializeField] private CrosshairInput crosshairInput;
     [SerializeField] private Aim aim;
-    [SerializeField] private GameObject cannon;
     [SerializeField] private GameObject backdrop;
+    [SerializeField] private GameObject cannon;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         Lives.onGameOver -= OnGameOver;
     }
 
-    private void OnPause()
+    public void OnPause()
     {
         if (waitForHighScoreInitials)
             return;
@@ -35,7 +35,9 @@ public class GameManager : MonoBehaviour
         if (backdrop != null)
             backdrop.SetActive(!paused);
 
-        cannon.SetActive(paused);
+        if (cannon != null)
+            cannon.SetActive(paused);
+
         Time.timeScale = paused ? 1.0f : 0.0f;
         
         paused = !paused;
@@ -46,8 +48,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnGameOver(string _) {
 
-        if (!waitForHighScoreInitials) {           
-
+        if (!waitForHighScoreInitials) {
             onReadyToRestart?.Invoke();
             return;
         }
