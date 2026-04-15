@@ -199,15 +199,32 @@ classDiagram
         -Animator _animator
     }
 
-    class RNGBUmper {
-        +static event onHitRNGBumper
-        +int bumperValue
-        -OnCollisionEnter2D()
-    }
+        class ComboRewardManager {
+    -List~RewardData~ rewards
+    -Dictionary~int, Queue~MonoBehaviour~~ rewardBags
+    -HandleCombo(int, string)
+    -GetOrCreateBag(int)
+    -ResetAllRewards()
+}
 
-    class RNGScorePop {
-        +RNGPop
-    }
+class SuperBallReward {
+    +static bool IsSuperBallActive
+    -float duration
+    -Coroutine routine
+    +ActivateReward(string)
+    +ResetReward()
+    -Timer()
+}
+
+class SuperBallMarker {
+    -Vector3 originalScale
+    -Renderer ballRenderer
+    -Color originalColor
+    -ParticleSystem activationEffectInstance
+    -bool wasActiveLastFrame
+    -ActivateEffects()
+    -DeactivateEffects()
+}
 
     GameManager --> CrosshairInput
     GameManager --> Lives
@@ -240,7 +257,6 @@ classDiagram
     Score --> GameManager
     Score --> ScorePop
     Score --> SelectInitials
-    Score --> RNGScorePop
 
     Lives --> GameManager
     Lives --> PlaySounds
@@ -258,11 +274,9 @@ classDiagram
     PlaySounds --> Lives
     PlaySounds --> ExtraBall
     PlaySounds --> Shoot
-    PlaySounds --> RNGHitBumper
 
     Screenshake --> HitBumper
     Screenshake --> Combo
-    Screenshake --> RNgHitBumper
 
     ScorePop --> Score
     ScorePop --> ExtraBall
@@ -278,12 +292,14 @@ classDiagram
     TrackBalls --> Shoot
     TrackBalls --> ExtraBall
 
-    RNGHitBumper --> Combo
-    RNGHitBumper --> Score
-    RNGHitBumper --> PlaySounds
-    RNGHitBumper --> Screenshake
+    ComboRewardManager --> Combo
+    ComboRewardManager --> PlayArea
+    ComboRewardManager --> ExtraBall
 
-    RNGScorePop --> Score
+    SuperBallMarker --> SuperBallReward
+
+    ComboRewardManager --> SuperBallReward
+
 ```
 
 ---
@@ -499,22 +515,12 @@ classDiagram
 
 - `FlipperController.onFlipperPlaySound += PlaySound.PlayFlipperHit`
 
----
-
-#### 15. **HitRNGBumper Events** (Bumper Botsing)
-
-| Event         | Type                     | Argumenten                                             | Beschrijving     |
-| ------------- | ------------------------ | ------------------------------------------------------ | ---------------- |
-| `onHitRNGBumper` | `Action<Transform, int>` | `transform` (bumper transform), `bumperValue` (punten) | Bal raakt RNG bumper |
-
-**Subscribers:**
-
-- `Combo.CheckForCombo()` - tagt bumper
-- `Score.GetScore()` - voegt punten toe
-- `PlaySounds.PlayBumper()` - speelt geluid
-- `Screenshake.Shake()` - camera trilt
-- `RNGScorePop.RNGPop()` - RNGscore text
-
+#### 15. **Superball** (Events for Superball)
+| Event                 | Type             | Argumenten              | Beschrijving        |
+| --------------------- | ---------------- | ----------------------- | ------------------- |
+| `onComboAchieved` | `Action<int, string>` | `comboLevel, tag` | Wordt getriggerd wanneer een combo wordt behaald en activeert een reward  |
+| `onComboLost` | `Action<int, string>>` | `comboLevel, tag` | Wordt getriggerd wanneer de combo verloren gaat en reset rewards  |
+| `onBallLost` | `Action<int, string>` | `comboLevel, tag` | Wordt getriggerd wanneer de bal verloren gaat en reset rewards  |
 ---
 
 ### Event-Flow Diagram
