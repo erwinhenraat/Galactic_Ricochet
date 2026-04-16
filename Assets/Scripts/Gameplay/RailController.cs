@@ -30,15 +30,24 @@ public class RailController : MonoBehaviour
     private void checkForBall()
     {
         Vector3 pointFirst = spline.Spline.ToArray()[0].Position;
-        Collider2D col = Physics2D.OverlapCircle(pointFirst, checkRadius);
-        if (col != null && col.CompareTag("Ball") && hasSeenBall == false)
+        Collider2D[] cols = Physics2D.OverlapCircleAll(pointFirst, checkRadius);
+        Collider2D ballCol = null;
+        foreach (Collider2D col in cols)
+        {
+            if (col.CompareTag("Ball"))
+            {
+                ballCol = col;
+                break;
+            }
+        }
+        if (ballCol != null && hasSeenBall == false)
         {
             Vector3 pointLast = spline.Spline.ToArray()[spline.Spline.Count - 1].Position;
             Vector3 pointSecondToLast = spline.Spline.ToArray()[spline.Spline.Count - 2].Position;
-            col.gameObject.GetComponent<BallToRailConnector>().onIsOnRail.Invoke(this.GetComponent<SplineContainer>(),(pointLast-pointSecondToLast).normalized);
+            ballCol.gameObject.GetComponent<BallToRailConnector>().onIsOnRail.Invoke(this.GetComponent<SplineContainer>(),(pointLast-pointSecondToLast).normalized);
             hasSeenBall = true;
         }
-        if (col == null || col.CompareTag("Ball") == false)
+        if (ballCol == null)
         {
             hasSeenBall = false;
         }
