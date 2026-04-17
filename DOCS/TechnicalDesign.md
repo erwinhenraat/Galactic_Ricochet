@@ -306,7 +306,9 @@ classDiagram
 - `Shoot.HandleReleaseFire()`
 - `ScorePop.PopMessage()`
 - `Restart.HandleFire()`
-
+- `DragAndDropSystem.DraggingCrosshair()`
+- `DragAndDropSystem.DroppingCrosshair()`
+  
 ---
 
 #### 2. **Shoot Events** (Bal Afvuren)
@@ -517,6 +519,14 @@ classDiagram
 
 ---
 
+#### 16. **BumperPlacing Events** (Bumpers plaatsen)
+| Event         | Type                     | Argumenten                                             | Beschrijving     |
+| ------------- | ------------------------ | ------------------------------------------------------ | ---------------- |
+| `onBumpersTouching` | `Action<bool>` | `bool` (touching)| Bumpers overlappen |
+
+**Subscribers:**
+
+- `DragAndDropSystem.ChangeColor()`
 ### Event-Flow Diagram
 
 ```mermaid

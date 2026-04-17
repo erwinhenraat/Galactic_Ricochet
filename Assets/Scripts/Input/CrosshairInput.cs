@@ -1,5 +1,7 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public enum InputType
@@ -7,6 +9,12 @@ public enum InputType
     Mouse,
     XBox,
     Namco
+}
+
+public enum GameStateMachine
+{
+    Play,
+    Editor
 }
 
 public class CrosshairInput : MonoBehaviour
@@ -17,6 +25,7 @@ public class CrosshairInput : MonoBehaviour
 
     public static Vector3 CrosshairPosition = Vector3.zero;
     public static InputType SelectedType;
+    public static GameStateMachine PlayOrEditorMode;
 
     [SerializeField] private InputType _inputType = InputType.Mouse;
     [SerializeField] private float _speed = 30f;
@@ -24,8 +33,15 @@ public class CrosshairInput : MonoBehaviour
     private int _swapPressCount = 0;
     private float _swapTimer = 0f;
     private bool _swapActive = false;
-
     private Gamepad _gamepad_1;
+
+    private void Awake()
+    {
+        Scene tempScene = SceneManager.GetActiveScene();
+        //if editor scene changes change temp.scene
+        if (tempScene.name == "Drag_And_Drop") PlayOrEditorMode = GameStateMachine.Editor;
+        else PlayOrEditorMode = GameStateMachine.Play;
+    }
 
     private void Start()
     {
