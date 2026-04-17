@@ -21,8 +21,8 @@ public class SaveFile
 public class SaveLoad : MonoBehaviour
 {
     //events
-    public static event Action onSave;
-    public static event Action onLoad;
+    //public static event Action onSave;
+    //public static event Action onLoad;
     //serializable objects
     [SerializeField] private string _bumperLayer;
     //privates
@@ -59,7 +59,7 @@ public class SaveLoad : MonoBehaviour
 
     void Save()
     {
-        GameObject[] allObjects = FindObjectsOfType<GameObject>();
+        GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
         //find bumperlayer
         int playAreaLayer = LayerMask.NameToLayer(_bumperLayer);
 
