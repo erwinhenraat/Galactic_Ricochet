@@ -14,10 +14,8 @@ GameObject:
   - component: {fileID: 3709443744097075318}
   - component: {fileID: 5640578089012637078}
   - component: {fileID: 888683723826377709}
-  - component: {fileID: 1677068497175764625}
-  - component: {fileID: -1191503555937212711}
   m_Layer: 0
-  m_Name: PF_tier_1_alien
+  m_Name: PF_tier_2_dino
   m_TagString: Combo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,6 +85,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bumperValue: 10
+  hitSprite: {fileID: -1528567572, guid: b8205f8324b4df24ca91d8b03f499ae2, type: 3}
+  hitDuration: 0.2
 --- !u!198 &3709443744097075318
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4997,7 +4997,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 68f9def6cbecc8641b9ee20970b62f3d, type: 3}
+  m_Sprite: {fileID: -2123077242, guid: b8205f8324b4df24ca91d8b03f499ae2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5007,37 +5007,3 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &1677068497175764625
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8715983564485907861}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 73c123785d0254741aeeca46a80989e6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-1191503555937212711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8715983564485907861}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bdffd2f8212258489e525054058ec4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
